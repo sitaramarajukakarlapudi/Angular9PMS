@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Angular9PMS"
+    }
+  },
+  "defaultProject": "Angular9PMS",
+  "cli": {
+    "analytics": false
+  }
 }
