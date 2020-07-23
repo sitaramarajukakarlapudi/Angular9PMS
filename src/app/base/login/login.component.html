@@ -1,0 +1,30 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+<form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+    <div class="positionMiddle">
+        <p-panel header="Login">
+            <div class="p-fluid forms-grid" style="margin: 1em 0">
+                <div class="p-field ui-fluid">
+                    <label for="username">Username</label>
+                    <input id="username" type="username" formControlName="firstname" pInputText
+                        aria-describedby="username-help">
+                    <small id="username-help">Enter your username to login into your account.</small>
+                    <p-message severity="error" text="Firstname is required"
+                        *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty"></p-message>
+                </div>
+                <div class="p-field ui-fluid">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" formControlName="password" pInputText
+                        aria-describedby="password-help">
+                    <small id="password-help">Password requires minimum 6 Characters.</small>
+                    <p-message severity="error"
+                        [text]="userform.controls['password'].errors['required'] ? 'Password is required' : userform.controls['password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''"
+                        *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
+                </div>
+                <div>
+                    <button pButton type="submit" label="Login" [disabled]="!userform.valid"></button>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+</form>
