@@ -1,1 +1,20 @@
-<p>master works!</p>
+<div class="layout-topbar">
+    <div style="padding: 2px;font-size: 32px;font-weight: bold;color: #ffff;">
+        PMS
+    </div>
+</div>
+<div class="layout-sidebar">
+    <div class="layout-menu">
+        <div *ngFor="let menuItem of menu">
+            <span>
+                <span>{{menuItem.headerMenu}} </span>
+            </span>
+            <div>
+                <a *ngFor="let menuCItem of menuItem.childMenu" (click)="onMenuClick($event)" class="{{clicked}}">{{menuCItem}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layout-content">
+    <router-outlet></router-outlet>
+</div>

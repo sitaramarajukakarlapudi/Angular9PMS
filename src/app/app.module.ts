@@ -18,13 +18,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MasterComponent } from './base/master/master.component';
 import { LoginComponent } from './base/login/login.component';
+import { DashboardComponent } from './base/dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MasterComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
