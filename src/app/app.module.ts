@@ -12,13 +12,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-
+import {ToolbarModule} from 'primeng/toolbar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MasterComponent } from './base/master/master.component';
 import { LoginComponent } from './base/login/login.component';
 import { DashboardComponent } from './base/dashboard/dashboard.component';
+import { CreateissueComponent } from './base/issuetracker/createissue/createissue.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { DashboardComponent } from './base/dashboard/dashboard.component';
     AppComponent,
     MasterComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    CreateissueComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { DashboardComponent } from './base/dashboard/dashboard.component';
     InputTextModule,
     InputTextareaModule,
     DropdownModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    ToolbarModule
 
   ],
   providers: [],

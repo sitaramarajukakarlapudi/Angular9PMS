@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-master',
@@ -8,25 +9,26 @@ import { Component, OnInit } from '@angular/core';
 export class MasterComponent implements OnInit {
   menu: any;
   clicked: string;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.menu = [
       {
-        headerMenu: 'Header Menu 1',
-        childMenu: ['Child Menu 1', 'Child Menu 2', 'Child Menu 3', 'Child Menu 4']
+        headerMenu: 'Issue Tracker',
+        childMenu: [{ name: 'Create an Issue', link: '/menu/createissue' },
+        { name: 'Issues', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
       },
       {
         headerMenu: 'Header Menu 2',
-        childMenu: ['Child Menu 1', 'Child Menu 2', 'Child Menu 3', 'Child Menu 4'],
+        childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
       },
       {
         headerMenu: 'Header Menu 3',
-        childMenu: ['Child Menu 1', 'Child Menu 2', 'Child Menu 3', 'Child Menu 4'],
+        childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
       }
     ];
   }
-  onMenuClick(event) {
+  onMenuClick(event, link) {
     console.log(event);
     console.log(event.target.parentElement.parentElement.parentElement.children);
     for (const divMenu of event.target.parentElement.parentElement.parentElement.children) {
@@ -35,8 +37,7 @@ export class MasterComponent implements OnInit {
         anchor.className = '';
       }
     }
-
-    this.clicked = '';
     event.target.className = 'router-link-active';
+    this.router.navigate([link], { skipLocationChange: false });
   }
 }

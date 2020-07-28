@@ -10,7 +10,7 @@
                 <span>{{menuItem.headerMenu}} </span>
             </span>
             <div>
-                <a *ngFor="let menuCItem of menuItem.childMenu" (click)="onMenuClick($event)" class="{{clicked}}">{{menuCItem}}</a>
+                <a *ngFor="let menuCItem of menuItem.childMenu" (click)="onMenuClick($event,menuCItem.link)" >{{menuCItem.name}}</a>
             </div>
         </div>
     </div>
