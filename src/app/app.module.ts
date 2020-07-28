@@ -12,7 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-
+import { CardModule } from 'primeng/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,7 +43,8 @@ import { DashboardComponent } from './base/dashboard/dashboard.component';
     InputTextModule,
     InputTextareaModule,
     DropdownModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    CardModule
 
   ],
   providers: [],

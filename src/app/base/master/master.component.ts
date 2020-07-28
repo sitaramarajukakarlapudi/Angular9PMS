@@ -19,10 +19,6 @@ export class MasterComponent implements OnInit {
       {
         headerMenu: 'Header Menu 2',
         childMenu: ['Child Menu 1', 'Child Menu 2', 'Child Menu 3', 'Child Menu 4'],
-      },
-      {
-        headerMenu: 'Header Menu 3',
-        childMenu: ['Child Menu 1', 'Child Menu 2', 'Child Menu 3', 'Child Menu 4'],
       }
     ];
   }
