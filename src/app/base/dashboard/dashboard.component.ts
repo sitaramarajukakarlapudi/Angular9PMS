@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  profilePath: string;
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.profilePath = 'Profile.png';
   }
 
 }

@@ -13,6 +13,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import {ToolbarModule} from 'primeng/toolbar';
+import { CardModule } from 'primeng/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,7 +47,8 @@ import { CreateissueComponent } from './base/issuetracker/createissue/createissu
     InputTextareaModule,
     DropdownModule,
     AutoCompleteModule,
-    ToolbarModule
+    ToolbarModule,
+    CardModule,
 
   ],
   providers: [],
