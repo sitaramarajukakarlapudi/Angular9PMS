@@ -9,81 +9,91 @@
         </p-toolbar>
     </div>
 </div> -->
-<p-panel>
-    <p-header>
-        Create an Issue
-    </p-header>
-    <div class="p-grid">
-        <div class="p-col-3">
-            <div class="p-grid">
-                <div class="p-col-12">
-                    <label for="Project">Project<span style="color: red;">* </span></label>
-                </div>
-                <div class="p-col-12">
-                    <div class="ui-fluid">
-                        <p-dropdown [options]="projects" [(ngModel)]="selectedProject"></p-dropdown>
+<div class="p-grid">
+    <div class="p-col-12">
+        <form [formGroup]="issueform" (ngSubmit)="onSubmit(issueform.value)">
+            <p-panel>
+                <p-header>
+                    Create an Issue
+                </p-header>
+                <div class="p-grid">
+                    <div class="p-col-3">
+                        <div class="p-grid">
+                            <div class="p-col-12">
+                                <label for="Project">Project<span style="color: red;">* </span></label>
+                            </div>
+                            <div class="p-col-12">
+                                <div class="ui-fluid">
+                                    <p-dropdown formControlName="frmproject" [options]="projects"
+                                        [(ngModel)]="selectedProject"></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-3">
+                        <div class="p-grid">
+                            <div class="p-col-12">
+                                <label for="Issue Type">Issue Type <span style="color: red;">* </span></label>
+                            </div>
+                            <div class="p-col-12">
+                                <div class="ui-fluid">
+                                    <p-dropdown formControlName="frmissueType" [options]="issueTypes"
+                                        [(ngModel)]="selectedIssue"></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-6">
+                        <div class="p-grid">
+                            <div class="p-col-12">
+                                <label for="Summary">Summary<span style="color: red;">* </span></label>
+                            </div>
+                            <div class="p-col-12">
+                                <div class="ui-fluid">
+                                    <input pInputText formControlName="frmsummary" id="summary" type="text">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="p-col-3">
-            <div class="p-grid">
-                <div class="p-col-12">
-                    <label for="Issue Type">Issue Type <span style="color: red;">* </span></label>
-                </div>
-                <div class="p-col-12">
-                    <div class="ui-fluid">
-                        <p-dropdown [options]="issueTypes" [(ngModel)]="selectedIssue"></p-dropdown>
+                <div class="p-grid">
+                    <div class="p-col-6">
+                        <div class="p-grid">
+                            <div class="p-col-12">
+                                <label for="Description">Description / Steps to reproduce <span style="color: red;">*
+                                    </span></label>
+                            </div>
+                            <div class="p-col-12">
+                                <div class="ui-fluid">
+                                    <p-editor formControlName="frmdescription" [(ngModel)]="description"
+                                        [style]="{'height':'220px'}">
+                                    </p-editor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-6">
+                        <div class="p-grid">
+                            <div class="p-col-12">
+                                <label for="Acceptance">Acceptance Criteria</label>
+                            </div>
+                            <div class="p-col-12">
+                                <div class="ui-fluid">
+                                    <p-editor formControlName="frmacceptence" [(ngModel)]="acceptenceCriteria"
+                                        [style]="{'height':'220px'}">
+                                    </p-editor>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="p-col-6">
-            <div class="p-grid">
-                <div class="p-col-12">
-                    <label for="Summary">Summary<span style="color: red;">* </span></label>
-                </div>
-                <div class="p-col-12">
-                    <div class="ui-fluid">
-                        <input pInputText id="lastname3" type="text">
-                    </div>
-                </div>
-            </div>
-        </div>
+                <p-footer>
+                    <button pButton type="submit" icon="pi pi-plus" label="Create" [disabled]="!issueform.valid" class="ui-button-success"
+                        style="margin-right: .25em">
+                    </button>
+                    <button pButton type="button" icon="pi pi-times" label="Cancel" class="ui-button-danger"></button>
+                </p-footer>
+            </p-panel>
+        </form>
     </div>
-    <div class="p-grid">
-        <div class="p-col-6">
-            <div class="p-grid">
-                <div class="p-col-12">
-                    <label for="Description">Description / Steps to reproduce <span style="color: red;">*
-                        </span></label>
-                </div>
-                <div class="p-col-12">
-                    <div class="ui-fluid">
-                        <p-editor [(ngModel)]="description" [style]="{'height':'220px'}">
-                        </p-editor>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="p-col-6">
-            <div class="p-grid">
-                <div class="p-col-12">
-                    <label for="Acceptance">Acceptance Criteria</label>
-                </div>
-                <div class="p-col-12">
-                    <div class="ui-fluid">
-                        <p-editor [(ngModel)]="acceptenceCriteria" [style]="{'height':'220px'}">
-                        </p-editor>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <p-footer>
-        <button pButton type="button" icon="pi pi-plus" label="Create" class="ui-button-success"
-            style="margin-right: .25em">
-        </button>
-        <button pButton type="button" icon="pi pi-times" label="Cancel" class="ui-button-danger"></button>
-    </p-footer>
-</p-panel>
+</div>

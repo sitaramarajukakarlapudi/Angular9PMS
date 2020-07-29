@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Issue } from 'src/app/_models/issuetracker';
 
 @Component({
   selector: 'app-createissue',
@@ -8,15 +10,25 @@ import { SelectItem } from 'primeng/api';
 })
 export class CreateissueComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
   projects: SelectItem[];
   selectedProject: string;
-
+  issueform: FormGroup;
+  issue: Issue;
   issueTypes: SelectItem[];
   selectedIssue: string;
   description: string;
   acceptenceCriteria: string;
   ngOnInit(): void {
+    this.issueform = this.fb.group({
+      frmproject: new FormControl('', Validators.required),
+      frmissueType: new FormControl('', Validators.required),
+      frmsummary: new FormControl('', Validators.required),
+      // frmdescription: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+      frmdescription: new FormControl('', Validators.required),
+      frmacceptence: new FormControl('')
+    });
+
     this.projects = [
       { label: 'Select Project', value: null },
       { label: 'Project 1', value: { id: 1, name: 'Project 1', code: 'P1' } },
@@ -27,11 +39,15 @@ export class CreateissueComponent implements OnInit {
     ];
     this.issueTypes = [
       { label: 'Select Issue Type', value: null },
-      { label: 'Normal', value: { id: 1, name: 'Project 1', code: 'P1' } },
-      { label: 'Moderate', value: { id: 2, name: 'Project 2', code: 'P2' } },
-      { label: 'Critical', value: { id: 3, name: 'Project 3', code: 'P3' } },
-      { label: 'Show Stopper', value: { id: 4, name: 'Project 4', code: 'P4' } },
+      { label: 'Normal', value: { id: 1, name: 'Normal', code: 'N' } },
+      { label: 'Moderate', value: { id: 2, name: 'Moderate', code: 'M' } },
+      { label: 'Critical', value: { id: 3, name: 'Critical', code: 'C' } },
+      { label: 'Show Stopper', value: { id: 4, name: 'Show Stopper', code: 'ST' } },
     ];
+  }
+  onSubmit(value: any) {
+    console.log(value);
+    // this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Issue Created' });
   }
 
 }
