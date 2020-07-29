@@ -12,8 +12,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import {ToolbarModule} from 'primeng/toolbar';
+import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
+import { CalendarModule } from 'primeng/calendar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,7 @@ import { MasterComponent } from './base/master/master.component';
 import { LoginComponent } from './base/login/login.component';
 import { DashboardComponent } from './base/dashboard/dashboard.component';
 import { CreateissueComponent } from './base/issuetracker/createissue/createissue.component';
+import { LeavesComponent } from './base/leaves/leaves.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { CreateissueComponent } from './base/issuetracker/createissue/createissu
     MasterComponent,
     LoginComponent,
     DashboardComponent,
-    CreateissueComponent
+    CreateissueComponent,
+    LeavesComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import { CreateissueComponent } from './base/issuetracker/createissue/createissu
     AutoCompleteModule,
     ToolbarModule,
     CardModule,
-
+    CalendarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

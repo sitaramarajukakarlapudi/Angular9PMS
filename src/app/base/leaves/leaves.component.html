@@ -1,0 +1,26 @@
+<div class="ui-fluid p-formgrid">
+    <p-panel [toggleable]="true" header="Apply Leave">
+        <div class="p-field ui-fluid">
+            <label for="period">Period</label>
+            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"
+                aria-describedby="period-help" showButtonBar="true" [disabledDays]="[0,6]" (onClose)="calClose()"></p-calendar>
+            <small id="period-help">Select period for applying leaves.</small>
+        </div>
+        <div style="height: 5px;"></div>
+        <div style="text-align: right;">
+            <button pButton type="button" label="Next" icon="pi pi-arrow-right" iconPos="right" class="ui-button-info" style="width: 7.0em;" [disabled]="!isValidDateRange"></button>
+        </div>
+        <p-footer>
+            <div style="text-align: right;">
+                <button pButton type="button" label="Apply" class="ui-button-success" style="width: 7.0em;"></button>
+            </div>
+        </p-footer>
+    </p-panel>
+</div>
+<div style="height: 5px;"></div>
+<div class="ui-fluid p-formgrid p-grid" style="margin-left: auto;">
+    <div>
+        <button pButton type="button" label="Back" icon="pi pi-arrow-left" class="blackbackground" tooltip="Back"
+            (click)="btnBack_Click()" style="width: 7.0em;"></button>
+    </div>
+</div>

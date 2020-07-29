@@ -16,3 +16,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
 }
+
+.blackbackground {
+  background-color: black !important;
+  border-color: black !important;
+}
