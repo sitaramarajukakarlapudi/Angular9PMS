@@ -3,6 +3,12 @@
         PMS
     </div>
 </div>
+<div class="layout-menubar">
+    <p-menubar [model]="items">
+        <input type="text" pInputText placeholder="Search">
+        <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()"></button>
+    </p-menubar>
+</div>
 <!-- <div class="layout-sidebar">
     <div class="layout-menu">
         <div *ngFor="let menuItem of menu">
@@ -16,5 +22,6 @@
     </div>
 </div> -->
 <div class="layout-content">
+
     <router-outlet></router-outlet>
 </div>
