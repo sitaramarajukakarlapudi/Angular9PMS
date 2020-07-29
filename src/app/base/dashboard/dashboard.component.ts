@@ -9,9 +9,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   profilePath: string;
-  constructor(
-    private router: Router
-  ) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.profilePath = 'Profile.png';
@@ -25,4 +23,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  openissues() {
+    this.router.navigate(['/menu/issues'], { skipLocationChange: false });
+  }
 }

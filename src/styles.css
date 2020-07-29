@@ -9,12 +9,18 @@ body {
   min-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  font-family: "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: 400;
   color: #333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 14px;
+}
+.layout-menubar .ui-corner-all {
+  border-radius: 0px !important;
+}
+.ui-button .pi {
+  font-size: 1.05em !important;
 }
 
 .blackbackground {

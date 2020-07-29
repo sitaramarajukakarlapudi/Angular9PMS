@@ -5,6 +5,8 @@ import { LoginComponent } from './base/login/login.component';
 import { DashboardComponent } from './base/dashboard/dashboard.component';
 import { CreateissueComponent } from './base/issuetracker/createissue/createissue.component';
 import { LeavesComponent } from './base/leaves/leaves.component';
+import { IssuesComponent } from './base/issuetracker/issues/issues.component';
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +18,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'createissue', component: CreateissueComponent },
       { path: 'leaves', component: LeavesComponent },
+      { path: 'issues', component: IssuesComponent },
     ], runGuardsAndResolvers: 'always',
   }
 ];

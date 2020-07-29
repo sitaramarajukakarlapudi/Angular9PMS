@@ -25,6 +25,9 @@ import { CreateissueComponent } from './base/issuetracker/createissue/createissu
 import { LeavesComponent } from './base/leaves/leaves.component';
 
 
+import { IssuesComponent } from './base/issuetracker/issues/issues.component';
+import { MenubarModule } from 'primeng/menubar';
+import { EditorModule } from 'primeng/editor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +35,8 @@ import { LeavesComponent } from './base/leaves/leaves.component';
     LoginComponent,
     DashboardComponent,
     CreateissueComponent,
-    LeavesComponent
+    LeavesComponent,
+    IssuesComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +57,9 @@ import { LeavesComponent } from './base/leaves/leaves.component';
     ToolbarModule,
     CardModule,
     CalendarModule,
+    MenubarModule,
+    PanelModule,
+    EditorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

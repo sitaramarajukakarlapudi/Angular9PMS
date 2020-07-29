@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-master',
@@ -10,23 +11,52 @@ export class MasterComponent implements OnInit {
   menu: any;
   clicked: string;
   constructor(private router: Router) { }
+  items: MenuItem[];
 
   ngOnInit(): void {
-    this.menu = [
+    this.items = [
       {
-        headerMenu: 'Issue Tracker',
-        childMenu: [{ name: 'Create an Issue', link: '/menu/createissue' },
-        { name: 'Issues', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
+        label: 'Home',
+        icon: 'pi pi-home',
+        command: () => this.itemClick('dashboard'),
+        // items: [{
+        //   label: 'New',
+        //   icon: 'pi pi-fw pi-plus',
+        //   items: [
+        //     { label: 'Project' },
+        //     { label: 'Other' },
+        //   ]
+        // },
+        // { label: 'Open' },
+        // { label: 'Quit' }
+        // ]
       },
+      { separator: true },
       {
-        headerMenu: 'Header Menu 2',
-        childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
-      },
-      {
-        headerMenu: 'Header Menu 3',
-        childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
+        label: 'Issues',
+        command: () => this.itemClick('issues'),
+        // icon: 'pi pi-fw pi-pencil',
+        // items: [
+        //   { label: 'Delete', icon: 'pi pi-fw pi-trash' },
+        //   { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
+        // ]
       }
     ];
+    // this.menu = [
+    //   {
+    //     headerMenu: 'Issue Tracker',
+    //     childMenu: [{ name: 'Create an Issue', link: '/menu/createissue' },
+    //     { name: 'Issues', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
+    //   },
+    //   {
+    //     headerMenu: 'Header Menu 2',
+    //     childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
+    //   },
+    //   {
+    //     headerMenu: 'Header Menu 3',
+    //     childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
+    //   }
+    // ];
   }
   onMenuClick(event, link) {
     console.log(event);
@@ -39,5 +69,15 @@ export class MasterComponent implements OnInit {
     }
     event.target.className = 'router-link-active';
     this.router.navigate([link], { skipLocationChange: false });
+  }
+  itemClick(itemName) {
+    if (itemName === 'dashboard') {
+      this.router.navigate(['/menu/dashboard'], { skipLocationChange: false });
+    } else if (itemName === 'issues') {
+      this.router.navigate(['/menu/issues'], { skipLocationChange: false });
+    }
+  }
+  logout() {
+    this.router.navigate(['/login'], { skipLocationChange: false });
   }
 }
