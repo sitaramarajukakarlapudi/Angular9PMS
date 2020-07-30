@@ -1,12 +1,14 @@
-<div class="layout-topbar">
+<!-- <div class="layout-topbar">
     <div style="padding: 2px;font-size: 32px;font-weight: bold;color: #ffff;">
         PMS
     </div>
-</div>
+</div> -->
 <div class="layout-menubar">
     <p-menubar [model]="items">
-        <input type="text" pInputText placeholder="Search">
-        <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()"></button>
+        <input type="text" pInputText placeholder="Search">&nbsp;&nbsp;&nbsp;&nbsp;
+        <img src="../../../assets/images/Profile.png"
+            style="width: 32px;height: 32px;border-radius: 50%;vertical-align: top">
+        &nbsp;&nbsp;
     </p-menubar>
 </div>
 <!-- <div class="layout-sidebar">
@@ -22,6 +24,5 @@
     </div>
 </div> -->
 <div class="layout-content">
-
     <router-outlet></router-outlet>
 </div>

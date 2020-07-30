@@ -15,6 +15,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { CalendarModule } from 'primeng/calendar';
+import {TableModule} from 'primeng/table';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,6 +62,7 @@ import { EditorModule } from 'primeng/editor';
     MenubarModule,
     PanelModule,
     EditorModule,
+    TableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Issue } from 'src/app/_models/issuetracker';
+import { IssuesComponent } from '../issues/issues.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createissue',
@@ -10,15 +12,17 @@ import { Issue } from 'src/app/_models/issuetracker';
 })
 export class CreateissueComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
   projects: SelectItem[];
   selectedProject: string;
   issueform: FormGroup;
   issue: Issue;
+  issueList: Issue[] = [];
   issueTypes: SelectItem[];
   selectedIssue: string;
   description: string;
   acceptenceCriteria: string;
+
   ngOnInit(): void {
     this.issueform = this.fb.group({
       frmproject: new FormControl('', Validators.required),
@@ -46,8 +50,16 @@ export class CreateissueComponent implements OnInit {
     ];
   }
   onSubmit(value: any) {
-    console.log(value);
+    console.log(value.frmproject.name);
+    this.issue = new Issue();
+    this.issue.project = value.frmproject.name;
+    this.issue.issueType = value.frmissueType.name;
+    this.issue.summary = value.frmsummary;
+    this.issue.description = value.frmdescription;
+    this.issue.acceptenceCriteria = value.frmacceptence;
+    this.issueList.push(this.issue);
     // this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Issue Created' });
+    this.router.navigate(['/menu/issues'], { skipLocationChange: false });
   }
 
 }

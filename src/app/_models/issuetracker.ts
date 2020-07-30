@@ -4,4 +4,5 @@ export class Issue {
     summary?: string;
     description?: string;
     acceptenceCriteria?: string;
+    status?: string;
 }

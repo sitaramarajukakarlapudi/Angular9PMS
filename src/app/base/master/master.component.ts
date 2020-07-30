@@ -16,7 +16,7 @@ export class MasterComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {
-        label: 'Home',
+        label: 'Dashboard',
         icon: 'pi pi-home',
         command: () => this.itemClick('dashboard'),
         // items: [{
@@ -31,7 +31,17 @@ export class MasterComponent implements OnInit {
         // { label: 'Quit' }
         // ]
       },
-      { separator: true },
+      // { separator: true },
+      {
+        label: 'Projects',
+        command: () => this.itemClick('projects'),
+        // icon: 'pi pi-fw pi-pencil',
+        // items: [
+        //   { label: 'Delete', icon: 'pi pi-fw pi-trash' },
+        //   { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
+        // ]
+      },
+      // { separator: true },
       {
         label: 'Issues',
         command: () => this.itemClick('issues'),

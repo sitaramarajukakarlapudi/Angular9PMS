@@ -16,9 +16,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.layout-menubar .ui-corner-all {
-  border-radius: 0px !important;
-}
+
 .ui-button .pi {
   font-size: 1.05em !important;
 }
@@ -26,4 +24,45 @@ body {
 .blackbackground {
   background-color: black !important;
   border-color: black !important;
+}
+
+.layout-menubar .ui-corner-all {
+  border-radius: 0px !important;
+}
+.layout-menubar .ui-menubar {
+  padding: 0;
+  background-color: #1a257a;
+  border: 1px solid #08104a;
+}
+.layout-menubar .ui-menubar .ui-menuitem-link .ui-menuitem-text {
+  color: #ffffff;
+}
+.layout-menubar .ui-menubar .ui-menuitem-link .ui-menuitem-icon {
+  color: #ffffff;
+  margin-right: 0.5em;
+}
+.layout-menubar .ui-menuitem-link:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  -webkit-box-shadow: 0 0 0 0em #eaecfb!important;
+  -moz-box-shadow: 0 0 0 0em #eaecfb!important;
+  box-shadow: 0 0 0 0em #eaecfb!important;
+}
+.layout-menubar .ui-menuitem.ui-menuitem-active > .ui-menuitem-link {
+  background-color: #313c94 !important;
+}
+.layout-menubar .ui-menubar .ui-menuitem.ui-menuitem-active > .ui-menuitem-link .ui-menuitem-text {
+  color: #ffffff;
+}
+.layout-menubar .ui-menubar .ui-menuitem.ui-menuitem-active > .ui-menuitem-link .ui-menuitem-icon, body .ui-menubar .ui-menuitem.ui-menuitem-active > .ui-menuitem-link .ui-submenu-icon {
+  color: #ffffff;
+}
+.layout-menubar .ui-menubar .ui-menuitem-link:not(.ui-state-disabled):hover {
+  background-color: #313c94 !important;
+}
+.layout-menubar .ui-menubar .ui-menuitem-link:not(.ui-state-disabled):hover .ui-menuitem-text {
+  color: #ffffff!important;
+}
+.layout-menubar .ui-menubar .ui-menuitem-link:not(.ui-state-disabled):hover .ui-menuitem-icon {
+  color: #ffffff!important;
 }
