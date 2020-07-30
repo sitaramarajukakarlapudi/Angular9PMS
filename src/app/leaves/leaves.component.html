@@ -1,15 +1,70 @@
 <div class="ui-fluid p-formgrid">
     <p-panel [toggleable]="true" header="Apply Leave">
-        <div class="p-field ui-fluid">
-            <label for="period">Period</label>
-            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"
-                aria-describedby="period-help" showButtonBar="true" [disabledDays]="[0,6]" (onClose)="calClose()"></p-calendar>
-            <small id="period-help">Select period for applying leaves.</small>
+        <div class="ui-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12 p-md-4">
+                <label for="Issue Type">Reporting Office</label>
+                <p-dropdown [options]="officeTypes">
+                </p-dropdown>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="Issue Type">Reporting Manager</label>
+                <p-dropdown [options]="managerTypes">
+                </p-dropdown>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="period">Period</label>
+                <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"
+                    aria-describedby="period-help" showButtonBar="true" [disabledDays]="[0,6]" (onClose)="calClose()"
+                    (onShow)="calShow()">
+                </p-calendar>
+                <small id="period-help">Select period for applying leaves.</small>
+            </div>
         </div>
         <div style="height: 5px;"></div>
         <div style="text-align: right;">
-            <button pButton type="button" label="Next" icon="pi pi-arrow-right" iconPos="right" class="ui-button-info" style="width: 7.0em;" [disabled]="!isValidDateRange"></button>
+            <button pButton type="button" label="Next" icon="pi pi-arrow-right" iconPos="right" class="ui-button-info"
+                style="width: 7.0em;" [disabled]="!isValidDateRange" (click)="btnNext_Click()"></button>
         </div>
+        <div style="height: 5px;"></div>
+        <p-panel [toggleable]="true" header="Leave Details" *ngIf="isNextClicked">
+            <form [formGroup]="leaveDetailsForm">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
+                        style="font-weight: bold; padding: 0.5em; border:solid 1px gray;">
+                        Date
+                    </div>
+                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
+                        style="font-weight: bold; padding: 0.5em;border:solid 1px gray;">
+                        Type
+                    </div>
+                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
+                        style="font-weight: bold; padding: 0.5em;border:solid 1px gray;">
+                        Duration
+                    </div>
+                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
+                        style="font-weight: bold; padding: 0.5em;border:solid 1px gray;">
+                        Period
+                    </div>
+                </div>
+                <div class="ui-fluid p-formgrid p-grid" *ngFor="let c of custF;index as c1">
+                    <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
+                        {{c.date | date:'fullDate'}}
+                    </div>
+                    <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
+                        <p-dropdown [options]="types" [style]="{'width':'99%'}" id="drpType_{{c.id}}"
+                            formControlName="FCDrptype_{{c.id}}"></p-dropdown>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
+                        <p-dropdown [options]="duration" [style]="{'width':'99%'}" id="drpDuration_{{c.id}}"
+                            formControlName="FCDrpDuration_{{c.id}}"></p-dropdown>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
+                        <p-dropdown [options]="period" [style]="{'width':'99%'}" id="drpPeriod_{{c.id}}"
+                            formControlName="FCDrpPeriod_{{c.id}}"></p-dropdown>
+                    </div>
+                </div>
+            </form>
+        </p-panel>
         <p-footer>
             <div style="text-align: right;">
                 <button pButton type="button" label="Apply" class="ui-button-success" style="width: 7.0em;"></button>
