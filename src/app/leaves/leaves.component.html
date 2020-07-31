@@ -15,7 +15,7 @@
                 <label for="period">Period</label>
                 <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"
                     aria-describedby="period-help" showButtonBar="true" [disabledDays]="[0,6]" (onClose)="calClose()"
-                    (onShow)="calShow()">
+                    (onShow)="calShow()" [disabledDates]="invalidDates">
                 </p-calendar>
                 <small id="period-help">Select period for applying leaves.</small>
             </div>
@@ -56,11 +56,11 @@
                     </div>
                     <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
                         <p-dropdown [options]="duration" [style]="{'width':'99%'}" id="drpDuration_{{c.id}}"
-                            formControlName="FCDrpDuration_{{c.id}}" (onChange)="funDurationChange(c.id)" ></p-dropdown>
+                            formControlName="FCDrpDuration_{{c.id}}" (onChange)="funDurationChange(c.id)"></p-dropdown>
                     </div>
                     <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
                         <p-dropdown [options]="period" [style]="{'width':'99%'}" id="drpPeriod_{{c.id}}"
-                            formControlName="FCDrpPeriod_{{c.id}}" ></p-dropdown>
+                            formControlName="FCDrpPeriod_{{c.id}}"></p-dropdown>
                     </div>
                 </div>
             </form>

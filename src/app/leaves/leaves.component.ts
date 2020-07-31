@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Leave } from '../_models/leaves';
 import { SelectItem } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-leaves',
@@ -21,11 +22,18 @@ export class LeavesComponent implements OnInit {
   officeTypes: SelectItem[];
   managerTypes: SelectItem[];
   leaveDetailsForm = new FormGroup({});
+  invalidDates: Array<Date>;
+  holidays: string[];
   constructor(
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.invalidDates = [];
+    this.holidays = ['2020-07-28', '2020-07-25'];
+    for (const eDate of this.holidays) {
+      this.invalidDates.push(new Date(eDate));
+    }
     this.isValidDateRange = false;
     this.isNextClicked = false;
     this.types = [
@@ -111,14 +119,14 @@ export class LeavesComponent implements OnInit {
     const daysBetweenDates: number = Math.ceil((end - start) / MS_PER_DAY);
     let startDateNew: Date = this.parseDate(startDate);
     const endDateNew: any = this.parseDate(endDate);
-    const holidays = ['2020-07-28', '2020-07-25'];
+
     let isValidDate = true;
     for (let i = 0; i <= daysBetweenDates; i++) {
       isValidDate = true;
       const finalDate = startDateNew;
       if (startDateNew <= endDateNew) {
         if (startDateNew.getDay() !== 0 && startDateNew.getDay() !== 6) {
-          for (const dateVal of holidays) {
+          for (const dateVal of this.invalidDates) {
             const holidayDate = this.parseDate(dateVal);
             if (startDateNew.toString() === holidayDate.toString()) {
               isValidDate = false;
