@@ -93,7 +93,7 @@ export class LeavesComponent implements OnInit {
         try {
           this.leaveDetailsForm.addControl('FCDrptype_' + this.custF[j].id, new FormControl('', null));
           this.leaveDetailsForm.addControl('FCDrpDuration_' + this.custF[j].id, new FormControl('', null));
-          this.leaveDetailsForm.addControl('FCDrpPeriod_' + this.custF[j].id, new FormControl('', null));
+          this.leaveDetailsForm.addControl('FCDrpPeriod_' + this.custF[j].id, new FormControl({ value: null, disabled: true }, null));
         } catch (error) {
           console.log('Add Control' + error);
         }
@@ -141,6 +141,15 @@ export class LeavesComponent implements OnInit {
     const newDate = new Date(input);
     const onlyDate = newDate.setHours(0, 0, 0, 0);
     return new Date(onlyDate);
+  }
+
+  funDurationChange(opValue) {
+    if (this.leaveDetailsForm.get('FCDrpDuration_' + opValue).value.code === 'HD') {
+      this.leaveDetailsForm.controls['FCDrpPeriod_' + opValue].enable();
+    } else {
+      this.leaveDetailsForm.controls['FCDrpPeriod_' + opValue].disable();
+    }
+
   }
 
 }
