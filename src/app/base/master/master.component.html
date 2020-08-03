@@ -19,9 +19,16 @@
         </div>
         <div class="p-col-8">
             <ul class="topbar-menu">
-                <li><a>Dashboard</a> </li>
-                <li> <a>Projects</a></li>
-                <li><a>Issues</a></li>
+                <li>
+                    <div (click)="itemClick('dashboard')"><span class="pi pi-home"></span>&nbsp;&nbsp;<a>Dashboard</a></div>
+                </li>
+                <li>
+                    <div><a>Projects</a>
+                    </div>
+                </li>
+                <li>
+                    <div (click)="itemClick('issues')"><a>Issues</a></div>
+                </li>
             </ul>
             <!-- <p-menubar [model]="items">
               

@@ -83,8 +83,7 @@
   height: 50px;
   line-height: 50px;
 }
-.layout-topbar .topbar-menu > li > a {
-  text-decoration: none;
+.layout-topbar .topbar-menu > li > div {
   color: #ffffff;
   min-width: 120px;
   font-size: 16px;
@@ -98,9 +97,18 @@
   -webkit-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
- .layout-topbar .topbar-menu > li > a:hover {
+.layout-topbar .topbar-menu > li > div > a {
+  text-decoration: none;
+  color: #ffffff;
+  text-align: center;
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+ .layout-topbar .topbar-menu > li :hover {
   background-color: #313c94; }
-.layout-topbar .topbar-menu > li > a:focus {
+.layout-topbar .topbar-menu > li :focus {
   z-index: 1;
   outline: 0 none;
   transition: box-shadow .3s;
