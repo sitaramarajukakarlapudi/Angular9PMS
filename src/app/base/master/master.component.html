@@ -3,15 +3,40 @@
         PMS
     </div>
 </div> -->
-<div class="layout-menubar">
-    <p-menubar [model]="items">
-        <input type="text" pInputText placeholder="Search">&nbsp;&nbsp;&nbsp;&nbsp;
-        <img src="../../../assets/images/Profile.png"
-            style="width: 32px;height: 32px;border-radius: 50%;vertical-align: top">
-        &nbsp;&nbsp;
-    </p-menubar>
-</div>
-<!-- <div class="layout-sidebar">
+<div class="layout-topbar">
+    <div class="p-grid  p-align-center">
+        <div class="p-col-2">
+            <ul class="top-bar-header">
+                <li><a style="min-width: 50px;" class="pi pi-bars"></a> </li>
+                <li> <a style="min-width: 50px;font-size: 32px;">PMS</a></li>
+            </ul>
+            <!-- <div class="p-grid ">
+                <div class="p-col-6">
+                </div>
+                <div class="p-col-6">
+                </div>
+            </div> -->
+        </div>
+        <div class="p-col-8">
+            <ul class="topbar-menu">
+                <li><a>Dashboard</a> </li>
+                <li> <a>Projects</a></li>
+                <li><a>Issues</a></li>
+            </ul>
+            <!-- <p-menubar [model]="items">
+              
+            </p-menubar> -->
+        </div>
+        <div class="p-col-2">
+            <div style="float: right;">
+                <input type="text" pInputText placeholder="Search">&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="../../../assets/images/Profile.png"
+                    style="width: 32px;height: 32px;border-radius: 50%;vertical-align: top">
+                &nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+    <!-- <div class="layout-sidebar">
     <div class="layout-menu">
         <div *ngFor="let menuItem of menu">
             <span>
@@ -23,6 +48,6 @@
         </div>
     </div>
 </div> -->
-<div class="layout-content">
-    <router-outlet></router-outlet>
-</div>
+    <div class="layout-content">
+        <router-outlet></router-outlet>
+    </div>

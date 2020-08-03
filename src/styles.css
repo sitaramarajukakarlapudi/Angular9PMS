@@ -32,7 +32,7 @@ body {
 .layout-menubar .ui-menubar {
   padding: 0;
   background-color: #1a257a;
-  border: 1px solid #08104a;
+  border: none !important;
 }
 .layout-menubar .ui-menubar .ui-menuitem-link .ui-menuitem-text {
   color: #ffffff;
