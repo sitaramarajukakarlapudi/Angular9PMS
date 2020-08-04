@@ -17,7 +17,7 @@
                     Create an Issue
                 </p-header>
                 <div class="p-grid">
-                    <div class="p-col-3">
+                    <div class="p-col-12 p-xl-3 p-lg-4 p-md-6 p-sm-6">
                         <div class="p-grid">
                             <div class="p-col-12">
                                 <label for="Project">Project<span style="color: red;">* </span></label>
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-col-3">
+                    <div class="p-col-12 p-xl-3 p-lg-4 p-md-6 p-sm-6">
                         <div class="p-grid">
                             <div class="p-col-12">
                                 <label for="Issue Type">Issue Type <span style="color: red;">* </span></label>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-col-6">
+                    <div class="p-col-12 p-xl-3 p-lg-4 p-md-6 p-sm-6">
                         <div class="p-grid">
                             <div class="p-col-12">
                                 <label for="Summary">Summary<span style="color: red;">* </span></label>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="p-grid">
-                    <div class="p-col-6">
+                    <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
                         <div class="p-grid">
                             <div class="p-col-12">
                                 <label for="Description">Description / Steps to reproduce <span style="color: red;">*
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-col-6">
+                    <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
                         <div class="p-grid">
                             <div class="p-col-12">
                                 <label for="Acceptance">Acceptance Criteria</label>
@@ -88,7 +88,12 @@
                     </div>
                 </div>
                 <div class="p-grid">
-
+                    <div class="p-col-12">
+                        <label for="Upload">Upload Attachments</label>
+                    </div>
+                    <div class="p-col-12">
+                        <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"></p-fileUpload>
+                    </div>
                 </div>
                 <p-footer>
                     <button pButton type="submit" icon="pi pi-plus" label="Create" [disabled]="!issueform.valid"

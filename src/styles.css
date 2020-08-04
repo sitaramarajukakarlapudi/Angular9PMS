@@ -66,3 +66,29 @@ body {
 .layout-menubar .ui-menubar .ui-menuitem-link:not(.ui-state-disabled):hover .ui-menuitem-icon {
   color: #ffffff!important;
 }
+
+.layout-topbar .ui-button {
+  margin: 0;
+  color: #ffffff;
+  background-color: #1a257a !important;
+  border: 1px solid #1a257a !important;
+  font-size: 14px;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+.layout-topbar .ui-button:hover {
+  background-color: #313c94 !important;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+.layout-topbar .ui-splitbutton .ui-button.ui-splitbutton-menubutton{
+  vertical-align: baseline !important;
+}
+.layout-topbar .ui-button:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0px;
+  box-shadow: 0 0 0 0.2em #1a257a !important;
+}
+
+.layout-topbar .ui-splitbutton.ui-buttonset .ui-button {
+  height: 45px;
+}
+

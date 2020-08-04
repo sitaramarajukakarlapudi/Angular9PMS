@@ -90,4 +90,5 @@ export class MasterComponent implements OnInit {
   logout() {
     this.router.navigate(['/login'], { skipLocationChange: false });
   }
+  save() { }
 }

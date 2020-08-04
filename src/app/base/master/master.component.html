@@ -4,23 +4,24 @@
     </div>
 </div> -->
 <div class="layout-topbar">
-    <div class="p-grid  p-align-center">
-        <div class="p-col-2">
-            <ul class="top-bar-header">
-                <li><a style="min-width: 50px;" class="pi pi-bars"></a> </li>
-                <li> <a style="min-width: 50px;font-size: 32px;">PMS</a></li>
-            </ul>
-            <!-- <div class="p-grid ">
-                <div class="p-col-6">
+    <div class="p-grid p-align-center  p-nogutter">
+        <div class="p-col-9 p-xl-3 p-lg-3 p-md-8 p-sm-6">
+            <div class="p-grid p-align-center  p-nogutter">
+                <div class="p-col-2">
+                    <a style="min-width: 50px;float: left;height:50px;line-height:50px;text-align: center; text-decoration: none;
+                    color: #ffffff;" class="pi pi-bars"></a>
                 </div>
-                <div class="p-col-6">
+                <div class="p-col-10">
+                    <a style="min-width: 50px;font-size: 32px;float: left;height:50px;line-height:50px;text-align: center; text-decoration: none;
+                    color: #ffffff;">PMS</a>
                 </div>
-            </div> -->
+            </div>
         </div>
-        <div class="p-col-8">
+        <div class="p-col-12 p-xl-6 p-lg-6 p-md-6 p-sm-6 topbar-menu-1">
             <ul class="topbar-menu">
                 <li>
-                    <div (click)="itemClick('dashboard')"><span class="pi pi-home"></span>&nbsp;&nbsp;<a>Dashboard</a></div>
+                    <div (click)="itemClick('dashboard')"><span class="pi pi-home"></span>&nbsp;&nbsp;<a>Dashboard</a>
+                    </div>
                 </li>
                 <li>
                     <div><a>Projects</a>
@@ -30,20 +31,56 @@
                     <div (click)="itemClick('issues')"><a>Issues</a></div>
                 </li>
             </ul>
-            <!-- <p-menubar [model]="items">
-              
-            </p-menubar> -->
         </div>
-        <div class="p-col-2">
+        <div class="p-col-3 p-xl-3 p-lg-3 p-md-4 p-sm-6">
             <div style="float: right;">
-                <input type="text" pInputText placeholder="Search">&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="textbox-show">
+                    <input type="text" pInputText placeholder="Search">&nbsp;&nbsp;
+                </span>
                 <img src="../../../assets/images/Profile.png"
-                    style="width: 32px;height: 32px;border-radius: 50%;vertical-align: top">
+                    style="width: 32px;height: 32px;border-radius: 50%;vertical-align: top;"
+                    (click)="op.toggle($event)">
                 &nbsp;&nbsp;
             </div>
         </div>
+        <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12 topbar-menu-2">
+            <ul class="topbar-menu">
+                <li>
+                    <div (click)="itemClick('dashboard')"><span class="pi pi-home"></span>&nbsp;&nbsp;<a>Dashboard</a>
+                    </div>
+                </li>
+                <li>
+                    <div><a>Projects</a>
+                    </div>
+                </li>
+                <li>
+                    <div (click)="itemClick('issues')"><a>Issues</a></div>
+                </li>
+            </ul>
+        </div>
     </div>
-    <!-- <div class="layout-sidebar">
+    <div class="p-grid">
+        <p-overlayPanel #op>
+            <ng-template pTemplate>
+                <div class="textbox-hide">
+                    <input type="text" pInputText placeholder="Search">
+                </div>
+            </ng-template>
+        </p-overlayPanel>
+    </div>
+
+    <!-- <div class="p-grid ">
+                <div class="p-col-6">
+                </div>
+                <div class="p-col-6">
+                </div>
+            </div> -->
+
+    <!-- <p-menubar [model]="items">
+              
+            </p-menubar> -->
+</div>
+<!-- <div class="layout-sidebar">
     <div class="layout-menu">
         <div *ngFor="let menuItem of menu">
             <span>
@@ -55,6 +92,6 @@
         </div>
     </div>
 </div> -->
-    <div class="layout-content">
-        <router-outlet></router-outlet>
-    </div>
+<div class="layout-content">
+    <router-outlet></router-outlet>
+</div>

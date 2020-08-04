@@ -4,7 +4,7 @@
             class="ui-button-rounded ui-button-success"></button>
     </div>
     <div class="p-col-12">
-        <p-table [columns]="cols" [value]="issues">
+        <p-table [columns]="cols" [value]="issues"  [responsive]="true" >
             <ng-template pTemplate="header" let-columns>
 
                 <tr>
@@ -24,6 +24,7 @@
                         <i class="fa fa-trash"></i>
                     </td>
                     <td *ngFor="let col of columns">
+                        <span class="ui-column-title">{{col.header}}</span>
                         {{rowData[col.field]}}
                     </td>
                 </tr>

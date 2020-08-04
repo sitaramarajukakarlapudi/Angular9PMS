@@ -30,6 +30,9 @@ import { LeavesComponent } from './leaves/leaves.component';
 import { IssuesComponent } from './issuetracker/issues/issues.component';
 import { MenubarModule } from 'primeng/menubar';
 import { EditorModule } from 'primeng/editor';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {FileUploadModule} from 'primeng/fileupload';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +66,9 @@ import { EditorModule } from 'primeng/editor';
     PanelModule,
     EditorModule,
     TableModule,
+    SplitButtonModule,
+    OverlayPanelModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]
