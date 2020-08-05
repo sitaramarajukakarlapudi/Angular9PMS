@@ -1,14 +1,31 @@
 <div>
-    <div class="ui-fluid p-formgrid">
-        <div class="ui-rtl" dir="rtl">
+    <div class="p-grid">
+        <!-- <div class="ui-rtl" dir="rtl">
             <div class="user" style="background-image: url(../assets/images/{{profilePath}});">
             </div>
+        </div> -->
+        <div class="p-field p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+            <p-card>
+                <p-header>
+                    <div style="padding: 10px;font-size: 18px !important;font-weight: bold;">Projects</div>
+                </p-header>
+                You dont have any projects yet.
+            </p-card>
+        </div>
+        <div class="p-field p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+            <p-card>
+                <p-header>
+                    <div style="padding: 10px;font-size: 18px !important;font-weight: bold">  Assigned to me</div>
+                </p-header>
+                You have no projects currently.
+            </p-card>
         </div>
     </div>
     <div class="ui-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-4">
             <p-card>
-                <button pButton type="button" label="Apply Leave" class="ui-button-rounded ui-button-success" (click)="navigateToPage('leaves')"></button>
+                <button pButton type="button" label="Apply Leave" class="ui-button-rounded ui-button-success"
+                    (click)="navigateToPage('leaves')"></button>
             </p-card>
         </div>
         <div class="p-field p-col-12 p-md-4">
@@ -18,7 +35,8 @@
         </div>
         <div class="p-field p-col-12 p-md-4">
             <p-card>
-                <button pButton type="button" label="Issue Status" (click)="openissues()" class="ui-button-rounded ui-button-success"></button>
+                <button pButton type="button" label="Issue Status" (click)="openissues()"
+                    class="ui-button-rounded ui-button-success"></button>
             </p-card>
         </div>
     </div>
