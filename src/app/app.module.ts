@@ -33,6 +33,7 @@ import { EditorModule } from 'primeng/editor';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {FileUploadModule} from 'primeng/fileupload';
+import { ProjectsComponent } from './projects/projects/projects.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import {FileUploadModule} from 'primeng/fileupload';
     DashboardComponent,
     CreateissueComponent,
     LeavesComponent,
-    IssuesComponent
+    IssuesComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,
