@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Leave } from '../_models/leaves';
 import { SelectItem } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ThrowStmt } from '@angular/compiler';
+import { CommonService } from '../_services/common/common.service';
 
 @Component({
   selector: 'app-leaves',
@@ -24,11 +24,16 @@ export class LeavesComponent implements OnInit {
   leaveDetailsForm = new FormGroup({});
   invalidDates: Array<Date>;
   holidays: string[];
+  employeeId: string;
+
   constructor(
-    private router: Router
+    private router: Router,
+    private commonSvc: CommonService
+
   ) { }
 
   ngOnInit() {
+    this.employeeId = sessionStorage.getItem('employeeId');
     this.invalidDates = [];
     this.holidays = ['2020-07-28', '2020-07-25'];
     for (const eDate of this.holidays) {
@@ -36,6 +41,7 @@ export class LeavesComponent implements OnInit {
     }
     this.isValidDateRange = false;
     this.isNextClicked = false;
+    this.getLocations();
     this.types = [
       { label: 'Select Type', value: null },
       { label: 'Casual Leave', value: { id: 1, name: 'Casual Leave', code: 'CL' } },
@@ -53,15 +59,39 @@ export class LeavesComponent implements OnInit {
       { label: 'Before Lunch', value: { id: 1, name: 'Before Lunch', code: 'BL' } },
       { label: 'After Lunch', value: { id: 2, name: 'After Lunch', code: 'AL' } }
     ];
-    this.officeTypes = [
-      { label: 'Select Location', value: null },
-      { label: 'Vijayawada', value: { id: 1, name: 'Vijayawada', code: 'VJA' } }
-    ];
-    this.managerTypes = [
-      { label: 'Select Manager', value: null },
-      { label: 'Sudheer Bijinepalli', value: { id: 1, name: 'Sudheer Bijinepalli', code: 'SB' } },
-      { label: 'Kalyan K', value: { id: 2, name: 'Kalyan K', code: 'KK' } }
-    ];
+    // this.officeTypes = [
+    //   { label: 'Select Location', value: null },
+    //   { label: 'Vijayawada', value: { id: 1, name: 'Vijayawada', code: 'VJA' } }
+    // ];
+    // this.managerTypes = [
+    //   { label: 'Select Manager', value: null },
+    //   { label: 'Sudheer Bijinepalli', value: { id: 1, name: 'Sudheer Bijinepalli', code: 'SB' } },
+    //   { label: 'Kalyan K', value: { id: 2, name: 'Kalyan K', code: 'KK' } }
+    // ];
+  }
+
+  getLocations() {
+    this.commonSvc.getLocations().subscribe(
+      (data) => {
+        this.officeTypes = [];
+        this.officeTypes.push({ label: 'Select Location', value: '0' });
+        for (const dataItem of data) {
+          this.officeTypes.push({ label: dataItem.label, value: dataItem.value });
+        }
+        this.getManagers();
+      }
+    );
+  }
+
+  getManagers() {
+    this.commonSvc.getManagers(this.employeeId).subscribe(
+      (data) => {
+        this.managerTypes = [];
+        this.managerTypes.push({ label: 'Select Manager', value: '0' });
+        for (const dataVal of data) {
+          this.managerTypes.push({ label: dataVal.label, value: dataVal.value });
+        }
+      });
   }
 
   btnBack_Click() {
