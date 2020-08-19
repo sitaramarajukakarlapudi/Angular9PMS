@@ -23,8 +23,10 @@ export class LeavesComponent implements OnInit {
   managerTypes: SelectItem[];
   leaveDetailsForm = new FormGroup({});
   invalidDates: Array<Date>;
+  holidayDates: Array<Date>;
   holidays: string[];
   employeeId: string;
+  selectedOffice: string;
 
   constructor(
     private router: Router,
@@ -35,10 +37,6 @@ export class LeavesComponent implements OnInit {
   ngOnInit() {
     this.employeeId = sessionStorage.getItem('employeeId');
     this.invalidDates = [];
-    this.holidays = ['2020-07-28', '2020-07-25'];
-    for (const eDate of this.holidays) {
-      this.invalidDates.push(new Date(eDate));
-    }
     this.isValidDateRange = false;
     this.isNextClicked = false;
     this.getLocations();
@@ -59,25 +57,22 @@ export class LeavesComponent implements OnInit {
       { label: 'Before Lunch', value: { id: 1, name: 'Before Lunch', code: 'BL' } },
       { label: 'After Lunch', value: { id: 2, name: 'After Lunch', code: 'AL' } }
     ];
-    // this.officeTypes = [
-    //   { label: 'Select Location', value: null },
-    //   { label: 'Vijayawada', value: { id: 1, name: 'Vijayawada', code: 'VJA' } }
-    // ];
-    // this.managerTypes = [
-    //   { label: 'Select Manager', value: null },
-    //   { label: 'Sudheer Bijinepalli', value: { id: 1, name: 'Sudheer Bijinepalli', code: 'SB' } },
-    //   { label: 'Kalyan K', value: { id: 2, name: 'Kalyan K', code: 'KK' } }
-    // ];
   }
 
   getLocations() {
     this.commonSvc.getLocations().subscribe(
       (data) => {
         this.officeTypes = [];
-        this.officeTypes.push({ label: 'Select Location', value: '0' });
+        this.officeTypes.push({ label: 'Select Location', value: { id: '0', name: 'Select Location' } });
         for (const dataItem of data) {
-          this.officeTypes.push({ label: dataItem.label, value: dataItem.value });
+          this.officeTypes.push({
+            label: dataItem.label,
+            value: {
+              id: dataItem.value, name: dataItem.label
+            }
+          });
         }
+        this.selectedOffice = this.officeTypes[0].value;
         this.getManagers();
       }
     );
@@ -91,6 +86,7 @@ export class LeavesComponent implements OnInit {
         for (const dataVal of data) {
           this.managerTypes.push({ label: dataVal.label, value: dataVal.value });
         }
+        this.getHolidays('Vijayawada');
       });
   }
 
@@ -115,9 +111,27 @@ export class LeavesComponent implements OnInit {
   }
 
   calClose() {
+    this.holidayDates = [];
     if (this.rangeDates && this.rangeDates[1]) {
       this.isValidDateRange = true;
-      this.getWorkingDays(this.rangeDates[0], this.rangeDates[1]);
+      let locationVal = 'Vijayawada';
+      if (this.selectedOffice['id'] !== '0') {
+        locationVal = this.selectedOffice['name'];
+      }
+      const startDate = new Date(this.rangeDates[0]);
+      const startDateVal = Number(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear();
+      const endDate = new Date(this.rangeDates[1]);
+      const endDateVal = Number(endDate.getMonth() + 1) + '/' + endDate.getDate() + '/' + endDate.getFullYear();
+      this.commonSvc.GetHolidays(locationVal, startDateVal, endDateVal).subscribe(
+        (data) => {
+          if (data !== null) {
+            for (const eDate of data) {
+              this.holidayDates.push(new Date(eDate.invaliddate));
+            }
+          }
+          this.getWorkingDays(this.holidayDates, this.rangeDates[0], this.rangeDates[1]);
+        }
+      );
     } else {
       this.isValidDateRange = false;
       this.isNextClicked = false;
@@ -141,7 +155,8 @@ export class LeavesComponent implements OnInit {
     }
   }
 
-  getWorkingDays(startDate, endDate) {
+  getWorkingDays(holidayDates, startDate, endDate) {
+    console.log(holidayDates);
     this.validDates = [];
     const MS_PER_DAY: number = 1000 * 60 * 60 * 24;
     const start: number = this.rangeDates[0].getTime();
@@ -156,7 +171,7 @@ export class LeavesComponent implements OnInit {
       const finalDate = startDateNew;
       if (startDateNew <= endDateNew) {
         if (startDateNew.getDay() !== 0 && startDateNew.getDay() !== 6) {
-          for (const dateVal of this.invalidDates) {
+          for (const dateVal of holidayDates) {
             const holidayDate = this.parseDate(dateVal);
             if (startDateNew.toString() === holidayDate.toString()) {
               isValidDate = false;
@@ -188,6 +203,26 @@ export class LeavesComponent implements OnInit {
       this.leaveDetailsForm.controls['FCDrpPeriod_' + opValue].disable();
     }
 
+  }
+
+  btnApply_Click() {
+
+  }
+
+  officeTypes_Change() {
+    if (this.selectedOffice['id'] !== '0') {
+      this.getHolidays(this.selectedOffice['name']);
+    }
+  }
+
+  getHolidays(location: string) {
+    this.commonSvc.GetHolidaysList(location).subscribe(
+      (data) => {
+        for (const eDate of data) {
+          this.invalidDates.push(new Date(eDate.invaliddate));
+        }
+      }
+    );
   }
 
 }

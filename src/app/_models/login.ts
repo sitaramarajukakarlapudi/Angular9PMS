@@ -1,9 +1,10 @@
-export class Login{
+export class Login {
     employeeId?: string;
+    login?: string;
     userName?: string;
     password?: string;
-    firstName?: string;
-    lastName?: string;
+    role?: string;
+    code?: string;
     errorMsg?: string;
     managerId?: string;
 }

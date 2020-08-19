@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
   validateCredentials() {
     const req: Login = {
-      userName: this.currentFormControls.firstname.value.toString(),
+      login: this.currentFormControls.firstname.value.toString(),
       password: this.currentFormControls.password.value.toString()
     };
     this.resetForm();

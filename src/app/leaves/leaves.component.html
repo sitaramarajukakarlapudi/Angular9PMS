@@ -3,7 +3,7 @@
         <div class="ui-fluid p-formgrid p-grid">
             <div class="p-field p-col-12 p-md-4">
                 <label for="Issue Type">Reporting Office</label>
-                <p-dropdown [options]="officeTypes">
+                <p-dropdown [options]="officeTypes" [(ngModel)]="selectedOffice" (onChange)="officeTypes_Change()">
                 </p-dropdown>
             </div>
             <div class="p-field p-col-12 p-md-4">
@@ -67,7 +67,7 @@
         </p-panel>
         <p-footer>
             <div style="text-align: right;">
-                <button pButton type="button" label="Apply" class="ui-button-success" style="width: 7.0em;"></button>
+                <button pButton type="button" label="Apply" class="ui-button-success" (click)="btnApply_Click()" style="width: 7.0em;"></button>
             </div>
         </p-footer>
     </p-panel>
