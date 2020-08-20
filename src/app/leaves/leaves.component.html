@@ -8,14 +8,14 @@
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <label for="Issue Type">Reporting Manager</label>
-                <p-dropdown [options]="managerTypes">
+                <p-dropdown [options]="managerTypes" [(ngModel)]="selectedManager">
                 </p-dropdown>
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <label for="period">Period</label>
                 <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"
                     aria-describedby="period-help" showButtonBar="true" [disabledDays]="[0,6]" (onClose)="calClose()"
-                    (onShow)="calShow()" [disabledDates]="invalidDates">
+                    (onShow)="calShow()" [disabledDates]="invalidDates" [disabled]="!isValidLocation">
                 </p-calendar>
                 <small id="period-help">Select period for applying leaves.</small>
             </div>
@@ -65,9 +65,17 @@
                 </div>
             </form>
         </p-panel>
+        <div style="height: 5px;"></div>
+        <div class="ui-fluid p-formgrid p-grid" *ngIf="isNextClicked">
+            <div class="p-field p-col-12 p-md-4">
+                <label for="Issue Type">Leave Reason</label>
+                <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize" [(ngModel)]="leaveReason"></textarea>
+            </div>
+        </div>
         <p-footer>
             <div style="text-align: right;">
-                <button pButton type="button" label="Apply" class="ui-button-success" (click)="btnApply_Click()" style="width: 7.0em;"></button>
+                <button pButton type="button" label="Apply" class="ui-button-success" (click)="btnApply_Click()"
+                    style="width: 7.0em;"></button>
             </div>
         </p-footer>
     </p-panel>

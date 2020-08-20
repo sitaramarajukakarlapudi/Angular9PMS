@@ -4,6 +4,7 @@ import { Leave } from '../_models/leaves';
 import { SelectItem } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CommonService } from '../_services/common/common.service';
+import { LeavesService } from '../_services/leaves/leaves.service';
 
 @Component({
   selector: 'app-leaves',
@@ -13,6 +14,7 @@ import { CommonService } from '../_services/common/common.service';
 export class LeavesComponent implements OnInit {
   rangeDates: Date[];
   isValidDateRange: boolean;
+  isValidLocation: boolean;
   validDates: Date[];
   isNextClicked: boolean;
   custF: Leave[] = [];
@@ -27,36 +29,23 @@ export class LeavesComponent implements OnInit {
   holidays: string[];
   employeeId: string;
   selectedOffice: string;
+  selectedManager: string;
+  leaveReason: string;
 
   constructor(
     private router: Router,
-    private commonSvc: CommonService
-
+    private commonSvc: CommonService,
+    private leavesSvc: LeavesService
   ) { }
 
   ngOnInit() {
     this.employeeId = sessionStorage.getItem('employeeId');
     this.invalidDates = [];
     this.isValidDateRange = false;
+    this.isValidLocation = false;
     this.isNextClicked = false;
-    this.getLocations();
-    this.types = [
-      { label: 'Select Type', value: null },
-      { label: 'Casual Leave', value: { id: 1, name: 'Casual Leave', code: 'CL' } },
-      { label: 'Compensatory', value: { id: 2, name: 'Compensatory', code: 'COMP' } },
-      { label: 'Earned Leave', value: { id: 3, name: 'Earned Leave', code: 'EL' } },
-      { label: 'Maternity', value: { id: 4, name: 'Maternity', code: 'MAT' } },
-      { label: 'On Duty', value: { id: 5, name: 'On Duty', code: 'OD' } },
-      { label: 'Paternity', value: { id: 6, name: 'Paternity', code: 'PAT' } }
-    ];
-    this.duration = [
-      { label: 'Full Day', value: { id: 1, name: 'Full Day', code: 'FD' } },
-      { label: 'Half Day', value: { id: 2, name: 'Half Day', code: 'HD' } }
-    ];
-    this.period = [
-      { label: 'Before Lunch', value: { id: 1, name: 'Before Lunch', code: 'BL' } },
-      { label: 'After Lunch', value: { id: 2, name: 'After Lunch', code: 'AL' } }
-    ];
+    this.leaveReason = '';
+    this.getLeaveTypes();
   }
 
   getLocations() {
@@ -82,12 +71,79 @@ export class LeavesComponent implements OnInit {
     this.commonSvc.getManagers(this.employeeId).subscribe(
       (data) => {
         this.managerTypes = [];
-        this.managerTypes.push({ label: 'Select Manager', value: '0' });
+        this.managerTypes.push({ label: 'Select Manager', value: { id: '0', name: 'Select Manager' } });
         for (const dataVal of data) {
-          this.managerTypes.push({ label: dataVal.label, value: dataVal.value });
+          this.managerTypes.push({
+            label: dataVal.label, value: {
+              id: dataVal.value, name: dataVal.label
+            }
+          });
         }
+        this.selectedManager = this.managerTypes[0].value;
         this.getHolidays('Vijayawada');
       });
+  }
+
+  getHolidays(location: string) {
+    this.commonSvc.GetHolidaysList(location).subscribe(
+      (data) => {
+        for (const eDate of data) {
+          this.invalidDates.push(new Date(eDate.invaliddate));
+        }
+      }
+    );
+  }
+
+  getLeaveTypes() {
+    this.leavesSvc.getLeaveTypes().subscribe(
+      (data) => {
+        this.types = [];
+        this.types.push({ label: 'Select Type', value: { id: '0', name: 'Select Type' } });
+        for (const dataItem of data) {
+          this.types.push({
+            label: dataItem.label,
+            value: {
+              id: dataItem.value, name: dataItem.label
+            }
+          });
+        }
+        this.getDurations();
+      }
+    );
+  }
+
+  getDurations() {
+    this.leavesSvc.getDurations().subscribe(
+      (data) => {
+        this.duration = [];
+        for (const dataItem of data) {
+          this.duration.push({
+            label: dataItem.label,
+            value: {
+              id: dataItem.value, name: dataItem.label
+            }
+          });
+        }
+        this.getPeriods();
+      }
+    );
+  }
+
+  getPeriods() {
+    this.leavesSvc.getPeriods().subscribe(
+      (data) => {
+        this.period = [];
+        for (const dataItem of data) {
+          this.period.push({
+            label: dataItem.label,
+            value: {
+              id: dataItem.value, name: dataItem.label
+            }
+          });
+        }
+        this.getLocations();
+      }
+    );
   }
 
   btnBack_Click() {
@@ -156,7 +212,6 @@ export class LeavesComponent implements OnInit {
   }
 
   getWorkingDays(holidayDates, startDate, endDate) {
-    console.log(holidayDates);
     this.validDates = [];
     const MS_PER_DAY: number = 1000 * 60 * 60 * 24;
     const start: number = this.rangeDates[0].getTime();
@@ -197,7 +252,7 @@ export class LeavesComponent implements OnInit {
   }
 
   funDurationChange(opValue) {
-    if (this.leaveDetailsForm.get('FCDrpDuration_' + opValue).value.code === 'HD') {
+    if (this.leaveDetailsForm.get('FCDrpDuration_' + opValue).value.name === 'Half Day') {
       this.leaveDetailsForm.controls['FCDrpPeriod_' + opValue].enable();
     } else {
       this.leaveDetailsForm.controls['FCDrpPeriod_' + opValue].disable();
@@ -206,23 +261,33 @@ export class LeavesComponent implements OnInit {
   }
 
   btnApply_Click() {
-
+    if (this.selectedOffice['id'] === '0') {
+      alert('Please select Reporting Office');
+    } else if (this.selectedManager['id'] === '0') {
+      alert('Please select Reporting Manager');
+    } else if (!this.isValidDateRange) {
+      alert('Please select Leave Period');
+    }
+    for (let a = 0; a < this.custF.length; a++) {
+      if (this.leaveDetailsForm.get('FCDrptype_' + a).value === '' || this.leaveDetailsForm.get('FCDrptype_' + a).value.id === '0') {
+        alert('Please select Leave Type');
+        break;
+      }
+    }
+    if (this.leaveReason === '') {
+      alert('Please enter Leave Reason');
+    }
   }
 
   officeTypes_Change() {
     if (this.selectedOffice['id'] !== '0') {
       this.getHolidays(this.selectedOffice['name']);
+      this.isValidLocation = true;
+    } else {
+      this.isValidLocation = false;
     }
   }
 
-  getHolidays(location: string) {
-    this.commonSvc.GetHolidaysList(location).subscribe(
-      (data) => {
-        for (const eDate of data) {
-          this.invalidDates.push(new Date(eDate.invaliddate));
-        }
-      }
-    );
-  }
+
 
 }
