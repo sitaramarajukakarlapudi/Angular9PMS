@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Leave } from '../_models/leaves';
+import { Leave, LeaveMasterDetails } from '../_models/leaves';
 import { SelectItem } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CommonService } from '../_services/common/common.service';
@@ -31,6 +31,9 @@ export class LeavesComponent implements OnInit {
   selectedOffice: string;
   selectedManager: string;
   leaveReason: string;
+  leaveMasterDetails: LeaveMasterDetails;
+  startDateVal: string;
+  endDateVal: string;
 
   constructor(
     private router: Router,
@@ -175,10 +178,10 @@ export class LeavesComponent implements OnInit {
         locationVal = this.selectedOffice['name'];
       }
       const startDate = new Date(this.rangeDates[0]);
-      const startDateVal = Number(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear();
+      this.startDateVal = Number(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear();
       const endDate = new Date(this.rangeDates[1]);
-      const endDateVal = Number(endDate.getMonth() + 1) + '/' + endDate.getDate() + '/' + endDate.getFullYear();
-      this.commonSvc.GetHolidays(locationVal, startDateVal, endDateVal).subscribe(
+      this.endDateVal = Number(endDate.getMonth() + 1) + '/' + endDate.getDate() + '/' + endDate.getFullYear();
+      this.commonSvc.GetHolidays(locationVal, this.startDateVal, this.endDateVal).subscribe(
         (data) => {
           if (data !== null) {
             for (const eDate of data) {
@@ -261,21 +264,38 @@ export class LeavesComponent implements OnInit {
   }
 
   btnApply_Click() {
+    let isValid = true;
     if (this.selectedOffice['id'] === '0') {
+      isValid = false;
       alert('Please select Reporting Office');
     } else if (this.selectedManager['id'] === '0') {
+      isValid = false;
       alert('Please select Reporting Manager');
     } else if (!this.isValidDateRange) {
+      isValid = false;
       alert('Please select Leave Period');
     }
     for (let a = 0; a < this.custF.length; a++) {
       if (this.leaveDetailsForm.get('FCDrptype_' + a).value === '' || this.leaveDetailsForm.get('FCDrptype_' + a).value.id === '0') {
+        isValid = false;
         alert('Please select Leave Type');
         break;
       }
     }
     if (this.leaveReason === '') {
+      isValid = false;
       alert('Please enter Leave Reason');
+    }
+    if (isValid === true) {
+      this.leaveMasterDetails = new LeaveMasterDetails();
+      this.leaveMasterDetails.employeeId = +this.employeeId;
+      this.leaveMasterDetails.reportingOfficeId = +this.selectedOffice['id'];
+      this.leaveMasterDetails.reportingManagerId = +this.selectedManager['id'];
+      this.leaveMasterDetails.leaveFrom = new Date(this.startDateVal);
+      this.leaveMasterDetails.leaveTo = new Date(this.endDateVal);
+      this.leaveMasterDetails.noofDays = this.custF.length;
+      this.leaveMasterDetails.leaveReason = this.leaveReason;
+      this.leaveMasterDetails.userId = +this.employeeId;
     }
   }
 
