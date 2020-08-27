@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private msgSvc: MessageService,
   ) {
     this.title = 'Angular9PMS';
 
@@ -34,5 +36,9 @@ export class AppComponent implements OnInit {
         // this.dataSvc.changeSpinner(false);
       }
     });
+  }
+
+  onReject() {
+    this.msgSvc.clear('alert');
   }
 }

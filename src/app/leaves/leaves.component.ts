@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Leave } from '../_models/leaves';
+import { Leave, LeaveMasterDetails } from '../_models/leaves';
 import { SelectItem } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ThrowStmt } from '@angular/compiler';
+import { CommonService } from '../_services/common/common.service';
+import { LeavesService } from '../_services/leaves/leaves.service';
 
 @Component({
   selector: 'app-leaves',
@@ -13,6 +14,7 @@ import { ThrowStmt } from '@angular/compiler';
 export class LeavesComponent implements OnInit {
   rangeDates: Date[];
   isValidDateRange: boolean;
+  isValidLocation: boolean;
   validDates: Date[];
   isNextClicked: boolean;
   custF: Leave[] = [];
@@ -23,45 +25,128 @@ export class LeavesComponent implements OnInit {
   managerTypes: SelectItem[];
   leaveDetailsForm = new FormGroup({});
   invalidDates: Array<Date>;
+  holidayDates: Array<Date>;
   holidays: string[];
+  employeeId: string;
+  selectedOffice: string;
+  selectedManager: string;
+  leaveReason: string;
+  leaveMasterDetails: LeaveMasterDetails;
+  startDateVal: string;
+  endDateVal: string;
+
   constructor(
-    private router: Router
+    private router: Router,
+    private commonSvc: CommonService,
+    private leavesSvc: LeavesService
   ) { }
 
   ngOnInit() {
+    this.employeeId = sessionStorage.getItem('employeeId');
     this.invalidDates = [];
-    this.holidays = ['2020-07-28', '2020-07-25'];
-    for (const eDate of this.holidays) {
-      this.invalidDates.push(new Date(eDate));
-    }
     this.isValidDateRange = false;
+    this.isValidLocation = false;
     this.isNextClicked = false;
-    this.types = [
-      { label: 'Select Type', value: null },
-      { label: 'Casual Leave', value: { id: 1, name: 'Casual Leave', code: 'CL' } },
-      { label: 'Compensatory', value: { id: 2, name: 'Compensatory', code: 'COMP' } },
-      { label: 'Earned Leave', value: { id: 3, name: 'Earned Leave', code: 'EL' } },
-      { label: 'Maternity', value: { id: 4, name: 'Maternity', code: 'MAT' } },
-      { label: 'On Duty', value: { id: 5, name: 'On Duty', code: 'OD' } },
-      { label: 'Paternity', value: { id: 6, name: 'Paternity', code: 'PAT' } }
-    ];
-    this.duration = [
-      { label: 'Full Day', value: { id: 1, name: 'Full Day', code: 'FD' } },
-      { label: 'Half Day', value: { id: 2, name: 'Half Day', code: 'HD' } }
-    ];
-    this.period = [
-      { label: 'Before Lunch', value: { id: 1, name: 'Before Lunch', code: 'BL' } },
-      { label: 'After Lunch', value: { id: 2, name: 'After Lunch', code: 'AL' } }
-    ];
-    this.officeTypes = [
-      { label: 'Select Location', value: null },
-      { label: 'Vijayawada', value: { id: 1, name: 'Vijayawada', code: 'VJA' } }
-    ];
-    this.managerTypes = [
-      { label: 'Select Manager', value: null },
-      { label: 'Sudheer Bijinepalli', value: { id: 1, name: 'Sudheer Bijinepalli', code: 'SB' } },
-      { label: 'Kalyan K', value: { id: 2, name: 'Kalyan K', code: 'KK' } }
-    ];
+    this.leaveReason = '';
+    this.getLeaveTypes();
+  }
+
+  getLocations() {
+    this.commonSvc.getLocations().subscribe(
+      (data) => {
+        this.officeTypes = [];
+        this.officeTypes.push({ label: 'Select Location', value: { id: '0', name: 'Select Location' } });
+        for (const dataItem of data) {
+          this.officeTypes.push({
+            label: dataItem.label,
+            value: {
+              id: dataItem.value, name: dataItem.label
+            }
+          });
+        }
+        this.selectedOffice = this.officeTypes[0].value;
+        this.getManagers();
+      }
+    );
+  }
+
+  getManagers() {
+    this.commonSvc.getManagers(this.employeeId).subscribe(
+      (data) => {
+        this.managerTypes = [];
+        this.managerTypes.push({ label: 'Select Manager', value: { id: '0', name: 'Select Manager' } });
+        for (const dataVal of data) {
+          this.managerTypes.push({
+            label: dataVal.label, value: {
+              id: dataVal.value, name: dataVal.label
+            }
+          });
+        }
+        this.selectedManager = this.managerTypes[0].value;
+        this.getHolidays('Vijayawada');
+      });
+  }
+
+  getHolidays(location: string) {
+    this.commonSvc.GetHolidaysList(location).subscribe(
+      (data) => {
+        for (const eDate of data) {
+          this.invalidDates.push(new Date(eDate.invaliddate));
+        }
+      }
+    );
+  }
+
+  getLeaveTypes() {
+    this.leavesSvc.getLeaveTypes().subscribe(
+      (data) => {
+        this.types = [];
+        this.types.push({ label: 'Select Type', value: { id: '0', name: 'Select Type' } });
+        for (const dataItem of data) {
+          this.types.push({
+            label: dataItem.label,
+            value: {
+              id: dataItem.value, name: dataItem.label
+            }
+          });
+        }
+        this.getDurations();
+      }
+    );
+  }
+
+  getDurations() {
+    this.leavesSvc.getDurations().subscribe(
+      (data) => {
+        this.duration = [];
+        for (const dataItem of data) {
+          this.duration.push({
+            label: dataItem.label,
+            value: {
+              id: dataItem.value, name: dataItem.label
+            }
+          });
+        }
+        this.getPeriods();
+      }
+    );
+  }
+
+  getPeriods() {
+    this.leavesSvc.getPeriods().subscribe(
+      (data) => {
+        this.period = [];
+        for (const dataItem of data) {
+          this.period.push({
+            label: dataItem.label,
+            value: {
+              id: dataItem.value, name: dataItem.label
+            }
+          });
+        }
+        this.getLocations();
+      }
+    );
   }
 
   btnBack_Click() {
@@ -85,9 +170,27 @@ export class LeavesComponent implements OnInit {
   }
 
   calClose() {
+    this.holidayDates = [];
     if (this.rangeDates && this.rangeDates[1]) {
       this.isValidDateRange = true;
-      this.getWorkingDays(this.rangeDates[0], this.rangeDates[1]);
+      let locationVal = 'Vijayawada';
+      if (this.selectedOffice['id'] !== '0') {
+        locationVal = this.selectedOffice['name'];
+      }
+      const startDate = new Date(this.rangeDates[0]);
+      this.startDateVal = Number(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear();
+      const endDate = new Date(this.rangeDates[1]);
+      this.endDateVal = Number(endDate.getMonth() + 1) + '/' + endDate.getDate() + '/' + endDate.getFullYear();
+      this.commonSvc.GetHolidays(locationVal, this.startDateVal, this.endDateVal).subscribe(
+        (data) => {
+          if (data !== null) {
+            for (const eDate of data) {
+              this.holidayDates.push(new Date(eDate.invaliddate));
+            }
+          }
+          this.getWorkingDays(this.holidayDates, this.rangeDates[0], this.rangeDates[1]);
+        }
+      );
     } else {
       this.isValidDateRange = false;
       this.isNextClicked = false;
@@ -111,7 +214,7 @@ export class LeavesComponent implements OnInit {
     }
   }
 
-  getWorkingDays(startDate, endDate) {
+  getWorkingDays(holidayDates, startDate, endDate) {
     this.validDates = [];
     const MS_PER_DAY: number = 1000 * 60 * 60 * 24;
     const start: number = this.rangeDates[0].getTime();
@@ -126,7 +229,7 @@ export class LeavesComponent implements OnInit {
       const finalDate = startDateNew;
       if (startDateNew <= endDateNew) {
         if (startDateNew.getDay() !== 0 && startDateNew.getDay() !== 6) {
-          for (const dateVal of this.invalidDates) {
+          for (const dateVal of holidayDates) {
             const holidayDate = this.parseDate(dateVal);
             if (startDateNew.toString() === holidayDate.toString()) {
               isValidDate = false;
@@ -152,12 +255,59 @@ export class LeavesComponent implements OnInit {
   }
 
   funDurationChange(opValue) {
-    if (this.leaveDetailsForm.get('FCDrpDuration_' + opValue).value.code === 'HD') {
+    if (this.leaveDetailsForm.get('FCDrpDuration_' + opValue).value.name === 'Half Day') {
       this.leaveDetailsForm.controls['FCDrpPeriod_' + opValue].enable();
     } else {
       this.leaveDetailsForm.controls['FCDrpPeriod_' + opValue].disable();
     }
 
   }
+
+  btnApply_Click() {
+    let isValid = true;
+    if (this.selectedOffice['id'] === '0') {
+      isValid = false;
+      alert('Please select Reporting Office');
+    } else if (this.selectedManager['id'] === '0') {
+      isValid = false;
+      alert('Please select Reporting Manager');
+    } else if (!this.isValidDateRange) {
+      isValid = false;
+      alert('Please select Leave Period');
+    }
+    for (let a = 0; a < this.custF.length; a++) {
+      if (this.leaveDetailsForm.get('FCDrptype_' + a).value === '' || this.leaveDetailsForm.get('FCDrptype_' + a).value.id === '0') {
+        isValid = false;
+        alert('Please select Leave Type');
+        break;
+      }
+    }
+    if (this.leaveReason === '') {
+      isValid = false;
+      alert('Please enter Leave Reason');
+    }
+    if (isValid === true) {
+      this.leaveMasterDetails = new LeaveMasterDetails();
+      this.leaveMasterDetails.employeeId = +this.employeeId;
+      this.leaveMasterDetails.reportingOfficeId = +this.selectedOffice['id'];
+      this.leaveMasterDetails.reportingManagerId = +this.selectedManager['id'];
+      this.leaveMasterDetails.leaveFrom = new Date(this.startDateVal);
+      this.leaveMasterDetails.leaveTo = new Date(this.endDateVal);
+      this.leaveMasterDetails.noofDays = this.custF.length;
+      this.leaveMasterDetails.leaveReason = this.leaveReason;
+      this.leaveMasterDetails.userId = +this.employeeId;
+    }
+  }
+
+  officeTypes_Change() {
+    if (this.selectedOffice['id'] !== '0') {
+      this.getHolidays(this.selectedOffice['name']);
+      this.isValidLocation = true;
+    } else {
+      this.isValidLocation = false;
+    }
+  }
+
+
 
 }

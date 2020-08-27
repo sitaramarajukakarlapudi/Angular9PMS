@@ -15,8 +15,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { CalendarModule } from 'primeng/calendar';
-import {TableModule} from 'primeng/table';
-
+import { TableModule } from 'primeng/table';
+import { MessageService } from 'primeng/api';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,9 +30,9 @@ import { LeavesComponent } from './leaves/leaves.component';
 import { IssuesComponent } from './issuetracker/issues/issues.component';
 import { MenubarModule } from 'primeng/menubar';
 import { EditorModule } from 'primeng/editor';
-import {SplitButtonModule} from 'primeng/splitbutton';
-import {OverlayPanelModule} from 'primeng/overlaypanel';
-import {FileUploadModule} from 'primeng/fileupload';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { FileUploadModule } from 'primeng/fileupload';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { CreateprojectComponent } from './projects/createproject/createproject.component';
 @NgModule({
@@ -74,7 +74,7 @@ import { CreateprojectComponent } from './projects/createproject/createproject.c
     OverlayPanelModule,
     FileUploadModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

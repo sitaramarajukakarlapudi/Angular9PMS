@@ -60,11 +60,13 @@ export class MasterComponent implements OnInit {
     //   },
     //   {
     //     headerMenu: 'Header Menu 2',
-    //     childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
+    //     childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' },
+    // { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
     //   },
     //   {
     //     headerMenu: 'Header Menu 3',
-    //     childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' }, { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
+    //     childMenu: [{ name: 'Child Menu 1', link: '' }, { name: 'Child Menu 2', link: '' },
+    // { name: 'Child Menu 3', link: '' }, { name: 'Child Menu 4', link: '' }],
     //   }
     // ];
   }
@@ -89,7 +91,8 @@ export class MasterComponent implements OnInit {
       this.router.navigate(['/menu/projects'], { skipLocationChange: false });
     }
   }
-  logout() {
+  btnLogout_Click() {
+    sessionStorage.clear();
     this.router.navigate(['/login'], { skipLocationChange: false });
   }
   save() { }

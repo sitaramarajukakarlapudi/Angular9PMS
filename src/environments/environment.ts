@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  serviceUrl: 'http://172.16.32.240/PMSWebAPI/api/',
+  // serviceUrl: 'https://localhost:44309/api/'
 };
 
 /*
