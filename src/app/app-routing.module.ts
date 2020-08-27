@@ -6,6 +6,8 @@ import { DashboardComponent } from './base/dashboard/dashboard.component';
 import { CreateissueComponent } from './issuetracker/createissue/createissue.component';
 import { LeavesComponent } from './leaves/leaves.component';
 import { IssuesComponent } from './issuetracker/issues/issues.component';
+import { ProjectsComponent } from './projects/projects/projects.component';
+import { CreateprojectComponent } from './projects/createproject/createproject.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,6 +21,8 @@ const routes: Routes = [
       { path: 'createissue', component: CreateissueComponent },
       { path: 'leaves', component: LeavesComponent },
       { path: 'issues', component: IssuesComponent },
+      { path: 'projects', component: ProjectsComponent },
+      { path: 'createproject', component: CreateprojectComponent },
     ], runGuardsAndResolvers: 'always',
   }
 ];
