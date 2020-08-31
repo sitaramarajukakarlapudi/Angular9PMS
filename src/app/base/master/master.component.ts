@@ -87,6 +87,8 @@ export class MasterComponent implements OnInit {
       this.router.navigate(['/menu/dashboard'], { skipLocationChange: false });
     } else if (itemName === 'issues') {
       this.router.navigate(['/menu/issues'], { skipLocationChange: false });
+    } else if (itemName === 'projects') {
+      this.router.navigate(['/menu/projects'], { skipLocationChange: false });
     }
   }
   btnLogout_Click() {
