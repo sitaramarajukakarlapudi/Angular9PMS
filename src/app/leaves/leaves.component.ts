@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Leave, LeaveMasterDetails } from '../_models/leaves';
-import { SelectItem } from 'primeng/api';
+import { SelectItem, MessageService } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CommonService } from '../_services/common/common.service';
 import { LeavesService } from '../_services/leaves/leaves.service';
+import { ReturnValue } from '../_models/common';
 
 @Component({
   selector: 'app-leaves',
@@ -38,7 +39,8 @@ export class LeavesComponent implements OnInit {
   constructor(
     private router: Router,
     private commonSvc: CommonService,
-    private leavesSvc: LeavesService
+    private leavesSvc: LeavesService,
+    private msgSvc: MessageService
   ) { }
 
   ngOnInit() {
@@ -48,6 +50,7 @@ export class LeavesComponent implements OnInit {
     this.isValidLocation = false;
     this.isNextClicked = false;
     this.leaveReason = '';
+    this.rangeDates = null;
     this.getLeaveTypes();
   }
 
@@ -203,8 +206,9 @@ export class LeavesComponent implements OnInit {
       for (j = 0; j < this.custF.length; j++) {
         try {
           this.leaveDetailsForm.addControl('FCDrptype_' + this.custF[j].id, new FormControl('', null));
-          this.leaveDetailsForm.addControl('FCDrpDuration_' + this.custF[j].id, new FormControl('', null));
-          this.leaveDetailsForm.addControl('FCDrpPeriod_' + this.custF[j].id, new FormControl({ value: null, disabled: true }, null));
+          this.leaveDetailsForm.addControl('FCDrpDuration_' + this.custF[j].id, new FormControl({ id: 1, name: 'Full Day' }, null));
+          this.leaveDetailsForm.addControl('FCDrpPeriod_' + this.custF[j].id,
+            new FormControl({ value: { id: 1, name: 'Before Lunch' }, disabled: true }));
         } catch (error) {
           console.log('Add Control' + error);
         }
@@ -264,6 +268,10 @@ export class LeavesComponent implements OnInit {
   }
 
   btnApply_Click() {
+    let leaveType = '';
+    let leaveDuration = '';
+    let leavePeriod = '';
+    let leaveDate = '';
     let isValid = true;
     if (this.selectedOffice['id'] === '0') {
       isValid = false;
@@ -296,6 +304,22 @@ export class LeavesComponent implements OnInit {
       this.leaveMasterDetails.noofDays = this.custF.length;
       this.leaveMasterDetails.leaveReason = this.leaveReason;
       this.leaveMasterDetails.userId = +this.employeeId;
+      for (let b = 0; b < this.custF.length; b++) {
+        const startDate = new Date(this.custF[b].date);
+        leaveDate += Number(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ',';
+        leaveType += this.leaveDetailsForm.get('FCDrptype_' + b).value.id + ',';
+        leaveDuration += this.leaveDetailsForm.get('FCDrpDuration_' + b).value.id + ',';
+        leavePeriod += this.leaveDetailsForm.get('FCDrpPeriod_' + b).value.id + ',';
+      }
+      this.leaveMasterDetails.leaveDate = leaveDate.replace(/,\s*$/, '');
+      this.leaveMasterDetails.leaveTypeId = leaveType.replace(/,\s*$/, '');
+      this.leaveMasterDetails.leaveDurationId = leaveDuration.replace(/,\s*$/, '');
+      this.leaveMasterDetails.leavePeriodId = leavePeriod.replace(/,\s*$/, '');
+      this.leavesSvc.insertLeaves(this.leaveMasterDetails).subscribe(
+        (saveData) => {
+          this.showErrorDetail(saveData, 'Leaves Applied');
+        }
+      );
     }
   }
 
@@ -308,6 +332,57 @@ export class LeavesComponent implements OnInit {
     }
   }
 
+  showErrorDetail(data: ReturnValue, Mode: string) {
+    if (data && data !== null && data.status && data.status.toString() !== '') {
+      switch (data.status.toString()) {
+        case 'Success':
+          this.msgSvc.add({
+            key: 'saveSuccess',
+            sticky: false,
+            severity: 'success',
+            summary: 'Info Message',
+            detail: Mode + ' successfully'
+          });
+          this.clearControls();
+          break;
+        case 'Error':
+          this.msgSvc.add({
+            key: 'saveError',
+            sticky: false,
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error Occurred'
+          });
+          break;
+        default:
+          this.msgSvc.add({
+            key: 'saveError',
+            sticky: false,
+            severity: 'error',
+            summary: 'Error',
+            detail: data.statusMessage.toString()
+          });
+          break;
+      }
+    } else {
+      this.msgSvc.add({
+        key: 'saveError',
+        sticky: false,
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Error Occurred'
+      });
+    }
+  }
 
+  clearControls() {
+    this.leaveDetailsForm.reset();
+    this.rangeDates = null;
+    this.selectedManager = this.managerTypes[0].value;
+    this.leaveReason = '';
+    this.selectedOffice = this.officeTypes[0].value;
+    this.isNextClicked = false;
+    this.isValidLocation = false;
+  }
 
 }
