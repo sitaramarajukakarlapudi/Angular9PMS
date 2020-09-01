@@ -4,11 +4,12 @@ import { MasterComponent } from './base/master/master.component';
 import { LoginComponent } from './base/login/login.component';
 import { DashboardComponent } from './base/dashboard/dashboard.component';
 import { CreateissueComponent } from './issuetracker/createissue/createissue.component';
-import { LeavesComponent } from './leaves/leaves.component';
 import { IssuesComponent } from './issuetracker/issues/issues.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { CreateprojectComponent } from './projects/createproject/createproject.component';
 import { AssignissuesComponent } from './issuetracker/assignissues/assignissues.component';
+import { LeaveapplyComponent } from './leaves/leaveapply/leaveapply.component';
+import { LeavehistoryComponent } from './leaves/leavehistory/leavehistory.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'createissue', component: CreateissueComponent },
-      { path: 'leaves', component: LeavesComponent },
+      { path: 'applyleaves', component: LeaveapplyComponent },
+      { path: 'leavehistory', component: LeavehistoryComponent },
       { path: 'issues', component: IssuesComponent },
       { path: 'projects', component: ProjectsComponent },
       { path: 'createproject', component: CreateprojectComponent },

@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   navigateToPage(srcFrom: string) {
     if (srcFrom && srcFrom !== '') {
       if (srcFrom === 'leaves') {
-        this.router.navigate(['/menu/leaves'], { skipLocationChange: false });
+        this.router.navigate(['/menu/applyleaves'], { skipLocationChange: false });
       }
     }
   }

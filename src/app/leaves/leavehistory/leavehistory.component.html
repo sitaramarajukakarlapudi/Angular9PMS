@@ -1,0 +1,70 @@
+<div class="ui-fluid p-formgrid p-grid" style="margin-left: auto;">
+    <div>
+        <button pButton type="button" label="Back" icon="pi pi-arrow-left" class="blackbackground" tooltip="Back"
+            (click)="btnBack_Click()" style="width: 7.0em;"></button>
+    </div>
+</div>
+<div style="height: 10px;"></div>
+<p-table [value]="leavesData" dataKey="leaveMasterId">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem"></th>
+            <th pSortableColumn="leaveFrom">Leave From <p-sortIcon field="leaveFrom"></p-sortIcon>
+            </th>
+            <th pSortableColumn="leaveTo">Leave To <p-sortIcon field="leaveTo"></p-sortIcon>
+            </th>
+            <th pSortableColumn="noOfDays">No Of Days <p-sortIcon field="noOfDays"></p-sortIcon>
+            </th>
+            <th pSortableColumn="leaveReason">Leave Reason <p-sortIcon field="leaveReason"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-leave let-expanded="expanded">
+        <tr>
+            <td>
+                <button type="button" pButton pRipple [pRowToggler]="leave"
+                    class="p-button-text p-button-rounded p-button-plain"
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
+            <td>{{leave.leaveFrom}}</td>
+            <td>{{leave.leaveTo}}</td>
+            <td>{{leave.noOfDays}}</td>
+            <td>{{leave.leaveReason}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-leave>
+        <tr>
+            <td colspan="5">
+                <div class="p-p-3">
+                    <p-table [value]="leave.children" dataKey="leaveDetailId">
+                        <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="leaveDate">Leave Date <p-sortIcon field="leaveDate"></p-sortIcon>
+            </th>
+            <th pSortableColumn="leaveType">Leave Type <p-sortIcon field="leaveType"></p-sortIcon>
+            </th>
+            <th pSortableColumn="duration">Duration <p-sortIcon field="duration"></p-sortIcon>
+            </th>
+            <th pSortableColumn="period">Period <p-sortIcon field="period"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-children>
+        <tr>
+            <td>{{children.leaveDate}}</td>
+            <td>{{children.leaveType}}</td>
+            <td>{{children.duration}}</td>
+            <td>{{children.period}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="4">There are no order for this product yet.</td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
