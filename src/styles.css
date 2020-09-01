@@ -91,4 +91,12 @@ body {
 .layout-topbar .ui-splitbutton.ui-buttonset .ui-button {
   height: 45px;
 }
+p-card > div{
+  padding:5px;
+}
+.issueBar .ui-sidebar{
+  top:50px;
+}
+
+
 

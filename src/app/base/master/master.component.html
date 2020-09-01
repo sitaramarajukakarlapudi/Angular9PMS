@@ -30,6 +30,9 @@
                 <li>
                     <div (click)="itemClick('issues')"><a>Issues</a></div>
                 </li>
+                <li>
+                    <div (click)="itemClick('board')"><a>Boards</a></div>
+                </li>
             </ul>
         </div>
         <div class="p-col-3 p-xl-3 p-lg-3 p-md-4 p-sm-6">
@@ -96,6 +99,6 @@
         </div>
     </div>
 </div> -->
-<div class="layout-content">
+<div  [ngClass]="noissuebar ? 'layout-content' : 'layout-content-pad'">
     <router-outlet></router-outlet>
 </div>
