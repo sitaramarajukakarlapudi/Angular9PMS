@@ -1,0 +1,109 @@
+<!-- <div class="p-grid p-align-center  p-nogutter vertical-container">
+    <div class="p-col-4">To Do</div>
+    <div class="p-col-4"> In Progress</div>
+    <div class="p-col-4">Done</div>
+    <div class="p-col-4" style="padding: 2px;">
+        <div class="p-grid">
+            <div class="p-col-12" *ngFor="let toDo of toDOlist">
+                <p-card>
+                    <p-header style="padding: 10px;">{{toDo.issueName}}</p-header>
+                </p-card>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-4" style="padding: 2px;">
+        <div class="p-grid">
+            <div class="p-col-12" *ngFor="let inPro of inProlist">
+                <p-card>
+                    <p-header style="padding: 10px;">{{inPro.issueName}}
+                    </p-header>
+                </p-card>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-4" style="padding: 2px;">
+        <div class="p-grid">
+            <div class="p-col-12" *ngFor="let done of donelist">
+                <p-card>
+                    <p-header style="padding: 10px;">{{done.issueName}}</p-header>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="p-grid p-align-stretch" style="margin: 0;">
+    <div class=" p-col-4">To Do</div>
+    <div class="p-col-4">In Progress</div>
+    <div class="p-col-4">Done</div>
+</div>
+<div class="p-grid p-align-stretch vertical-container">
+
+    <div class="p-col-4">
+        <div class="box box-stretched">
+            <div class="p-grid" style="padding: 5px;">
+                <div class="p-col-12" *ngFor="let toDo of toDOlist">
+                    <p-card (click)="cardClick()">
+                        <p-header>
+                            <div class="p-grid">
+                                <div class="p-col-6">
+                                    {{toDo.issueName}}
+                                </div>
+                                <div class="p-col-6" style="text-align: right;">
+                                    <i class="pi pi-arrow-right" style="cursor: pointer;"
+                                        (click)="moveIssue('Inprogress',toDo.issueName)"></i>
+                                </div>
+                            </div>
+                        </p-header>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-4">
+        <div class="box box-stretched">
+            <div class="p-grid" style="padding: 5px;">
+                <div class="p-col-12" *ngFor="let inPro of inProlist">
+                    <p-card (click)="cardClick()">
+                        <p-header>
+                            <div class="p-grid">
+                                <div class="p-col-6">
+                                    {{inPro.issueName}}
+                                </div>
+                                <div class="p-col-6" style="text-align: right;">
+                                    <i class="pi pi-arrow-left" style="cursor: pointer;padding-right: 10px;"
+                                        (click)="moveIssue('Todo',inPro.issueName)"></i>
+                                    <i class="pi pi-arrow-right" style="cursor: pointer;"
+                                        (click)="moveIssue('Done',inPro.issueName)"></i>
+                                </div>
+                            </div>
+                        </p-header>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-4">
+        <div class="box box-stretched">
+            <div class="p-grid" style="padding: 5px;">
+                <div class="p-col-12" *ngFor="let done of donelist">
+                    <p-card (click)="cardClick()">
+                        <p-header>
+                            <div class="p-grid">
+                                <div class="p-col-12">
+                                    {{done.issueName}}
+                                </div>
+                                <!-- <div class="p-col-6" style="text-align: right;">
+                                    <i class="pi pi-arrow-left" style="cursor: pointer;padding-right: 10px"  (click)="moveIssue('ToDo')"></i>
+                                    <i class="pi pi-arrow-right" style="cursor: pointer;"></i>
+                                </div> -->
+                            </div>
+                        </p-header>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-sidebar class="issueBar" (onHide)="setSidebarNormal()" [(visible)]="display" position="right" [modal]="false" [style]="{width:'30em'}">
+    Content
+</p-sidebar>

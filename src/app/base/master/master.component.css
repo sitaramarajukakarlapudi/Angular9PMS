@@ -12,6 +12,13 @@
 .layout-content {
   margin-top:60px;
   background-color: #fff;
+  transition: padding-right 0.5s ease;
+}
+.layout-content-pad{
+  margin-top:60px;
+  background-color: #fff;
+  padding-right: 26em;
+  transition: padding-right 0.5s ease;
 }
 /* .layout-topbar {
   background-color: #1a257a;

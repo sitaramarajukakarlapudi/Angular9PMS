@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { SharedService } from 'src/app/_services/shared/-shared.service';
 
 @Component({
   selector: 'app-master',
@@ -10,10 +11,12 @@ import { MenuItem } from 'primeng/api';
 export class MasterComponent implements OnInit {
   menu: any;
   clicked: string;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private sharedSer: SharedService) { }
   items: MenuItem[];
-
+  noissuebar: boolean;
   ngOnInit(): void {
+    this.sharedSer.currentLayoutClass.subscribe(status => this.noissuebar = status);
+    this.noissuebar = true;
     this.items = [
       {
         label: 'Dashboard',
@@ -45,6 +48,15 @@ export class MasterComponent implements OnInit {
       {
         label: 'Issues',
         command: () => this.itemClick('issues'),
+        // icon: 'pi pi-fw pi-pencil',
+        // items: [
+        //   { label: 'Delete', icon: 'pi pi-fw pi-trash' },
+        //   { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
+        // ]
+      },
+      {
+        label: 'Boards',
+        command: () => this.itemClick('board'),
         // icon: 'pi pi-fw pi-pencil',
         // items: [
         //   { label: 'Delete', icon: 'pi pi-fw pi-trash' },
@@ -89,6 +101,8 @@ export class MasterComponent implements OnInit {
       this.router.navigate(['/menu/issues'], { skipLocationChange: false });
     } else if (itemName === 'projects') {
       this.router.navigate(['/menu/projects'], { skipLocationChange: false });
+    } else if (itemName === 'board') {
+      this.router.navigate(['/menu/asssignissues'], { skipLocationChange: false });
     }
   }
   btnLogout_Click() {
@@ -96,4 +110,8 @@ export class MasterComponent implements OnInit {
     this.router.navigate(['/login'], { skipLocationChange: false });
   }
   save() { }
+  changeClass(value: boolean) {
+    console.log(value);
+    this.noissuebar = value;
+  }
 }
