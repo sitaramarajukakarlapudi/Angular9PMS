@@ -1,3 +1,7 @@
+<div style="text-align: right;">
+    <button pButton type="button" label="Leave History" class="ui-button-success" style="width: 9.0em;" (click)="btnLeaveHistory_Click()"></button>
+</div>
+<div style="height: 5px;"></div>
 <div class="ui-fluid p-formgrid">
     <p-panel [toggleable]="true" header="Apply Leave">
         <div class="ui-fluid p-formgrid p-grid">
@@ -69,7 +73,8 @@
         <div class="ui-fluid p-formgrid p-grid" *ngIf="isNextClicked">
             <div class="p-field p-col-12 p-md-4">
                 <label for="Issue Type">Leave Reason</label>
-                <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize" [(ngModel)]="leaveReason"></textarea>
+                <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"
+                    [(ngModel)]="leaveReason"></textarea>
             </div>
         </div>
         <p-footer>

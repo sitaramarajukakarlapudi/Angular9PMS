@@ -24,7 +24,6 @@ import { MasterComponent } from './base/master/master.component';
 import { LoginComponent } from './base/login/login.component';
 import { DashboardComponent } from './base/dashboard/dashboard.component';
 import { CreateissueComponent } from './issuetracker/createissue/createissue.component';
-import { LeavesComponent } from './leaves/leaves.component';
 
 
 import { IssuesComponent } from './issuetracker/issues/issues.component';
@@ -35,6 +34,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { CreateprojectComponent } from './projects/createproject/createproject.component';
+import { LeavehistoryComponent } from './leaves/leavehistory/leavehistory.component';
+import { LeaveapplyComponent } from './leaves/leaveapply/leaveapply.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,10 +43,11 @@ import { CreateprojectComponent } from './projects/createproject/createproject.c
     LoginComponent,
     DashboardComponent,
     CreateissueComponent,
-    LeavesComponent,
     IssuesComponent,
     ProjectsComponent,
-    CreateprojectComponent
+    CreateprojectComponent,
+    LeavehistoryComponent,
+    LeaveapplyComponent
   ],
   imports: [
     BrowserModule,

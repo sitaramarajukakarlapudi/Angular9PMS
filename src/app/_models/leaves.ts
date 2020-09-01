@@ -21,3 +21,20 @@ export class LeaveMasterDetails {
     leaveDurationId?: string;
     leavePeriodId?: string;
 }
+
+export class LeaveDetails {
+    leaveDetailId?: number;
+    leaveDate?: string;
+    leaveType?: string;
+    duration?: string;
+    period?: string;
+}
+
+export class LeaveMaster {
+    leaveMasterId?: number;
+    leaveFrom?: string;
+    leaveTo?: string;
+    noOfDays?: number;
+    leaveReason?: string;
+    children?: LeaveDetails[];
+}

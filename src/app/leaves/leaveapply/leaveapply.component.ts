@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Leave, LeaveMasterDetails } from '../_models/leaves';
 import { SelectItem, MessageService } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
-import { CommonService } from '../_services/common/common.service';
-import { LeavesService } from '../_services/leaves/leaves.service';
-import { ReturnValue } from '../_models/common';
+import { Leave, LeaveMasterDetails } from 'src/app/_models/leaves';
+import { CommonService } from 'src/app/_services/common/common.service';
+import { LeavesService } from 'src/app/_services/leaves/leaves.service';
+import { ReturnValue } from 'src/app/_models/common';
 
 @Component({
-  selector: 'app-leaves',
-  templateUrl: './leaves.component.html',
-  styleUrls: ['./leaves.component.css']
+  selector: 'app-leaveapply',
+  templateUrl: './leaveapply.component.html',
+  styleUrls: ['./leaveapply.component.css']
 })
-export class LeavesComponent implements OnInit {
+export class LeaveapplyComponent implements OnInit {
+
   rangeDates: Date[];
   isValidDateRange: boolean;
   isValidLocation: boolean;
@@ -385,4 +386,7 @@ export class LeavesComponent implements OnInit {
     this.isValidLocation = false;
   }
 
+  btnLeaveHistory_Click() {
+    this.router.navigate(['/menu/leavehistory'], { skipLocationChange: false });
+  }
 }
