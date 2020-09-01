@@ -11,6 +11,8 @@ import { LeaveMaster } from 'src/app/_models/leaves';
 export class LeavehistoryComponent implements OnInit {
   employeeId: string;
   leavesData: LeaveMaster[];
+  first = 0;
+  rows = 10;
 
   constructor(
     private router: Router,
@@ -31,9 +33,28 @@ export class LeavehistoryComponent implements OnInit {
       (data) => {
         this.leavesData = [];
         this.leavesData = data;
-        console.log(this.leavesData);
       }
     );
+  }
+
+  next() {
+    this.first = this.first + this.rows;
+  }
+
+  prev() {
+    this.first = this.first - this.rows;
+  }
+
+  reset() {
+    this.first = 0;
+  }
+
+  isLastPage(): boolean {
+    return this.leavesData ? this.first === (this.leavesData.length - this.rows) : true;
+  }
+
+  isFirstPage(): boolean {
+    return this.leavesData ? this.first === 0 : true;
   }
 
 }

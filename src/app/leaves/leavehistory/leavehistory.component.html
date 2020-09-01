@@ -5,7 +5,16 @@
     </div>
 </div>
 <div style="height: 10px;"></div>
-<p-table [value]="leavesData" dataKey="leaveMasterId">
+<div class="p-mb-3">
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()"
+        styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"
+        styleClass="p-button-text"></p-button>
+</div>
+<p-table [value]="leavesData" dataKey="leaveMasterId" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true"
+    [(first)]="first" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 3rem"></th>
