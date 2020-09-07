@@ -5,6 +5,7 @@ import { UserProjects } from 'src/app/_models/user';
 import { Login } from 'src/app/_models/login';
 import { UserService } from 'src/app/_services/user/user.service';
 import { IssuesService } from 'src/app/_services/issues/issues.service';
+import { Issues } from 'src/app/_models/issues';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,11 +23,12 @@ export class DashboardComponent implements OnInit {
   defalutProject: string;
   remainProjects: string;
   allProjects: UserProjects[];
-  projIssues: import("d:/GIT/Angular9/Angular9PMS/src/app/_models/issues").Issues[];
+  projIssues: Issues[];
   allIssuesCount: number;
   myIssuesCount: number;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private userService: UserService,
     private issuesService: IssuesService,
   ) { }
@@ -70,16 +72,16 @@ export class DashboardComponent implements OnInit {
     this.userService.getUserProjects(employeeId).subscribe(
       (data) => {
         if (data !== undefined && data != null) {
-          this.projects = data.map(function (proj) {
+          this.projects = data.map(function fun(proj) {
             return {
               label: proj.projectName,
               value: proj.projectId
             };
           });
-          this.defalutProject = data.filter(P => P.isDefault == 1)[0].projectName;
-          this.selectedProject = data.filter(P => P.isDefault == 1)[0].projectId;
+          this.defalutProject = data.filter(P => P.isDefault === 1)[0].projectName;
+          this.selectedProject = data.filter(P => P.isDefault === 1)[0].projectId;
 
-          const remainProjectsList = data.filter(P => P.isDefault == 0);
+          const remainProjectsList = data.filter(P => P.isDefault === 0);
           for (const projName of remainProjectsList) {
             if (this.remainProjects !== '') {
               this.remainProjects += ', ' + projName.projectName;
@@ -97,7 +99,7 @@ export class DashboardComponent implements OnInit {
       (data) => {
         console.log(data);
         if (data !== undefined && data != null) {
-          this.projIssues = data.filter(P => P.projectId == projId);
+          this.projIssues = data.filter(P => P.projectId === projId);
           this.allIssuesCount = this.projIssues.length;
           this.myIssuesCount = this.projIssues.length;
         }

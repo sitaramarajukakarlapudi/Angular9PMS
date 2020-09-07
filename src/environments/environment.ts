@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //serviceUrl: 'http://172.16.32.240/PMSWebAPI/api/',
-  serviceUrl: 'https://localhost:44309/api/'
+  serviceUrl: 'http://172.16.32.240/PMSWebAPI/api/',
+  // serviceUrl: 'https://localhost:44309/api/'
 };
 
 /*
