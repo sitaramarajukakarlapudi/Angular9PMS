@@ -97,9 +97,8 @@ export class DashboardComponent implements OnInit {
   getAllIssues(projId: string) {
     this.issuesService.getAllIssues().subscribe(
       (data) => {
-        console.log(data);
         if (data !== undefined && data != null) {
-          this.projIssues = data.filter(P => P.projectId === projId);
+          this.projIssues = data.filter(P => P.projectId.toString() === projId.toString());
           this.allIssuesCount = this.projIssues.length;
           this.myIssuesCount = this.projIssues.length;
         }
