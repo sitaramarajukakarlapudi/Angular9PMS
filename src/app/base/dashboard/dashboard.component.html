@@ -1,41 +1,42 @@
 <div class="p-grid">
-    <div class="p-field p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+    <div class="p-field p-col-12 p-xl-3 p-lg-3 p-md-3  p-sm-12">
         <p-card [style]="{'background-color': '#eaeab6'}">
-            <p-header>
+            <!-- <p-header>
                 <div style="padding: 10px;font-size: 18px !important;font-weight: bold"> Profile</div>
-            </p-header>
+            </p-header> -->
             <div class="p-grid" style="height: 7.6em;">
                 <div class="p-col-12 p-xl-4 p-lg-4 p-md-4  p-sm-12">
                     <div class="user" style="background-image: url(../assets/images/{{profilePath}});">
                     </div>
                 </div>
                 <div class="p-col-12 p-xl-8 p-lg-8 p-md-8  p-sm-12" style="margin: auto;">
-                    <div>Sudheer Bijinepalli</div>
+                    <div>{{empUserName}}</div>
                     <div style="height: 5px;"></div>
-                    <div>Tech Project Leader</div>
+                    <div>{{empDesignation}}</div>
                     <div style="height: 5px;"></div>
-                    <div><b>DOJ :</b> 19 Aug 2003</div>
+                    <div><b>DOJ :</b> {{empDOJ | date}}</div>
                 </div>
             </div>
         </p-card>
     </div>
-    <div class="p-field p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+    <div class="p-field p-col-12 p-xl-3 p-lg-3 p-md-3  p-sm-12">
         <p-card [style]="{'background-color': '#c3b5e2'}">
-            <p-header>
+            <!-- <p-header>
                 <div style="padding: 10px;font-size: 18px !important;font-weight: bold"> Projects</div>
-            </p-header>
+            </p-header> -->
             <div style="height: 7.0em;">
+                <div><b style="font-size: 18px;">Project(s)</b> </div>
                 <div style="height: 5px;"></div>
-                <div><b>Primary :</b> Elroi</div>
+                <div><b>Primary :</b> {{defalutProject}}</div>
                 <div style="height: 5px;"></div>
-                <div><b>Secondary :</b> Time System, Lifespeed</div>
+                <div><b>Secondary :</b> {{remainProjects}}</div>
             </div>
         </p-card>
     </div>
 </div>
 <div class="p-grid">
     <div class="p-col-12">
-        <label for="Project">Project</label>
+        <label for="Project">Project(s)</label>
         <div style="height: 5px;"></div>
         <div class="ui-fluid">
             <p-dropdown [options]="projects" [(ngModel)]="selectedProject" [style]="{width: 'auto'}"
@@ -48,33 +49,42 @@
     <div class="p-col-12 p-xl-3 p-lg-3 p-md-6  p-sm-12">
         <div class="p-grid">
             <div class="p-col-12 p-xl-4 p-lg-4 p-md-4 p-sm-12" style="padding-right: 0rem;">
-                <p-card [style]="{'background-color': '#eaeab6','text-align': 'center','height': '6em'}"><label
-                        style="font-weight: bold;font-size: 30px;">10</label></p-card>
+                <p-card class="customCardRight"
+                    [style]="{'background-color': '#7864a0','text-align': 'center','height': '6em'}"><label
+                        style="font-weight: bold;font-size: 30px">10</label>
+                </p-card>
             </div>
             <div class="p-col-12 p-xl-8 p-lg-8 p-md-8 p-sm-12" style="padding-left: 0rem;">
-                <p-card [style]="{'background-color': '#eaeab6','height': '6em'}">My open Issues</p-card>
+                <p-card class="customCardLeft"
+                    [style]="{'background-color': '#665191','height': '6em','text-align': 'center'}">
+                    <label>My Issues</label>
+                </p-card>
             </div>
         </div>
     </div>
     <div class="p-col-12 p-xl-3 p-lg-3 p-md-6  p-sm-12">
         <div class="p-grid">
             <div class="p-col-12 p-xl-4 p-lg-4 p-md-4 p-sm-12" style="padding-right: 0rem;">
-                <p-card [style]="{'background-color': '#c3b5e2','text-align': 'center','height': '6em'}"><label
-                        style="font-weight: bold;font-size: 30px;">23</label></p-card>
+                <p-card class="customCardRight"
+                    [style]="{'background-color': '#f3bc55','text-align': 'center','height': '6em'}"><label
+                        style="font-weight: bold;font-size: 30px;">{{allIssuesCount}}</label></p-card>
             </div>
             <div class="p-col-12 p-xl-8 p-lg-8 p-md-8 p-sm-12" style="padding-left: 0rem;">
-                <p-card [style]="{'background-color': '#c3b5e2','height': '6em'}">All Issues</p-card>
+                <p-card class="customCardLeft" [style]="{'background-color': '#ffa600','height': '6em'}">All Issues
+                </p-card>
             </div>
         </div>
     </div>
     <div class="p-col-12 p-xl-3 p-lg-3 p-md-6  p-sm-12">
         <div class="p-grid">
             <div class="p-col-12 p-xl-4 p-lg-4 p-md-4 p-sm-12" style="padding-right: 0rem;">
-                <p-card [style]="{'background-color': '#eaeab6','text-align': 'center','height': '6em'}"><label
+                <p-card class="customCardRight"
+                    [style]="{'background-color': '#ce67a4','text-align': 'center','height': '6em'}"><label
                         style="font-weight: bold;font-size: 30px;">0</label></p-card>
             </div>
             <div class="p-col-12 p-xl-8 p-lg-8 p-md-8 p-sm-12" style="padding-left: 0rem;">
-                <p-card [style]="{'background-color': '#eaeab6','height': '6em'}">Leaves applied in the month of Sep
+                <p-card class="customCardLeft" [style]="{'background-color': '#bc5090','height': '6em'}">Leaves applied
+                    in the month of Sep
                     2020</p-card>
             </div>
         </div>
@@ -82,11 +92,13 @@
     <div class="p-col-12 p-xl-3 p-lg-3 p-md-6  p-sm-12">
         <div class="p-grid">
             <div class="p-col-12 p-xl-4 p-lg-4 p-md-4 p-sm-12" style="padding-right: 0rem;">
-                <p-card [style]="{'background-color': '#c3b5e2','text-align': 'center','height': '6em'}"><label
+                <p-card class="customCardRight"
+                    [style]="{'background-color': '#f7707b','text-align': 'center','height': '6em'}"><label
                         style="font-weight: bold;font-size: 30px;">3</label></p-card>
             </div>
             <div class="p-col-12 p-xl-8 p-lg-8 p-md-8 p-sm-12" style="padding-left: 0rem;">
-                <p-card [style]="{'background-color': '#c3b5e2','height': '6em'}">Leaves waiting for Approval</p-card>
+                <p-card class="customCardLeft" [style]="{'background-color': '#f95d6a','height': '6em'}">Leaves waiting
+                    for Approval</p-card>
             </div>
         </div>
     </div>

@@ -42,7 +42,7 @@
         <div class="box box-stretched">
             <div class="p-grid" style="padding: 5px;">
                 <div class="p-col-12" *ngFor="let toDo of toDOlist">
-                    <p-card (click)="cardClick()">
+                    <p-card class="issueMoving" (click)="cardClick()">
                         <p-header>
                             <div class="p-grid">
                                 <div class="p-col-6">
@@ -63,7 +63,7 @@
         <div class="box box-stretched">
             <div class="p-grid" style="padding: 5px;">
                 <div class="p-col-12" *ngFor="let inPro of inProlist">
-                    <p-card (click)="cardClick()">
+                    <p-card class="issueMoving" (click)="cardClick()">
                         <p-header>
                             <div class="p-grid">
                                 <div class="p-col-6">
@@ -86,7 +86,7 @@
         <div class="box box-stretched">
             <div class="p-grid" style="padding: 5px;">
                 <div class="p-col-12" *ngFor="let done of donelist">
-                    <p-card (click)="cardClick()">
+                    <p-card class="issueMoving" (click)="cardClick()">
                         <p-header>
                             <div class="p-grid">
                                 <div class="p-col-12">

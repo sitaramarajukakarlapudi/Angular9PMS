@@ -91,12 +91,21 @@ body {
 .layout-topbar .ui-splitbutton.ui-buttonset .ui-button {
   height: 45px;
 }
-p-card > div{
+p-card.issueMoving > div{
   padding:5px;
 }
 .issueBar .ui-sidebar{
   top:50px;
 }
-
+.customCardRight .ui-card{
+  border-top-right-radius:0px !important;
+  border-bottom-right-radius:0px !important;
+  box-shadow:none;
+}
+.customCardLeft .ui-card{
+  border-top-left-radius:0px !important;
+  border-bottom-left-radius:0px !important;
+  box-shadow:none;
+}
 
 

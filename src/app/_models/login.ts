@@ -7,4 +7,7 @@ export class Login {
     code?: string;
     errorMsg?: string;
     managerId?: string;
+    doj?: string;
+    designation?: string;
 }
+

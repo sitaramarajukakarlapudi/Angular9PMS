@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit {
     this.resetForm();
     this.loginSvc.authenticateUser(req).subscribe(
       (data) => {
+        console.log(data);
         if (data !== undefined && data != null) {
           if (data.errorMsg != null && data.errorMsg !== '') {
             this.messageService.add({
@@ -76,6 +77,9 @@ export class LoginComponent implements OnInit {
             });
           } else {
             sessionStorage.setItem('employeeId', data.employeeId.toString());
+            sessionStorage.setItem('doj', data.doj.toString());
+            sessionStorage.setItem('designation', data.designation.toString());
+            sessionStorage.setItem('userName', data.userName.toString());
             const masterdash = '/menu/dashboard';
             this.router.navigate([masterdash], { skipLocationChange: false });
           }
