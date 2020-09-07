@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
   projIssues: Issues[];
   allIssuesCount: number;
   myIssuesCount: number;
+  cols: { field: string; header: string; width: string }[];
+  userIssues: Issues[];
 
   constructor(
     private router: Router,
@@ -48,6 +50,11 @@ export class DashboardComponent implements OnInit {
     ];
     this.selectedProject = this.projects.filter(m => m.label === 'Elroi')[0].value;
     this.getUserProjects();
+    this.cols = [
+      { field: 'issueType', header: 'Issue Type', width: '120px' },
+      { field: 'summary', header: 'Summary', width: '' },
+      { field: 'status', header: 'Issue Status', width: '' }
+    ];
   }
 
   projectChange() {
@@ -99,6 +106,8 @@ export class DashboardComponent implements OnInit {
       (data) => {
         if (data !== undefined && data != null) {
           this.projIssues = data.filter(P => P.projectId.toString() === projId.toString());
+          this.userIssues = data.filter(P => P.assignedTo === this.empUserName);
+          console.log(this.userIssues);
           this.allIssuesCount = this.projIssues.length;
           this.myIssuesCount = this.projIssues.length;
         }

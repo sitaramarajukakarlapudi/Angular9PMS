@@ -107,5 +107,7 @@ p-card.issueMoving > div{
   border-bottom-left-radius:0px !important;
   box-shadow:none;
 }
-
+.customCardRight .ui-card-body, .customCardLeft .ui-card-body{
+  padding:0.5em;
+}
 
