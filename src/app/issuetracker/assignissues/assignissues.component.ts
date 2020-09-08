@@ -39,7 +39,7 @@ export class AssignissuesComponent implements OnInit {
     this.sharedSer.changeLayoutClass(false);
     console.log('ddd');
   }
-  setSidebarNormal() { 
+  setSidebarNormal() {
     this.sharedSer.changeLayoutClass(true);
   }
 }

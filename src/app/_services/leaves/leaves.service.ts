@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SelectItem } from 'primeng/api';
 import { ReturnValue } from 'src/app/_models/common';
-import { LeaveMasterDetails, LeaveMaster } from 'src/app/_models/leaves';
+import { LeaveMasterDetails, LeaveMaster, LeaveHistory } from 'src/app/_models/leaves';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,20 @@ export class LeavesService {
     const params = new HttpParams()
       .set('employeeId', employeeId.toString());
     return this.http.get<LeaveMaster[]>(this.serviceURL + 'GetLeaveHistory',
+      { headers: this.getHttpOptions(), params });
+  }
+
+  getLeaves(employeeId: string) {
+    const params = new HttpParams()
+      .set('employeeId', employeeId.toString());
+    return this.http.get<LeaveHistory[]>(this.serviceURL + 'GetLeaves',
+      { headers: this.getHttpOptions(), params });
+  }
+
+  getApprovalLeaves(employeeId: string) {
+    const params = new HttpParams()
+      .set('employeeId', employeeId.toString());
+    return this.http.get<LeaveHistory[]>(this.serviceURL + 'GetApprovalLeaves',
       { headers: this.getHttpOptions(), params });
   }
 

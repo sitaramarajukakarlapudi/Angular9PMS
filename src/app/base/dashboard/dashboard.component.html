@@ -51,12 +51,11 @@
             <div class="p-col-12 p-xl-4 p-lg-4 p-md-4 p-sm-12" style="padding-right: 0rem;">
                 <p-card class="customCardRight"
                     [style]="{'background-color': '#8f7cb5','text-align': 'center','height': '4em'}"><label
-                        style="font-weight: bold;font-size: 30px">10</label>
+                        style="font-weight: bold;font-size: 30px">{{myIssuesCount}}</label>
                 </p-card>
             </div>
             <div class="p-col-12 p-xl-8 p-lg-8 p-md-8 p-sm-12" style="padding-left: 0rem;">
-                <p-card class="customCardLeft"
-                    [style]="{'background-color': '#7864a0','height': '4em'}">
+                <p-card class="customCardLeft" [style]="{'background-color': '#7864a0','height': '4em'}">
                     <label>My Issues</label>
                 </p-card>
             </div>
@@ -80,7 +79,7 @@
             <div class="p-col-12 p-xl-4 p-lg-4 p-md-4 p-sm-12" style="padding-right: 0rem;">
                 <p-card class="customCardRight"
                     [style]="{'background-color': '#ce67a4','text-align': 'center','height': '4em'}"><label
-                        style="font-weight: bold;font-size: 30px;">0</label></p-card>
+                        style="font-weight: bold;font-size: 30px;">{{leavesCount}}</label></p-card>
             </div>
             <div class="p-col-12 p-xl-8 p-lg-8 p-md-8 p-sm-12" style="padding-left: 0rem;">
                 <p-card class="customCardLeft" [style]="{'background-color': '#bc5090','height': '4em'}">Leaves applied
@@ -94,7 +93,7 @@
             <div class="p-col-12 p-xl-4 p-lg-4 p-md-4 p-sm-12" style="padding-right: 0rem;">
                 <p-card class="customCardRight"
                     [style]="{'background-color': '#f7707b','text-align': 'center','height': '4em'}"><label
-                        style="font-weight: bold;font-size: 30px;">3</label></p-card>
+                        style="font-weight: bold;font-size: 30px;">{{approvalLeavesCount}}</label></p-card>
             </div>
             <div class="p-col-12 p-xl-8 p-lg-8 p-md-8 p-sm-12" style="padding-left: 0rem;">
                 <p-card class="customCardLeft" [style]="{'background-color': '#f95d6a','height': '4em'}">Leaves waiting
@@ -107,7 +106,6 @@
     <div class="p-col-12 p-xl-3 p-lg-3 p-md-6  p-sm-12">
         <p-table [columns]="cols" [value]="userIssues" [responsive]="true">
             <ng-template pTemplate="header" let-columns>
-
                 <tr>
                     <th *ngFor="let col of columns" [width]="col.width">
                         {{col.header}}
@@ -134,7 +132,6 @@
     <div class="p-col-12 p-xl-3 p-lg-3 p-md-6  p-sm-12">
         <p-table [columns]="cols" [value]="projIssues" [responsive]="true">
             <ng-template pTemplate="header" let-columns>
-
                 <tr>
                     <th *ngFor="let col of columns" [width]="col.width">
                         {{col.header}}
@@ -157,5 +154,58 @@
                 </tr>
             </ng-template>
         </p-table>
+    </div>
+    <div class="p-col-12 p-xl-3 p-lg-3 p-md-6  p-sm-12">
+        <p-card>
+            <div *ngIf="leavesCount == 0">No Leaves Applied</div>
+            <div class="p-grid" *ngFor="let lData of leavesData" [style.background-color]="lData.color">
+                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+                    {{lData.userName}}
+                </div>
+                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12" style="text-align: right;">
+                    <i class="fa fa-edit" aria-hidden="true"></i> Edit
+                </div>
+                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+                    Status : {{lData.status}}
+                </div>
+                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12" style="text-align: right;">
+                    Days : {{lData.noOfDays}}
+                </div>
+            </div>
+            <p-footer>
+                <div class="p-grid">
+                    <div class="p-col-12 p-xl-6 p-lg-6 p-md-6 p-sm-12">
+                        <p-button label="Apply" (click)="btnApply_Click()"></p-button>
+                    </div>
+                    <div class="p-col-12 p-xl-6 p-lg-6 p-md-6 p-sm-12" style="text-align: right;">
+                        <p-button label="Leave History" (click)="btnLeaveHistory_Click()"></p-button>
+                    </div>
+                </div>
+            </p-footer>
+        </p-card>
+    </div>
+    <div class="p-col-12 p-xl-3 p-lg-3 p-md-6  p-sm-12">
+        <p-card>
+            <div *ngIf="approvalLeavesCount == 0">No Leaves Found</div>
+            <div class="p-grid" *ngFor="let lData of leavesApprovalData" [style.background-color]="lData.color">
+                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+                    {{lData.userName}}
+                </div>
+                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12" style="text-align: right;">
+                    <i class="fa fa-eye" aria-hidden="true"></i> View
+                </div>
+                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+                    Type : {{lData.leaveType}}
+                </div>
+                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12" style="text-align: right;">
+                    Days : {{lData.noOfDays}}
+                </div>
+            </div>
+            <p-footer>
+                <div style="text-align: right;">
+                    <p-button label="Show All Data"></p-button>
+                </div>
+            </p-footer>
+        </p-card>
     </div>
 </div>

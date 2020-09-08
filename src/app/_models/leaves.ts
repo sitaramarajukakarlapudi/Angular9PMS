@@ -38,3 +38,14 @@ export class LeaveMaster {
     leaveReason?: string;
     children?: LeaveDetails[];
 }
+
+export class LeaveHistory {
+    leaveMasterId?: number;
+    userName?: string;
+    leaveFrom?: string;
+    leaveTo?: string;
+    noOfDays?: number;
+    status?: string;
+    color?: string;
+    leaveType?: string;
+}
