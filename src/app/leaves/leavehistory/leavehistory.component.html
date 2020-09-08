@@ -18,6 +18,8 @@
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 3rem"></th>
+            <th pSortableColumn="userName">Employee Name <p-sortIcon field="userName"></p-sortIcon>
+            </th>
             <th pSortableColumn="leaveFrom">Leave From <p-sortIcon field="leaveFrom"></p-sortIcon>
             </th>
             <th pSortableColumn="leaveTo">Leave To <p-sortIcon field="leaveTo"></p-sortIcon>
@@ -35,6 +37,7 @@
                     class="p-button-text p-button-rounded p-button-plain"
                     [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
             </td>
+            <td>{{leave.userName}}</td>
             <td>{{leave.leaveFrom}}</td>
             <td>{{leave.leaveTo}}</td>
             <td>{{leave.noOfDays}}</td>
@@ -43,7 +46,7 @@
     </ng-template>
     <ng-template pTemplate="rowexpansion" let-leave>
         <tr>
-            <td colspan="5">
+            <td colspan="6">
                 <div class="p-p-3">
                     <p-table [value]="leave.children" dataKey="leaveDetailId">
                         <ng-template pTemplate="header">

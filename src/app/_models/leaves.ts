@@ -36,6 +36,7 @@ export class LeaveMaster {
     leaveTo?: string;
     noOfDays?: number;
     leaveReason?: string;
+    userName?: string;
     children?: LeaveDetails[];
 }
 
