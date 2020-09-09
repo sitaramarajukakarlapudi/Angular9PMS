@@ -204,31 +204,30 @@
                         style="font-size: 18px;">Leaves waiting for Approval</label></p-card>
             </div>
             <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="padding-top: 0rem;">
-                <p-card>
-                    <div *ngIf="approvalLeavesCount == 0">No Leaves Found</div>
-                    <div class="p-grid" *ngFor="let lData of leavesApprovalData"
-                        style="border-bottom: 1px solid black;">
-                        <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                            <img src="../assets/images/{{profilePath}}" width="25" style="vertical-align: middle" />
-                            <span> {{lData.userName}}</span>
+                <div *ngIf="approvalLeavesCount == 0">No Leaves Found</div>
+                <div class="p-grid" style="padding:5px" *ngFor="let lData of leavesApprovalData">
+                    <p-card>
+                        <div class="p-grid">
+                            <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
+                                <img src="../assets/images/{{profilePath}}" width="25" style="vertical-align: middle" />
+                                <span> {{lData.userName}}</span>
+                            </div>
+                            <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
+                                <i class="fa fa-eye" aria-hidden="true"></i> View
+                            </div>
+                            <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
+                                <span [class]="'customer-badge status-' + lData.leaveType">{{lData.leaveType}}</span>
+                            </div>
+                            <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
+                                Days : {{lData.noOfDays}}
+                            </div>
                         </div>
-                        <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
-                            <i class="fa fa-eye" aria-hidden="true"></i> View
-                        </div>
-                        <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                            <span [class]="'customer-badge status-' + lData.leaveType">{{lData.leaveType}}</span>
-                        </div>
-                        <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
-                            Days : {{lData.noOfDays}}
-                        </div>
-                    </div>
-                    <p-footer>
-                        <div style="text-align: right;">
-                            <button pButton type="button" label="Show All Data" (click)="btnLeaveHistory_Click()"
-                                class="ui-button-rounded ui-button-success"></button>
-                        </div>
-                    </p-footer>
-                </p-card>
+                    </p-card>
+                </div>
+                <div style="text-align: right;">
+                    <button pButton type="button" label="Show All Data" (click)="btnLeaveHistory_Click()"
+                        class="ui-button-rounded ui-button-success"></button>
+                </div>
             </div>
         </div>
     </div>
