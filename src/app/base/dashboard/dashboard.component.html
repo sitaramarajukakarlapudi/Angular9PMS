@@ -161,25 +161,25 @@
         <p-card>
             <div *ngIf="leavesCount == 0">No Leaves Applied</div>
             <div class="p-grid" *ngFor="let lData of leavesData" [style.background-color]="lData.color">
-                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+                <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6">
                     {{lData.userName}}
                 </div>
-                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12" style="text-align: right;">
+                <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6" style="text-align: right;">
                     <i class="fa fa-edit" aria-hidden="true"></i> Edit
                 </div>
-                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+                <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6">
                     Status : {{lData.status}}
                 </div>
-                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12" style="text-align: right;">
+                <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6" style="text-align: right;">
                     Days : {{lData.noOfDays}}
                 </div>
             </div>
             <p-footer>
                 <div class="p-grid">
-                    <div class="p-col-12 p-xl-6 p-lg-6 p-md-6 p-sm-12">
+                    <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6">
                         <p-button label="Apply" (click)="btnApply_Click()"></p-button>
                     </div>
-                    <div class="p-col-12 p-xl-6 p-lg-6 p-md-6 p-sm-12" style="text-align: right;">
+                    <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6" style="text-align: right;">
                         <p-button label="Leave History" (click)="btnLeaveHistory_Click()"></p-button>
                     </div>
                 </div>
@@ -190,16 +190,16 @@
         <p-card>
             <div *ngIf="approvalLeavesCount == 0">No Leaves Found</div>
             <div class="p-grid" *ngFor="let lData of leavesApprovalData" [style.background-color]="lData.color">
-                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+                <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6">
                     {{lData.userName}}
                 </div>
-                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12" style="text-align: right;">
+                <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6" style="text-align: right;">
                     <i class="fa fa-eye" aria-hidden="true"></i> View
                 </div>
-                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12">
+                <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6">
                     Type : {{lData.leaveType}}
                 </div>
-                <div class="p-col-12 p-xl-6 p-lg-6 p-md-6  p-sm-12" style="text-align: right;">
+                <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6" style="text-align: right;">
                     Days : {{lData.noOfDays}}
                 </div>
             </div>
