@@ -17,6 +17,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.header {
+  font-family: "madina";
+  font-size: 30pt !important;
+  color: #333;
+}
+
+.sectionheader {
+  font-family: "madina";
+  font-size: 20pt !important;
+  color: brown;
+  text-align: center;
+}
+
+.headerlabel {
+  font-family: "yahatsuPu";
+  font-size: 15pt;
+  color: #333;
+}
+
 .ui-button .pi {
   font-size: 1.05em !important;
 }

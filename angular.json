@@ -25,6 +25,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/assets/fonts/pmsfonts.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
@@ -99,6 +100,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/assets/fonts/pmsfonts.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
