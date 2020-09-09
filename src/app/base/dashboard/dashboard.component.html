@@ -190,8 +190,8 @@
             </div>
         </div>
     </div>
-    <div class="p-col-12 p-xl-3 p-lg-3 p-md-6 p-sm-12">
-        <div class="p-grid" style="border: 1px solid black">
+    <div class="p-col-12 p-xl-3 p-lg-3 p-md-6 p-sm-12" style="padding-right: 15px;">
+        <div class="p-grid" style="border: 1px solid #a8eae9">
             <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="padding-right: 0rem;">
                 <p-card class="customCardRight"
                     [style]="{'background-color': '#f7707b','text-align': 'center','height': '4em'}"><label
@@ -204,9 +204,12 @@
             <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="padding-top: 0rem;">
                 <p-card>
                     <div *ngIf="approvalLeavesCount == 0">No Leaves Found</div>
-                    <div class="p-grid" *ngFor="let lData of leavesApprovalData" style="border-bottom: 1px solid black;">
+                    <div class="p-grid" *ngFor="let lData of leavesApprovalData"
+                        style="border-bottom: 1px solid black;">
                         <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                            {{lData.userName}}
+                            <img src="../assets/images/{{profilePath}}"
+                                width="25" style="vertical-align: middle" />
+                            <span> {{lData.userName}}</span>
                         </div>
                         <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
                             <i class="fa fa-eye" aria-hidden="true"></i> View
