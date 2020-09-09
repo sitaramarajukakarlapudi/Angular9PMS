@@ -203,7 +203,7 @@
                 <p-card class="customCardLeft" [style]="{'background-color': 'aliceblue','height': '4em'}"><label
                         style="font-size: 18px;">Leaves waiting for Approval</label></p-card>
             </div>
-            <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="padding-top: 0rem;">
+            <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="padding-top: 0rem;background-color: lightgray;">
                 <div *ngIf="approvalLeavesCount == 0">No Leaves Found</div>
                 <div style="padding:5px;" *ngFor="let lData of leavesApprovalData">
                     <p-card>
