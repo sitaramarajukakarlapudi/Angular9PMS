@@ -179,10 +179,12 @@
                     <p-footer>
                         <div class="p-grid">
                             <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6">
-                                <p-button label="Apply" (click)="btnApply_Click()"></p-button>
+                                <button pButton type="button" label="Apply" (click)="btnApply_Click()"
+                                    class="ui-button-rounded ui-button-success"></button>
                             </div>
                             <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6" style="text-align: right;">
-                                <p-button label="Leave History" (click)="btnLeaveHistory_Click()"></p-button>
+                                <button pButton type="button" label="Leave History" (click)="btnLeaveHistory_Click()"
+                                    class="ui-button-rounded ui-button-success"></button>
                             </div>
                         </div>
                     </p-footer>
@@ -207,8 +209,7 @@
                     <div class="p-grid" *ngFor="let lData of leavesApprovalData"
                         style="border-bottom: 1px solid black;">
                         <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                            <img src="../assets/images/{{profilePath}}"
-                                width="25" style="vertical-align: middle" />
+                            <img src="../assets/images/{{profilePath}}" width="25" style="vertical-align: middle" />
                             <span> {{lData.userName}}</span>
                         </div>
                         <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
@@ -223,7 +224,8 @@
                     </div>
                     <p-footer>
                         <div style="text-align: right;">
-                            <p-button label="Show All Data"></p-button>
+                            <button pButton type="button" label="Show All Data" (click)="btnLeaveHistory_Click()"
+                                class="ui-button-rounded ui-button-success"></button>
                         </div>
                     </p-footer>
                 </p-card>
