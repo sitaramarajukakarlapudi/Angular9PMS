@@ -86,7 +86,6 @@ export class DashboardComponent implements OnInit {
   getUserProjects() {
     this.remainProjects = '';
     const employeeId = sessionStorage.getItem('employeeId');
-    console.log(employeeId);
     this.userService.getUserProjects(employeeId).subscribe(
       (data) => {
         if (data !== undefined && data != null) {
@@ -115,11 +114,12 @@ export class DashboardComponent implements OnInit {
   getAllIssues(projId: string) {
     this.issuesService.getAllIssues().subscribe(
       (data) => {
+        console.log(data);
         if (data !== undefined && data != null) {
           this.projIssues = data.filter(P => P.projectId.toString() === projId.toString());
           this.userIssues = data.filter(P => P.assignedTo === this.empUserName);
           this.allIssuesCount = this.projIssues.length;
-          this.myIssuesCount = this.projIssues.length;
+          this.myIssuesCount = this.userIssues.length;
         }
         this.getLeavesCount();
       });
