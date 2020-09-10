@@ -147,7 +147,7 @@
             </div>
         </div>
     </div>
-    <div class="p-col-12 p-xl-3 p-lg-3 p-md-6 p-sm-12">
+    <!-- <div class="p-col-12 p-xl-3 p-lg-3 p-md-6 p-sm-12">
         <div class="p-grid">
             <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="padding-right: 0rem;">
                 <p-card class="customCardRight"
@@ -191,6 +191,55 @@
                 </p-card>
             </div>
         </div>
+    </div> -->
+    <div class="p-col-12 p-xl-3 p-lg-3 p-md-6 p-sm-12" style="padding-right: 15px;">
+        <div class="p-grid" style="border: 1px solid #a8eae9">
+            <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="padding-right: 0rem;">
+                <p-card class="customCardRight"
+                    [style]="{'background-color': '#ce67a4','text-align': 'center','height': '4em'}"><label
+                        style="font-weight: bold;font-size: 30px;">{{leavesCount}}</label></p-card>
+            </div>
+            <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8" style="padding-left: 0rem;">
+                <p-card class="customCardLeft" [style]="{'background-color': 'aliceblue','height': '4em'}"><label
+                        style="font-size: 18px;">Leaves applied in the month of Sep 2020</label></p-card>
+            </div>
+            <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12"
+                style="padding-top: 0rem;background-color: lightgray;">
+                <div style="height: 27em;overflow-y: auto;">
+                    <div *ngIf="leavesCount == 0" style="margin-top: 13em;margin-left: 6em;">No Leaves Applied</div>
+                    <div style="padding:5px;" *ngFor="let lData of leavesData">
+                        <p-card>
+                            <div class="p-grid">
+                                <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
+                                    <img src="../assets/images/{{profilePath}}" width="25"
+                                        style="vertical-align: middle" />
+                                    <span> {{lData.userName}}</span>
+                                </div>
+                                <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
+                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit
+                                </div>
+                                <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
+                                    <span [class]="'customer-badge status-' + lData.status">{{lData.status}}</span>
+                                </div>
+                                <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
+                                    Days : {{lData.noOfDays}}
+                                </div>
+                            </div>
+                        </p-card>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6">
+                        <button pButton type="button" label="Apply" (click)="btnApply_Click()"
+                            class="ui-button-rounded ui-button-success"></button>
+                    </div>
+                    <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6" style="text-align: right;">
+                        <button pButton type="button" label="Leave History" (click)="btnLeaveHistory_Click()"
+                            class="ui-button-rounded ui-button-success"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="p-col-12 p-xl-3 p-lg-3 p-md-6 p-sm-12" style="padding-right: 15px;">
         <div class="p-grid" style="border: 1px solid #a8eae9">
@@ -203,30 +252,38 @@
                 <p-card class="customCardLeft" [style]="{'background-color': 'aliceblue','height': '4em'}"><label
                         style="font-size: 18px;">Leaves waiting for Approval</label></p-card>
             </div>
-            <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="padding-top: 0rem;background-color: lightgray;">
-                <div *ngIf="approvalLeavesCount == 0">No Leaves Found</div>
-                <div style="padding:5px;" *ngFor="let lData of leavesApprovalData">
-                    <p-card>
-                        <div class="p-grid">
-                            <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                                <img src="../assets/images/{{profilePath}}" width="25" style="vertical-align: middle" />
-                                <span> {{lData.userName}}</span>
+            <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12"
+                style="padding-top: 0rem;background-color: lightgray;">
+                <div style="height: 27em;overflow-y: auto;">
+                    <div *ngIf="approvalLeavesCount == 0" style="margin-top: 13em;margin-left: 6em;">No Leaves Found
+                    </div>
+                    <div style="padding:5px;" *ngFor="let lData of leavesApprovalData">
+                        <p-card>
+                            <div class="p-grid">
+                                <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
+                                    <img src="../assets/images/{{profilePath}}" width="25"
+                                        style="vertical-align: middle" />
+                                    <span> {{lData.userName}}</span>
+                                </div>
+                                <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> View
+                                </div>
+                                <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
+                                    <span
+                                        [class]="'customer-badge status-' + lData.leaveType">{{lData.leaveType}}</span>
+                                </div>
+                                <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
+                                    Days : {{lData.noOfDays}}
+                                </div>
                             </div>
-                            <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
-                                <i class="fa fa-eye" aria-hidden="true"></i> View
-                            </div>
-                            <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                                <span [class]="'customer-badge status-' + lData.leaveType">{{lData.leaveType}}</span>
-                            </div>
-                            <div class="p-col-4 p-xl-4 p-lg-4 p-md-4 p-sm-4" style="text-align: right;">
-                                Days : {{lData.noOfDays}}
-                            </div>
-                        </div>
-                    </p-card>
+                        </p-card>
+                    </div>
                 </div>
-                <div style="text-align: right;">
-                    <button pButton type="button" label="Show All Data" (click)="btnLeaveHistory_Click()"
-                        class="ui-button-rounded ui-button-success"></button>
+                <div class="p-grid">
+                    <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="text-align: right;">
+                        <button pButton type="button" label="Show All Data" (click)="btnLeaveHistory_Click()"
+                            class="ui-button-rounded ui-button-success"></button>
+                    </div>
                 </div>
             </div>
         </div>
