@@ -38,6 +38,7 @@ import { CreateprojectComponent } from './projects/createproject/createproject.c
 import { AssignissuesComponent } from './issuetracker/assignissues/assignissues.component';
 import { LeavehistoryComponent } from './leaves/leavehistory/leavehistory.component';
 import { LeaveapplyComponent } from './leaves/leaveapply/leaveapply.component';
+import { HeaderComponent } from './common/header/header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { LeaveapplyComponent } from './leaves/leaveapply/leaveapply.component';
     CreateprojectComponent,
     AssignissuesComponent,
     LeavehistoryComponent,
-    LeaveapplyComponent
+    LeaveapplyComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

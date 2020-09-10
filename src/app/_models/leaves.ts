@@ -10,8 +10,8 @@ export class LeaveMasterDetails {
     employeeId?: number;
     reportingOfficeId?: number;
     reportingManagerId?: number;
-    leaveFrom?: Date;
-    leaveTo?: Date;
+    leaveFrom?: string;
+    leaveTo?: string;
     noofDays?: number;
     leaveReason?: string;
     userId?: number;
@@ -37,6 +37,8 @@ export class LeaveMaster {
     noOfDays?: number;
     leaveReason?: string;
     userName?: string;
+    leaveType?: string;
+    status?: string;
     children?: LeaveDetails[];
 }
 

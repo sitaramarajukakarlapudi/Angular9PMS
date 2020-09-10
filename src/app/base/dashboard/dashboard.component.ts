@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
-import { UserProjects } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user/user.service';
 import { IssuesService } from 'src/app/_services/issues/issues.service';
 import { Issues } from 'src/app/_models/issues';
@@ -20,17 +19,11 @@ export class DashboardComponent implements OnInit {
   projects: SelectItem[];
   selectedProject: string;
   empUserName: string;
-  empDOJ: string;
-  empDesignation: string;
-  defalutProject: string;
-  remainProjects: string;
-  allProjects: UserProjects[];
   projIssues: Issues[];
   allIssuesCount: number;
   myIssuesCount: number;
   leavesCount: number;
   approvalLeavesCount: number;
-  cols: { field: string; header: string; width: string }[];
   userIssues: Issues[];
   leavesData: LeaveHistory[];
   leavesApprovalData: LeaveHistory[];
@@ -44,28 +37,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.empUserName = sessionStorage.getItem('userName');
-    this.empDOJ = sessionStorage.getItem('doj');
-    this.empDesignation = sessionStorage.getItem('designation');
     this.profilePath = 'Profile.png';
     this.leavesCount = 0;
     this.approvalLeavesCount = 0;
     this.leavesData = [];
     this.leavesApprovalData = [];
-    // this.projects = [
-    //   { label: 'Select Project', value: null },
-    //   { label: 'Elroi', value: { id: 1, name: 'Elroi', code: 'Elroi' } },
-    //   { label: 'Time System', value: { id: 2, name: 'Time System', code: 'TS' } },
-    //   { label: 'LifeSpeed', value: { id: 3, name: 'LifeSpeed', code: 'LS' } },
-    //   { label: 'LS2', value: { id: 4, name: 'LS2', code: 'LS2' } },
-    //   { label: 'PMS', value: { id: 5, name: 'PMS', code: 'PMS' } }
-    // ];
-    // this.selectedProject = this.projects.filter(m => m.label === 'Elroi')[0].value;
     this.getUserProjects();
-    this.cols = [
-      { field: 'issueType', header: 'Issue Type', width: '120px' },
-      { field: 'summary', header: 'Summary', width: '' },
-      { field: 'status', header: 'Issue Status', width: '' }
-    ];
   }
 
   projectChange() {
@@ -84,7 +61,6 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/menu/issues'], { skipLocationChange: false });
   }
   getUserProjects() {
-    this.remainProjects = '';
     const employeeId = sessionStorage.getItem('employeeId');
     this.userService.getUserProjects(employeeId).subscribe(
       (data) => {
@@ -95,18 +71,7 @@ export class DashboardComponent implements OnInit {
               value: proj.projectId
             };
           });
-          this.defalutProject = data.filter(P => P.isDefault === 1)[0].projectName;
           this.selectedProject = data.filter(P => P.isDefault === 1)[0].projectId;
-
-          const remainProjectsList = data.filter(P => P.isDefault === 0);
-          for (const projName of remainProjectsList) {
-            if (this.remainProjects !== '') {
-              this.remainProjects += ', ' + projName.projectName;
-            } else {
-              this.remainProjects = projName.projectName;
-            }
-
-          }
           this.getAllIssues(this.selectedProject);
         }
       });

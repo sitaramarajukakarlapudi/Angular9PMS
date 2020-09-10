@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="ui-fluid p-formgrid p-grid" style="margin-left: auto;">
     <div>
         <button pButton type="button" label="Back" icon="pi pi-arrow-left" class="blackbackground" tooltip="Back"
@@ -28,6 +29,10 @@
             </th>
             <th pSortableColumn="leaveReason">Leave Reason <p-sortIcon field="leaveReason"></p-sortIcon>
             </th>
+            <th pSortableColumn="leaveType">Leave Type <p-sortIcon field="leaveType"></p-sortIcon>
+            </th>
+            <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon>
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-leave let-expanded="expanded">
@@ -37,11 +42,16 @@
                     class="p-button-text p-button-rounded p-button-plain"
                     [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
             </td>
-            <td>{{leave.userName}}</td>
-            <td>{{leave.leaveFrom}}</td>
-            <td>{{leave.leaveTo}}</td>
-            <td>{{leave.noOfDays}}</td>
+            <td>
+                <img src="../assets/images/{{profilePath}}" width="32" style="vertical-align: middle" />
+                <span class="image-text"> {{leave.userName}}</span>
+            </td>
+            <td style="text-align: center;">{{leave.leaveFrom | date:'longDate'}}</td>
+            <td style="text-align: center;">{{leave.leaveTo | date:'longDate'}}</td>
+            <td style="text-align: right;">{{leave.noOfDays}}</td>
             <td>{{leave.leaveReason}}</td>
+            <td><span [class]="'customer-badge status-' + leave.leaveType">{{leave.leaveType}}</span></td>
+            <td><span [class]="'customer-badge status-' + leave.status">{{leave.status}}</span></td>
         </tr>
     </ng-template>
     <ng-template pTemplate="rowexpansion" let-leave>
@@ -63,8 +73,8 @@
     </ng-template>
     <ng-template pTemplate="body" let-children>
         <tr>
-            <td>{{children.leaveDate}}</td>
-            <td>{{children.leaveType}}</td>
+            <td>{{children.leaveDate | date:'fullDate'}}</td>
+            <td><span [class]="'customer-badge status-' + children.leaveType">{{children.leaveType}}</span></td>
             <td>{{children.duration}}</td>
             <td>{{children.period}}</td>
         </tr>

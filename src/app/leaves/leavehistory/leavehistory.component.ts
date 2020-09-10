@@ -11,6 +11,7 @@ import { LeaveMaster } from 'src/app/_models/leaves';
 export class LeavehistoryComponent implements OnInit {
   employeeId: string;
   leavesData: LeaveMaster[];
+  profilePath: string;
   first = 0;
   rows = 10;
 
@@ -21,6 +22,7 @@ export class LeavehistoryComponent implements OnInit {
 
   ngOnInit() {
     this.employeeId = sessionStorage.getItem('employeeId');
+    this.profilePath = 'Profile.png';
     this.getLeavesHistory();
   }
 

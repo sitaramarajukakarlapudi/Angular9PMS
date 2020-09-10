@@ -300,8 +300,8 @@ export class LeaveapplyComponent implements OnInit {
       this.leaveMasterDetails.employeeId = +this.employeeId;
       this.leaveMasterDetails.reportingOfficeId = +this.selectedOffice['id'];
       this.leaveMasterDetails.reportingManagerId = +this.selectedManager['id'];
-      this.leaveMasterDetails.leaveFrom = new Date(this.startDateVal);
-      this.leaveMasterDetails.leaveTo = new Date(this.endDateVal);
+      this.leaveMasterDetails.leaveFrom = this.startDateVal;
+      this.leaveMasterDetails.leaveTo = this.endDateVal;
       this.leaveMasterDetails.noofDays = this.custF.length;
       this.leaveMasterDetails.leaveReason = this.leaveReason;
       this.leaveMasterDetails.userId = +this.employeeId;
