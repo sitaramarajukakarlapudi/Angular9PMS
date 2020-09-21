@@ -46,8 +46,8 @@
                 <img src="../assets/images/{{profilePath}}" width="32" style="vertical-align: middle" />
                 <span class="image-text"> {{leave.userName}}</span>
             </td>
-            <td style="text-align: center;">{{leave.leaveFrom | date:'longDate'}}</td>
-            <td style="text-align: center;">{{leave.leaveTo | date:'longDate'}}</td>
+            <td>{{leave.leaveFrom | date:'longDate'}}</td>
+            <td>{{leave.leaveTo | date:'longDate'}}</td>
             <td style="text-align: right;">{{leave.noOfDays}}</td>
             <td>{{leave.leaveReason}}</td>
             <td><span [class]="'customer-badge status-' + leave.leaveType">{{leave.leaveType}}</span></td>

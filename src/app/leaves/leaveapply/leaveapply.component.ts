@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectItem, MessageService } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -13,7 +13,7 @@ import { ReturnValue } from 'src/app/_models/common';
   styleUrls: ['./leaveapply.component.css']
 })
 export class LeaveapplyComponent implements OnInit {
-
+  @ViewChild('dateFilter') dateFilter: any;
   rangeDates: Date[];
   isValidDateRange: boolean;
   isValidLocation: boolean;
@@ -321,6 +321,12 @@ export class LeaveapplyComponent implements OnInit {
           this.showErrorDetail(saveData, 'Leaves Applied');
         }
       );
+    }
+  }
+
+  onDatesRangeFilterSelected(selectedValue: Date) {
+    if (this.rangeDates[1]) { // If second date is selected
+      this.dateFilter.hideOverlay();
     }
   }
 

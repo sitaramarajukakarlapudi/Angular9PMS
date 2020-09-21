@@ -1,6 +1,7 @@
 <app-header></app-header>
 <div style="text-align: right;">
-    <button pButton type="button" label="Leave History" class="ui-button-success" style="width: 9.0em;" (click)="btnLeaveHistory_Click()"></button>
+    <button pButton type="button" label="Leave History" class="ui-button-success" style="width: 9.0em;"
+        (click)="btnLeaveHistory_Click()"></button>
 </div>
 <div style="height: 5px;"></div>
 <div class="ui-fluid p-formgrid">
@@ -18,9 +19,10 @@
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <label for="period">Period</label>
-                <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"
+                <p-calendar #dateFilter [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"
                     aria-describedby="period-help" showButtonBar="true" [disabledDays]="[0,6]" (onClose)="calClose()"
-                    (onShow)="calShow()" [disabledDates]="invalidDates" [disabled]="!isValidLocation">
+                    (onShow)="calShow()" (onSelect)="onDatesRangeFilterSelected($event)" [disabledDates]="invalidDates"
+                    [disabled]="!isValidLocation">
                 </p-calendar>
                 <small id="period-help">Select period for applying leaves.</small>
             </div>
@@ -51,21 +53,25 @@
                         Period
                     </div>
                 </div>
-                <div class="ui-fluid p-formgrid p-grid" *ngFor="let c of custF;index as c1">
-                    <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
-                        {{c.date | date:'fullDate'}}
-                    </div>
-                    <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
-                        <p-dropdown [options]="types" [style]="{'width':'99%'}" id="drpType_{{c.id}}"
-                            formControlName="FCDrptype_{{c.id}}"></p-dropdown>
-                    </div>
-                    <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
-                        <p-dropdown [options]="duration" [style]="{'width':'99%'}" id="drpDuration_{{c.id}}"
-                            formControlName="FCDrpDuration_{{c.id}}" (onChange)="funDurationChange(c.id)"></p-dropdown>
-                    </div>
-                    <div class="p-field p-col-12 p-md-3" style="padding: 0.5em;border:solid 1px gray;">
-                        <p-dropdown [options]="period" [style]="{'width':'99%'}" id="drpPeriod_{{c.id}}"
-                            formControlName="FCDrpPeriod_{{c.id}}"></p-dropdown>
+                <div class="ui-fluid p-formgrid" *ngFor="let c of custF;index as c1"
+                    [ngClass]="{'altRowColor': 0 !== c1 % 2}">
+                    <div class="p-grid">
+                        <div class="p-col-12 p-md-3" style="padding: 1.0em;">
+                            {{c.date | date:'fullDate'}}
+                        </div>
+                        <div class="p-col-12 p-md-3" style="padding: 1.0em;">
+                            <p-dropdown [options]="types" [style]="{'width':'99%'}" id="drpType_{{c.id}}"
+                                formControlName="FCDrptype_{{c.id}}"></p-dropdown>
+                        </div>
+                        <div class="p-col-12 p-md-3" style="padding: 1.0em;">
+                            <p-dropdown [options]="duration" [style]="{'width':'99%'}" id="drpDuration_{{c.id}}"
+                                formControlName="FCDrpDuration_{{c.id}}" (onChange)="funDurationChange(c.id)">
+                            </p-dropdown>
+                        </div>
+                        <div class="p-col-12 p-md-3" style="padding: 1.0em;">
+                            <p-dropdown [options]="period" [style]="{'width':'99%'}" id="drpPeriod_{{c.id}}"
+                                formControlName="FCDrpPeriod_{{c.id}}"></p-dropdown>
+                        </div>
                     </div>
                 </div>
             </form>
