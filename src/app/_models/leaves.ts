@@ -1,9 +1,11 @@
 export class Leave {
-    id: number;
+    id?: number;
     date?: string;
     type?: string;
     duration?: string;
     period?: string;
+    isValid?: boolean;
+    holidayDesc?: string;
 }
 
 export class LeaveMasterDetails {

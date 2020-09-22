@@ -53,24 +53,27 @@
                         Period
                     </div>
                 </div>
-                <div class="ui-fluid p-formgrid" *ngFor="let c of custF;index as c1"
+                <div class="ui-fluid p-formgrid" *ngFor="let c of leaveDates;index as c1"
                     [ngClass]="{'altRowColor': 0 !== c1 % 2}">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;">
                             {{c.date | date:'fullDate'}}
                         </div>
-                        <div class="p-col-12 p-md-3" style="padding: 1.0em;">
-                            <p-dropdown [options]="types" [style]="{'width':'99%'}" id="drpType_{{c.id}}"
-                                formControlName="FCDrptype_{{c.id}}"></p-dropdown>
+                        <div class="p-col-12 p-md-9" style="padding: 1.0em;text-align: center;" colspan="3" *ngIf="c.isValid === false">
+                            {{c.holidayDesc}} holiday
                         </div>
-                        <div class="p-col-12 p-md-3" style="padding: 1.0em;">
-                            <p-dropdown [options]="duration" [style]="{'width':'99%'}" id="drpDuration_{{c.id}}"
-                                formControlName="FCDrpDuration_{{c.id}}" (onChange)="funDurationChange(c.id)">
+                        <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
+                            <p-dropdown [options]="types" [style]="{'width':'99%'}" id="drpType_{{c1}}"
+                                formControlName="FCDrptype_{{c1}}"></p-dropdown>
+                        </div>
+                        <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
+                            <p-dropdown [options]="duration" [style]="{'width':'99%'}" id="drpDuration_{{c1}}"
+                                formControlName="FCDrpDuration_{{c1}}" (onChange)="funDurationChange(c1)">
                             </p-dropdown>
                         </div>
-                        <div class="p-col-12 p-md-3" style="padding: 1.0em;">
-                            <p-dropdown [options]="period" [style]="{'width':'99%'}" id="drpPeriod_{{c.id}}"
-                                formControlName="FCDrpPeriod_{{c.id}}"></p-dropdown>
+                        <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
+                            <p-dropdown [options]="period" [style]="{'width':'99%'}" id="drpPeriod_{{c1}}"
+                                formControlName="FCDrpPeriod_{{c1}}"></p-dropdown>
                         </div>
                     </div>
                 </div>
