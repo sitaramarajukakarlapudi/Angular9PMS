@@ -36,20 +36,16 @@
         <p-panel [toggleable]="true" header="Leave Details" *ngIf="isNextClicked">
             <form [formGroup]="leaveDetailsForm">
                 <div class="ui-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
-                        style="font-weight: bold; padding: 0.5em; border:solid 1px gray;">
+                    <div class="p-col-12 p-md-3" style="font-weight: bold; padding: 1.0em;">
                         Date
                     </div>
-                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
-                        style="font-weight: bold; padding: 0.5em;border:solid 1px gray;">
+                    <div class="p-col-12 p-md-3" style="font-weight: bold; padding: 1.0em;">
                         Type
                     </div>
-                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
-                        style="font-weight: bold; padding: 0.5em;border:solid 1px gray;">
+                    <div class="p-col-12 p-md-3" style="font-weight: bold; padding: 1.0em;">
                         Duration
                     </div>
-                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
-                        style="font-weight: bold; padding: 0.5em;border:solid 1px gray;">
+                    <div class="p-col-12 p-md-3" style="font-weight: bold; padding: 1.0em;">
                         Period
                     </div>
                 </div>
@@ -59,7 +55,8 @@
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;">
                             {{c.date | date:'fullDate'}}
                         </div>
-                        <div class="p-col-12 p-md-9" style="padding: 1.0em;text-align: center;" colspan="3" *ngIf="c.isValid === false">
+                        <div class="p-col-12 p-md-9" style="padding: 1.0em;text-align: center;" colspan="3"
+                            *ngIf="c.isValid === false">
                             {{c.holidayDesc}} holiday
                         </div>
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
