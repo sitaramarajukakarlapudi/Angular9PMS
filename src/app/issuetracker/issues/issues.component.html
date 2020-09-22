@@ -62,13 +62,14 @@
                     <img src="../assets/images/{{profilePath}}" width="32" style="vertical-align: middle" />
                     <span class="image-text"> {{leave.userName}}</span>
                 </td> -->
-                <td style="text-align: center;">{{issue.projectName}}</td>
-                <td style="text-align: center;">{{issue.summary}}</td>
-                <td style="text-align: center;">{{issue.description}}</td>
-                <td style="text-align: center;">{{issue.acceptanceCriteria}}</td>
-                <td style="text-align: center;">{{issue.assignedOn | date:'longDate'}}</td>
-                <td><span [class]="'issue-badge issueType-' + issue.issueType">{{issue.issueType}}</span></td>
-                <td><span [class]="'issue-badge status-' + issue.status">{{issue.status}}</span></td>
+                <td >{{issue.projectName}}</td>
+                <td >{{issue.summary}}</td>
+                <td >{{issue.description}}</td>
+                <td >{{issue.acceptanceCriteria}}</td>
+                <td >{{issue.assignedTo}}</td>
+                <td >{{issue.assignedOn | date:'longDate'}}</td>
+                <td style="text-align: center;"><span [class]="'issue-badge issueType-' + issue.issueType">{{issue.issueType}}</span></td>
+                <td style="text-align: center;"><span [class]="'issue-badge status-' + issue.status">{{issue.status}}</span></td>
                 <!-- <td style="text-align: center;">{{leave.leaveTo | date:'longDate'}}</td>
                 <td style="text-align: right;">{{leave.noOfDays}}</td>
                 <td>{{leave.leaveReason}}</td>

@@ -27,6 +27,7 @@ export class IssuesComponent implements OnInit {
       { field: 'summary', header: 'Summary' },
       { field: 'description', header: 'Description' },
       { field: 'acceptenceCriteria', header: 'Acceptence Criteria' },
+      { field: 'assignedTo', header: 'Assinged To' },
       { field: 'assignedOn', header: 'Assinged On' },
       { field: 'issueType', header: 'Issue Type' },
       { field: 'status', header: 'Issue Status' }
