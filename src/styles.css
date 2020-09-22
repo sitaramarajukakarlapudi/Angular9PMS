@@ -130,7 +130,7 @@ p-card.issueMoving > div{
   padding:0.5em;
 }
 
-.customer-badge {
+.customer-badge, .issue-badge, .issueStatus {
   border-radius: 2px;
   padding: .25em .5em;
   text-transform: uppercase;
@@ -138,12 +138,12 @@ p-card.issueMoving > div{
   font-size: 12px;
   letter-spacing: .3px;
 }
-.customer-badge.status-Casual {
+.customer-badge.status-Casual, .issue-badge.issueType-Enhancement {
     background-color: #C8E6C9;
     color: #256029;
 }
 
-.customer-badge.status-Multiple {
+.customer-badge.status-Multiple, .issue-badge.issueType-Bug {
     background-color: #FFCDD2;
     color: #C63737;
 }
@@ -153,7 +153,7 @@ p-card.issueMoving > div{
     color: #8A5340;
 }
 
-.customer-badge.status-Compensatory {
+.customer-badge.status-Compensatory, .issue-badge.issueType-Issue {
     background-color: #B3E5FC;
     color: #23547B;
 }
@@ -203,12 +203,12 @@ p-card.issueMoving > div{
   color: #805B36;
 }
 
-.customer-badge.status-Open {
+.customer-badge.status-Open, .issue-badge.status-Open{
   background-color: #B3E5FC;
   color: #23547B;
 }
 
-.customer-badge.status-Assigned {
+.customer-badge.status-Assigned, .issue-badge.status-Assigned {
   background-color: #ECCFFF;
   color: #694382;
 }

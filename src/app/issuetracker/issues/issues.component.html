@@ -3,7 +3,7 @@
         <button pButton type="button" label="Create an Issue" (click)="createissue()"
             class="ui-button-rounded ui-button-success"></button>
     </div>
-    <div class="p-col-12">
+    <!-- <div class="p-col-12">
         <p-table [columns]="cols" [value]="issues"  [responsive]="true" >
             <ng-template pTemplate="header" let-columns>
 
@@ -30,5 +30,86 @@
                 </tr>
             </ng-template>
         </p-table>
+    </div> -->
+    <div class="p-mb-3">
+        <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()"
+            styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"
+            styleClass="p-button-text"></p-button>
     </div>
+    <p-table [value]="userIssues" dataKey="leaveMasterId" [paginator]="true" [rows]="rows"
+        [showCurrentPageReport]="true" [(first)]="first"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3rem"></th>
+                <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-issue let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="issue"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+                <!-- <td>
+                    <img src="../assets/images/{{profilePath}}" width="32" style="vertical-align: middle" />
+                    <span class="image-text"> {{leave.userName}}</span>
+                </td> -->
+                <td style="text-align: center;">{{issue.projectName}}</td>
+                <td style="text-align: center;">{{issue.summary}}</td>
+                <td style="text-align: center;">{{issue.description}}</td>
+                <td style="text-align: center;">{{issue.acceptanceCriteria}}</td>
+                <td style="text-align: center;">{{issue.assignedOn | date:'longDate'}}</td>
+                <td><span [class]="'issue-badge issueType-' + issue.issueType">{{issue.issueType}}</span></td>
+                <td><span [class]="'issue-badge status-' + issue.status">{{issue.status}}</span></td>
+                <!-- <td style="text-align: center;">{{leave.leaveTo | date:'longDate'}}</td>
+                <td style="text-align: right;">{{leave.noOfDays}}</td>
+                <td>{{leave.leaveReason}}</td>
+                <td><span [class]="'customer-badge status-' + leave.leaveType">{{leave.leaveType}}</span></td>
+                <td><span [class]="'customer-badge status-' + leave.status">{{leave.status}}</span></td> -->
+            </tr>
+        </ng-template>
+        <!-- <ng-template pTemplate="rowexpansion" let-leave>
+            <tr>
+                <td colspan="6">
+                    <div class="p-p-3">
+                        <p-table [value]="leave.children" dataKey="leaveDetailId">
+                            <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="leaveDate">Leave Date <p-sortIcon field="leaveDate"></p-sortIcon>
+                </th>
+                <th pSortableColumn="leaveType">Leave Type <p-sortIcon field="leaveType"></p-sortIcon>
+                </th>
+                <th pSortableColumn="duration">Duration <p-sortIcon field="duration"></p-sortIcon>
+                </th>
+                <th pSortableColumn="period">Period <p-sortIcon field="period"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-children>
+            <tr>
+                <td>{{children.leaveDate | date:'fullDate'}}</td>
+                <td><span [class]="'customer-badge status-' + children.leaveType">{{children.leaveType}}</span></td>
+                <td>{{children.duration}}</td>
+                <td>{{children.period}}</td>
+            </tr>
+        </ng-template> -->
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="4">There are no leaves applied yet.</td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
+<!-- </td>
+</tr>
+</ng-template>
+</p-table>
+</div> -->

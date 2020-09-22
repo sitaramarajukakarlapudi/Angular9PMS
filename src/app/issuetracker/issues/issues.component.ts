@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Issues } from 'src/app/_models/issues';
 import { Issue } from 'src/app/_models/issuetracker';
+import { IssuesService } from 'src/app/_services/issues/issues.service';
 import { CreateissueComponent } from '../createissue/createissue.component';
 
 @Component({
@@ -10,17 +12,23 @@ import { CreateissueComponent } from '../createissue/createissue.component';
 })
 export class IssuesComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private issuesService: IssuesService,) { }
   issues: Issue[];
   cols: any;
+  empUserName: string;
+  userIssues: Issues[];
+  first = 0;
+  rows = 5;
 
   ngOnInit(): void {
+    this.empUserName = sessionStorage.getItem('userName');
     this.cols = [
-      { field: 'project', header: 'Project' },
-      { field: 'issueType', header: 'Issue Type' },
+      { field: 'projectName', header: 'Project' },
       { field: 'summary', header: 'Summary' },
       { field: 'description', header: 'Description' },
       { field: 'acceptenceCriteria', header: 'Acceptence Criteria' },
+      { field: 'assignedOn', header: 'Assinged On' },
+      { field: 'issueType', header: 'Issue Type' },
       { field: 'status', header: 'Issue Status' }
     ];
     this.issues = [
@@ -41,8 +49,38 @@ export class IssuesComponent implements OnInit {
         description: '1.)Login 2.)Open Project 1 3.)click submit', acceptenceCriteria: 'Hi here', status: 'Not an Issue'
       }
     ];
+    this.getAllIssues();
   }
   createissue() {
     this.router.navigate(['/menu/createissue'], { skipLocationChange: false });
+  }
+  getAllIssues() {
+    this.issuesService.getAllIssues().subscribe(
+      (data) => {
+        console.log(data);
+        if (data !== undefined && data != null) {
+          // this.userIssues = data.filter(P => P.assignedTo === this.empUserName);
+          this.userIssues = data;
+        }
+      });
+  }
+  next() {
+    this.first = this.first + this.rows;
+  }
+
+  prev() {
+    this.first = this.first - this.rows;
+  }
+
+  reset() {
+    this.first = 0;
+  }
+
+  isLastPage(): boolean {
+    return this.userIssues ? this.first === (this.userIssues.length - this.rows) : true;
+  }
+
+  isFirstPage(): boolean {
+    return this.userIssues ? this.first === 0 : true;
   }
 }

@@ -33,6 +33,7 @@ export class LeavehistoryComponent implements OnInit {
   getLeavesHistory() {
     this.leavesSvc.getLeavesHistory(this.employeeId).subscribe(
       (data) => {
+        console.log(data);
         this.leavesData = [];
         this.leavesData = data;
       }
