@@ -60,16 +60,16 @@
                             {{c.holidayDesc}} holiday
                         </div>
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
-                            <p-dropdown [options]="types" [style]="{'width':'99%'}" id="drpType_{{c1}}"
+                            <p-dropdown [options]="types" [style]="{'width':'55%'}" id="drpType_{{c1}}"
                                 formControlName="FCDrptype_{{c1}}"></p-dropdown>
                         </div>
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
-                            <p-dropdown [options]="duration" [style]="{'width':'99%'}" id="drpDuration_{{c1}}"
+                            <p-dropdown [options]="duration" [style]="{'width':'55%'}" id="drpDuration_{{c1}}"
                                 formControlName="FCDrpDuration_{{c1}}" (onChange)="funDurationChange(c1)">
                             </p-dropdown>
                         </div>
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
-                            <p-dropdown [options]="period" [style]="{'width':'99%'}" id="drpPeriod_{{c1}}"
+                            <p-dropdown [options]="period" [style]="{'width':'55%'}" id="drpPeriod_{{c1}}"
                                 formControlName="FCDrpPeriod_{{c1}}"></p-dropdown>
                         </div>
                     </div>
