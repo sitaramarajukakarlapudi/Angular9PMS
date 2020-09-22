@@ -24,8 +24,8 @@
                         style="font-size: 18px;">My Issues</label></p-card>
             </div>
             <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12"
-                style="padding-top: 0rem;background-color: lightgray;">
-                <div style="height: 27em;overflow-y: auto;">
+                style="padding-top: 0rem;background-color: rgb(165 157 183);">
+                <div style="height: 26.5em;overflow-y: auto;">
                     <div *ngIf="myIssuesCount == 0" style="margin-top: 13em;margin-left: 6em;">No issues found</div>
                     <div style="padding:5px;" *ngFor="let IData of userIssues">
                         <p-card>
@@ -48,12 +48,10 @@
                         </p-card>
                     </div>
                 </div>
-                <div class="p-grid">
-                    <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="text-align: right;">
-                        <button pButton type="button" label="Issue Tracker"
-                            class="ui-button-rounded ui-button-success"></button>
-                    </div>
-                </div>
+            </div>
+            <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="text-align: right;">
+                <button pButton type="button" label="Issue Tracker"
+                    class="ui-button-rounded ui-button-success"></button>
             </div>
         </div>
     </div>
@@ -69,8 +67,8 @@
                         style="font-size: 18px;">Issues</label></p-card>
             </div>
             <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12"
-                style="padding-top: 0rem;background-color: lightgray;">
-                <div style="height: 27em;overflow-y: auto;">
+                style="padding-top: 0rem;background-color: rgb(230 198 138);">
+                <div style="height: 26.5em;overflow-y: auto;">
                     <div *ngIf="allIssuesCount == 0" style="margin-top: 13em;margin-left: 6em;">No issues found</div>
                     <div style="padding:5px;" *ngFor="let IData of projIssues">
                         <p-card>
@@ -93,12 +91,11 @@
                         </p-card>
                     </div>
                 </div>
-                <div class="p-grid">
-                    <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="text-align: right;">
-                        <button pButton type="button" label="Issue Tracker"
-                            class="ui-button-rounded ui-button-success"></button>
-                    </div>
-                </div>
+
+            </div>
+            <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="text-align: right;">
+                <button pButton type="button" label="Issue Tracker"
+                    class="ui-button-rounded ui-button-success"></button>
             </div>
         </div>
     </div>
@@ -114,8 +111,8 @@
                         style="font-size: 18px;">Leaves applied in the month of Sep 2020</label></p-card>
             </div>
             <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12"
-                style="padding-top: 0rem;background-color: lightgray;">
-                <div style="height: 27em;overflow-y: auto;">
+                style="padding-top: 0rem;background-color: rgb(214 158 191);">
+                <div style="height: 26.5em;overflow-y: auto;">
                     <div *ngIf="leavesCount == 0" style="margin-top: 13em;margin-left: 6em;">No Leaves Applied</div>
                     <div style="padding:5px;" *ngFor="let lData of leavesData">
                         <p-card>
@@ -138,16 +135,14 @@
                         </p-card>
                     </div>
                 </div>
-                <div class="p-grid">
-                    <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6">
-                        <button pButton type="button" label="Apply" (click)="btnApply_Click()"
-                            class="ui-button-rounded ui-button-success"></button>
-                    </div>
-                    <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6" style="text-align: right;">
-                        <button pButton type="button" label="Leave History" (click)="btnLeaveHistory_Click()"
-                            class="ui-button-rounded ui-button-success"></button>
-                    </div>
-                </div>
+            </div>
+            <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6">
+                <button pButton type="button" label="Apply" (click)="btnApply_Click()"
+                    class="ui-button-rounded ui-button-success"></button>
+            </div>
+            <div class="p-col-6 p-xl-6 p-lg-6 p-md-6 p-sm-6" style="text-align: right;">
+                <button pButton type="button" label="Leave History" (click)="btnLeaveHistory_Click()"
+                    class="ui-button-rounded ui-button-success"></button>
             </div>
         </div>
     </div>
@@ -163,8 +158,8 @@
                         style="font-size: 18px;">Leaves waiting for Approval</label></p-card>
             </div>
             <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12"
-                style="padding-top: 0rem;background-color: lightgray;">
-                <div style="height: 27em;overflow-y: auto;">
+                style="padding-top: 0rem;background-color: rgb(228 155 161);">
+                <div style="height: 26.5em;overflow-y: auto;">
                     <div *ngIf="approvalLeavesCount == 0" style="margin-top: 13em;margin-left: 6em;">No Leaves Found
                     </div>
                     <div style="padding:5px;" *ngFor="let lData of leavesApprovalData">
@@ -189,12 +184,10 @@
                         </p-card>
                     </div>
                 </div>
-                <div class="p-grid">
-                    <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="text-align: right;">
-                        <button pButton type="button" label="Show All Data" (click)="btnLeaveHistory_Click()"
-                            class="ui-button-rounded ui-button-success"></button>
-                    </div>
-                </div>
+            </div>
+            <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="text-align: right;">
+                <button pButton type="button" label="Show All Data" (click)="btnLeaveHistory_Click()"
+                    class="ui-button-rounded ui-button-success"></button>
             </div>
         </div>
     </div>

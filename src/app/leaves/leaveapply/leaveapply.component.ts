@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectItem, MessageService } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Leave, LeaveMasterDetails } from 'src/app/_models/leaves';
 import { CommonService } from 'src/app/_services/common/common.service';
 import { LeavesService } from 'src/app/_services/leaves/leaves.service';
-import { ReturnValue } from 'src/app/_models/common';
+import { InvDate, ReturnValue } from 'src/app/_models/common';
 
 @Component({
   selector: 'app-leaveapply',
@@ -13,13 +13,14 @@ import { ReturnValue } from 'src/app/_models/common';
   styleUrls: ['./leaveapply.component.css']
 })
 export class LeaveapplyComponent implements OnInit {
-
+  @ViewChild('dateFilter') dateFilter: any;
   rangeDates: Date[];
   isValidDateRange: boolean;
   isValidLocation: boolean;
   validDates: Date[];
   isNextClicked: boolean;
-  custF: Leave[] = [];
+  // custF: Leave[] = [];
+  leaveDates: Leave[] = [];
   types: SelectItem[];
   duration: SelectItem[];
   period: SelectItem[];
@@ -27,7 +28,7 @@ export class LeaveapplyComponent implements OnInit {
   managerTypes: SelectItem[];
   leaveDetailsForm = new FormGroup({});
   invalidDates: Array<Date>;
-  holidayDates: Array<Date>;
+  holidayDates: InvDate[];
   holidays: string[];
   employeeId: string;
   selectedOffice: string;
@@ -47,6 +48,7 @@ export class LeaveapplyComponent implements OnInit {
   ngOnInit() {
     this.employeeId = sessionStorage.getItem('employeeId');
     this.invalidDates = [];
+    this.leaveDates = [];
     this.isValidDateRange = false;
     this.isValidLocation = false;
     this.isNextClicked = false;
@@ -159,13 +161,13 @@ export class LeaveapplyComponent implements OnInit {
 
   btnNext_Click() {
     this.isNextClicked = true;
-    this.custF = [];
-    for (let i = 0; i < this.validDates.length; i++) {
-      this.custF.push({
-        id: i,
-        date: this.validDates[i].toString()
-      });
-    }
+    // this.custF = [];
+    // for (let i = 0; i < this.validDates.length; i++) {
+    // this.custF.push({
+    //   id: i,
+    //   date: this.validDates[i].toString()
+    // });
+    // }
     this.addFormControls();
   }
 
@@ -189,7 +191,10 @@ export class LeaveapplyComponent implements OnInit {
         (data) => {
           if (data !== null) {
             for (const eDate of data) {
-              this.holidayDates.push(new Date(eDate.invaliddate));
+              this.holidayDates.push({
+                invaliddate: eDate.invaliddate,
+                holidayDesc: eDate.holidayDesc
+              });
             }
           }
           this.getWorkingDays(this.holidayDates, this.rangeDates[0], this.rangeDates[1]);
@@ -204,12 +209,14 @@ export class LeaveapplyComponent implements OnInit {
   addFormControls() {
     let j = 0;
     try {
-      for (j = 0; j < this.custF.length; j++) {
+      for (j = 0; j < this.leaveDates.length; j++) {
         try {
-          this.leaveDetailsForm.addControl('FCDrptype_' + this.custF[j].id, new FormControl('', null));
-          this.leaveDetailsForm.addControl('FCDrpDuration_' + this.custF[j].id, new FormControl({ id: 1, name: 'Full Day' }, null));
-          this.leaveDetailsForm.addControl('FCDrpPeriod_' + this.custF[j].id,
-            new FormControl({ value: { id: 1, name: 'Before Lunch' }, disabled: true }));
+          if (this.leaveDates[j].isValid === true) {
+            this.leaveDetailsForm.addControl('FCDrptype_' + j, new FormControl('', null));
+            this.leaveDetailsForm.addControl('FCDrpDuration_' + j, new FormControl({ id: 1, name: 'Full Day' }, null));
+            this.leaveDetailsForm.addControl('FCDrpPeriod_' + j,
+              new FormControl({ value: { id: 1, name: 'Before Lunch' }, disabled: true }));
+          }
         } catch (error) {
           console.log('Add Control' + error);
         }
@@ -221,6 +228,7 @@ export class LeaveapplyComponent implements OnInit {
 
   getWorkingDays(holidayDates, startDate, endDate) {
     this.validDates = [];
+    this.leaveDates = [];
     const MS_PER_DAY: number = 1000 * 60 * 60 * 24;
     const start: number = this.rangeDates[0].getTime();
     const end: number = this.rangeDates[1].getTime();
@@ -235,15 +243,24 @@ export class LeaveapplyComponent implements OnInit {
       if (startDateNew <= endDateNew) {
         if (startDateNew.getDay() !== 0 && startDateNew.getDay() !== 6) {
           for (const dateVal of holidayDates) {
-            const holidayDate = this.parseDate(dateVal);
+            const holidayDate = this.parseDate(dateVal.invaliddate);
             if (startDateNew.toString() === holidayDate.toString()) {
               isValidDate = false;
+              this.leaveDates.push({
+                date: finalDate.toString(),
+                isValid: false,
+                holidayDesc: dateVal.holidayDesc
+              });
               startDateNew = new Date(startDateNew.setDate(startDateNew.getDate() + 1));
               break;
             }
           }
           if (isValidDate) {
             this.validDates.push(new Date(finalDate));
+            this.leaveDates.push({
+              date: finalDate.toString(),
+              isValid: true
+            });
             startDateNew = new Date(startDateNew.setDate(startDateNew.getDate() + 1));
           }
         } else {
@@ -284,11 +301,13 @@ export class LeaveapplyComponent implements OnInit {
       isValid = false;
       alert('Please select Leave Period');
     }
-    for (let a = 0; a < this.custF.length; a++) {
-      if (this.leaveDetailsForm.get('FCDrptype_' + a).value === '' || this.leaveDetailsForm.get('FCDrptype_' + a).value.id === '0') {
-        isValid = false;
-        alert('Please select Leave Type');
-        break;
+    for (let a = 0; a < this.leaveDates.length; a++) {
+      if (this.leaveDates[a].isValid === true) {
+        if (this.leaveDetailsForm.get('FCDrptype_' + a).value === '' || this.leaveDetailsForm.get('FCDrptype_' + a).value.id === '0') {
+          isValid = false;
+          alert('Please select Leave Type');
+          break;
+        }
       }
     }
     if (this.leaveReason === '') {
@@ -302,15 +321,17 @@ export class LeaveapplyComponent implements OnInit {
       this.leaveMasterDetails.reportingManagerId = +this.selectedManager['id'];
       this.leaveMasterDetails.leaveFrom = this.startDateVal;
       this.leaveMasterDetails.leaveTo = this.endDateVal;
-      this.leaveMasterDetails.noofDays = this.custF.length;
+      this.leaveMasterDetails.noofDays = this.leaveDates.filter(m => m.isValid === true).length;
       this.leaveMasterDetails.leaveReason = this.leaveReason;
       this.leaveMasterDetails.userId = +this.employeeId;
-      for (let b = 0; b < this.custF.length; b++) {
-        const startDate = new Date(this.custF[b].date);
-        leaveDate += Number(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ',';
-        leaveType += this.leaveDetailsForm.get('FCDrptype_' + b).value.id + ',';
-        leaveDuration += this.leaveDetailsForm.get('FCDrpDuration_' + b).value.id + ',';
-        leavePeriod += this.leaveDetailsForm.get('FCDrpPeriod_' + b).value.id + ',';
+      for (let b = 0; b < this.leaveDates.length; b++) {
+        if (this.leaveDates[b].isValid === true) {
+          const startDate = new Date(this.leaveDates[b].date);
+          leaveDate += Number(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear() + ',';
+          leaveType += this.leaveDetailsForm.get('FCDrptype_' + b).value.id + ',';
+          leaveDuration += this.leaveDetailsForm.get('FCDrpDuration_' + b).value.id + ',';
+          leavePeriod += this.leaveDetailsForm.get('FCDrpPeriod_' + b).value.id + ',';
+        }
       }
       this.leaveMasterDetails.leaveDate = leaveDate.replace(/,\s*$/, '');
       this.leaveMasterDetails.leaveTypeId = leaveType.replace(/,\s*$/, '');
@@ -321,6 +342,12 @@ export class LeaveapplyComponent implements OnInit {
           this.showErrorDetail(saveData, 'Leaves Applied');
         }
       );
+    }
+  }
+
+  onDatesRangeFilterSelected(selectedValue: Date) {
+    if (this.rangeDates[1]) { // If second date is selected
+      this.dateFilter.hideOverlay();
     }
   }
 
