@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeavesService } from 'src/app/_services/leaves/leaves.service';
 import { LeaveMaster } from 'src/app/_models/leaves';
+import { Table } from 'primeng/table';
+import { CommonService } from 'src/app/_services/common/common.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-leavehistory',
@@ -14,10 +17,14 @@ export class LeavehistoryComponent implements OnInit {
   profilePath: string;
   first = 0;
   rows = 10;
+  @ViewChild('dt') table: Table;
+  leaveTypes: SelectItem[];
+  leaveStatus: SelectItem[];
 
   constructor(
     private router: Router,
-    private leavesSvc: LeavesService
+    private leavesSvc: LeavesService,
+    private commonSvc: CommonService
   ) { }
 
   ngOnInit() {
@@ -33,9 +40,28 @@ export class LeavehistoryComponent implements OnInit {
   getLeavesHistory() {
     this.leavesSvc.getLeavesHistory(this.employeeId).subscribe(
       (data) => {
-        console.log(data);
         this.leavesData = [];
         this.leavesData = data;
+        this.getLeaveTypes();
+      }
+    );
+  }
+
+  getLeaveTypes() {
+    this.commonSvc.getLeaveTypes().subscribe(
+      (data) => {
+        this.leaveTypes = [];
+        this.leaveTypes = data;
+        this.getLeaveStatus();
+      }
+    );
+  }
+
+  getLeaveStatus() {
+    this.commonSvc.getLeaveStatus().subscribe(
+      (data) => {
+        this.leaveStatus = [];
+        this.leaveStatus = data;
       }
     );
   }
