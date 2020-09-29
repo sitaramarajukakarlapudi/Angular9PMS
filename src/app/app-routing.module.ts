@@ -10,6 +10,7 @@ import { CreateprojectComponent } from './projects/createproject/createproject.c
 import { AssignissuesComponent } from './issuetracker/assignissues/assignissues.component';
 import { LeaveapplyComponent } from './leaves/leaveapply/leaveapply.component';
 import { LeavehistoryComponent } from './leaves/leavehistory/leavehistory.component';
+import { UpdateprofileComponent } from './users/updateprofile/updateprofile.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'projects', component: ProjectsComponent },
       { path: 'createproject', component: CreateprojectComponent },
       { path: 'asssignissues', component: AssignissuesComponent },
+      { path: 'updateprofile', component: UpdateprofileComponent }
     ], runGuardsAndResolvers: 'always',
   }
 ];

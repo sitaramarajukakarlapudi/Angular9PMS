@@ -17,7 +17,9 @@ import { CardModule } from 'primeng/card';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { MessageService } from 'primeng/api';
-import {SidebarModule} from 'primeng/sidebar';
+import { SidebarModule } from 'primeng/sidebar';
+import { MenuModule } from 'primeng/menu';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +41,7 @@ import { AssignissuesComponent } from './issuetracker/assignissues/assignissues.
 import { LeavehistoryComponent } from './leaves/leavehistory/leavehistory.component';
 import { LeaveapplyComponent } from './leaves/leaveapply/leaveapply.component';
 import { HeaderComponent } from './common/header/header/header.component';
+import { UpdateprofileComponent } from './users/updateprofile/updateprofile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +55,8 @@ import { HeaderComponent } from './common/header/header/header.component';
     AssignissuesComponent,
     LeavehistoryComponent,
     LeaveapplyComponent,
-    HeaderComponent
+    HeaderComponent,
+    UpdateprofileComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +84,8 @@ import { HeaderComponent } from './common/header/header/header.component';
     SplitButtonModule,
     OverlayPanelModule,
     FileUploadModule,
-    SidebarModule
+    SidebarModule,
+    MenuModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
