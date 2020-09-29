@@ -25,7 +25,7 @@
                             <div class="p-col-12">
                                 <div class="ui-fluid">
                                     <p-dropdown formControlName="frmproject" [options]="projects"
-                                        [(ngModel)]="selectedProject"></p-dropdown>
+                                        placeholder="Select Project" [(ngModel)]="selectedProject"></p-dropdown>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             <div class="p-col-12">
                                 <div class="ui-fluid">
                                     <p-dropdown formControlName="frmissueType" [options]="issueTypes"
-                                        [(ngModel)]="selectedIssue"></p-dropdown>
+                                        placeholder="Select IssueType" [(ngModel)]="selectedIssue"></p-dropdown>
                                 </div>
                             </div>
                         </div>
@@ -92,16 +92,23 @@
                         <label for="Upload">Upload Attachments</label>
                     </div>
                     <div class="p-col-12">
-                        <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"></p-fileUpload>
+                        <p-fileUpload name="myfile[]" (onSelect)="selectFile($event.files)"
+                            (onRemove)="onRemoveFile($event)" multiple="multiple" [showUploadButton]="false"
+                            [showCancelButton]="false"></p-fileUpload>
                     </div>
                 </div>
                 <p-footer>
                     <button pButton type="submit" icon="pi pi-plus" label="Create" [disabled]="!issueform.valid"
                         class="ui-button-success" style="margin-right: .25em">
                     </button>
-                    <button pButton type="button" icon="pi pi-times" label="Cancel" class="ui-button-danger"></button>
+                    <button pButton type="button" (click)="cancel()" icon="pi pi-times" label="Cancel"
+                        class="ui-button-danger"></button>
                 </p-footer>
             </p-panel>
         </form>
     </div>
 </div>
+<a href="http://localhost/PMSDocuments/Upload/RajuS/1003/giphy.gif" pTooltip="Downlaod File"
+    class="fa fa-download fa-150x"
+    style="color:dodgerblue; cursor:pointer;border:solid 1px blue;padding:2px;border-radius: 0.2em"></a>
+<p-toast></p-toast>

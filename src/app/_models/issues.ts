@@ -5,7 +5,7 @@ export class Issues {
     reportedBy?: string;
     reportedOn?: string;
     summary?: number;
-    dsescription?: string;
+    description?: string;
     acceptanceCriteria?: string;
     assignedTo?: string;
     assignedOn?: string;
@@ -15,4 +15,14 @@ export class Issues {
     issueTypeId?: string;
     size?: string;
     statusId?: string;
+}
+export class IssueTypes {
+    id?: string;
+    label?: string;
+    value?: string;
+    mode?: string;
+    displayOrder?: string;
+    color?: number;
+    createdBy?: string;
+    updatedBy?: string;
 }
