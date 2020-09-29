@@ -94,7 +94,7 @@ export class LeaveapplyComponent implements OnInit {
   }
 
   getHolidays(location: string) {
-    this.commonSvc.GetHolidaysList(location).subscribe(
+    this.commonSvc.getHolidaysList(location).subscribe(
       (data) => {
         for (const eDate of data) {
           this.invalidDates.push(new Date(eDate.invaliddate));
@@ -187,7 +187,7 @@ export class LeaveapplyComponent implements OnInit {
       this.startDateVal = Number(startDate.getMonth() + 1) + '/' + startDate.getDate() + '/' + startDate.getFullYear();
       const endDate = new Date(this.rangeDates[1]);
       this.endDateVal = Number(endDate.getMonth() + 1) + '/' + endDate.getDate() + '/' + endDate.getFullYear();
-      this.commonSvc.GetHolidays(locationVal, this.startDateVal, this.endDateVal).subscribe(
+      this.commonSvc.getHolidays(locationVal, this.startDateVal, this.endDateVal).subscribe(
         (data) => {
           if (data !== null) {
             for (const eDate of data) {

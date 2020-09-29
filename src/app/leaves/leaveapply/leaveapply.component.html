@@ -36,20 +36,16 @@
         <p-panel [toggleable]="true" header="Leave Details" *ngIf="isNextClicked">
             <form [formGroup]="leaveDetailsForm">
                 <div class="ui-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
-                        style="font-weight: bold; padding: 0.5em; border:solid 1px gray;">
+                    <div class="p-col-12 p-md-3" style="font-weight: bold; padding: 1.0em;">
                         Date
                     </div>
-                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
-                        style="font-weight: bold; padding: 0.5em;border:solid 1px gray;">
+                    <div class="p-col-12 p-md-3" style="font-weight: bold; padding: 1.0em;">
                         Type
                     </div>
-                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
-                        style="font-weight: bold; padding: 0.5em;border:solid 1px gray;">
+                    <div class="p-col-12 p-md-3" style="font-weight: bold; padding: 1.0em;">
                         Duration
                     </div>
-                    <div class="p-field p-col-12 p-md-3 ui-panel-titlebar"
-                        style="font-weight: bold; padding: 0.5em;border:solid 1px gray;">
+                    <div class="p-col-12 p-md-3" style="font-weight: bold; padding: 1.0em;">
                         Period
                     </div>
                 </div>
@@ -59,20 +55,21 @@
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;">
                             {{c.date | date:'fullDate'}}
                         </div>
-                        <div class="p-col-12 p-md-9" style="padding: 1.0em;text-align: center;" colspan="3" *ngIf="c.isValid === false">
+                        <div class="p-col-12 p-md-9" style="padding: 1.0em;text-align: center;" colspan="3"
+                            *ngIf="c.isValid === false">
                             {{c.holidayDesc}} holiday
                         </div>
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
-                            <p-dropdown [options]="types" [style]="{'width':'99%'}" id="drpType_{{c1}}"
+                            <p-dropdown [options]="types" [style]="{'width':'55%'}" id="drpType_{{c1}}"
                                 formControlName="FCDrptype_{{c1}}"></p-dropdown>
                         </div>
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
-                            <p-dropdown [options]="duration" [style]="{'width':'99%'}" id="drpDuration_{{c1}}"
+                            <p-dropdown [options]="duration" [style]="{'width':'55%'}" id="drpDuration_{{c1}}"
                                 formControlName="FCDrpDuration_{{c1}}" (onChange)="funDurationChange(c1)">
                             </p-dropdown>
                         </div>
                         <div class="p-col-12 p-md-3" style="padding: 1.0em;" *ngIf="c.isValid === true">
-                            <p-dropdown [options]="period" [style]="{'width':'99%'}" id="drpPeriod_{{c1}}"
+                            <p-dropdown [options]="period" [style]="{'width':'55%'}" id="drpPeriod_{{c1}}"
                                 formControlName="FCDrpPeriod_{{c1}}"></p-dropdown>
                         </div>
                     </div>

@@ -13,9 +13,9 @@
     <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"
         styleClass="p-button-text"></p-button>
 </div>
-<p-table [value]="leavesData" dataKey="leaveMasterId" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true"
-    [(first)]="first" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [rowsPerPageOptions]="[10,25,50]">
+<p-table #dt [value]="leavesData" dataKey="leaveMasterId" [paginator]="true" [rows]="rows"
+    [showCurrentPageReport]="true" [(first)]="first"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 3rem"></th>
@@ -32,6 +32,41 @@
             <th pSortableColumn="leaveType">Leave Type <p-sortIcon field="leaveType"></p-sortIcon>
             </th>
             <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon>
+            </th>
+        </tr>
+        <tr>
+            <th></th>
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'userName', 'contains')"
+                    style="width: 99%" placeholder="Search by Name" class="p-column-filter">
+            </th>
+            <th> </th>
+            <th> </th>
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'noOfDays', 'contains')"
+                    style="width: 99%" placeholder="Search by Days" class="p-column-filter">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'leaveReason', 'contains')"
+                    style="width: 99%" placeholder="Search by Reason" class="p-column-filter">
+            </th>
+            <th>
+                <p-dropdown [options]="leaveTypes" (onChange)="dt.filter($event.value, 'leaveType', 'contains')"
+                    styleClass="p-column-filter" [style]="{'min-width':'99%'}" placeholder="Select Type"
+                    [showClear]="true">
+                    <ng-template let-option pTemplate="item">
+                        <span [class]="'customer-badge status-' + option.label">{{option.label}}</span>
+                    </ng-template>
+                </p-dropdown>
+            </th>
+            <th>
+                <p-dropdown [options]="leaveStatus" (onChange)="dt.filter($event.value, 'status', 'contains')"
+                    styleClass="p-column-filter" [style]="{'min-width':'99%'}" placeholder="Select a Status"
+                    [showClear]="true">
+                    <ng-template let-option pTemplate="item">
+                        <span [class]="'customer-badge status-' + option.label">{{option.label}}</span>
+                    </ng-template>
+                </p-dropdown>
             </th>
         </tr>
     </ng-template>

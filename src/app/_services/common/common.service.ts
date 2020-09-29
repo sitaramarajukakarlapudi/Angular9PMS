@@ -31,7 +31,7 @@ export class CommonService {
       { headers: this.getHttpOptions(), params });
   }
 
-  GetHolidays(branch: string, startDate: string, endDate: string) {
+  getHolidays(branch: string, startDate: string, endDate: string) {
     const params = new HttpParams()
       .set('branch', branch)
       .set('startDate', startDate)
@@ -40,10 +40,18 @@ export class CommonService {
       { headers: this.getHttpOptions(), params });
   }
 
-  GetHolidaysList(branch: string) {
+  getHolidaysList(branch: string) {
     const params = new HttpParams()
       .set('branch', branch);
     return this.http.get<InvDate[]>(this.serviceURL + 'GetHolidaysList',
       { headers: this.getHttpOptions(), params });
+  }
+
+  getLeaveTypes() {
+    return this.http.get<SelectItem[]>(this.serviceURL + 'GetLeaveTypes', { headers: this.getHttpOptions() });
+  }
+
+  getLeaveStatus() {
+    return this.http.get<SelectItem[]>(this.serviceURL + 'GetLeaveStatus', { headers: this.getHttpOptions() });
   }
 }
