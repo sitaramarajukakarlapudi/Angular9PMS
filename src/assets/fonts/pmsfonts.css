@@ -1,22 +1,22 @@
 @font-face {
     font-family: "madina";
-    src: url("./pms/madina.otf");
+    src: url("pms/madina.otf");
     format : 'truetype';
     
   }
   @font-face {
     font-family: "yahatsuPu";
-    src: url("./pms/yahatsuPu.otf");
+    src: url("pms/yahatsuPu.otf");
     format: 'truetype';
   }
   @font-face {
     font-family: "ELEPHNT";
-    src: url("./pms/ELEPHNT.TTF");
+    src: url("pms/ELEPHNT.TTF");
     format: 'truetype';
   }
   @font-face {
     font-family: "MISTRAL";
-    src: url("./pms/MISTRAL.TTF");
+    src: url("pms/MISTRAL.TTF");
     format: 'truetype';
   }
   
