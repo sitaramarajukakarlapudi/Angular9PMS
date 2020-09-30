@@ -27,9 +27,9 @@ export class UserService {
     return this.http.get<UserProjects[]>(this.serviceURL + 'GetUserProjects', { headers: this.getHttpOptions(), params });
   }
 
-  addUserImage(data) {
-    const body = JSON.stringify(data);
-    return this.http.post<string>(this.serviceURL + 'InsertLeaves',
-      body, { headers: this.getHttpOptions() });
+  uploadImage(data) {
+    const uploadHeaders = new HttpHeaders();
+    uploadHeaders.append('Content-Type', 'multipart/form-data');
+    return this.http.post<any>(this.serviceURL + 'UploadFile', data, { headers: uploadHeaders });
   }
 }
