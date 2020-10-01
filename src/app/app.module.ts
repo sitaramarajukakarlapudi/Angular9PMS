@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
+import { DatePipe } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { PanelModule } from 'primeng/panel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -87,7 +88,10 @@ import { UpdateprofileComponent } from './users/updateprofile/updateprofile.comp
     SidebarModule,
     MenuModule
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

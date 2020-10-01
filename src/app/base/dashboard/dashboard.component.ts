@@ -6,6 +6,7 @@ import { IssuesService } from 'src/app/_services/issues/issues.service';
 import { Issues } from 'src/app/_models/issues';
 import { LeavesService } from 'src/app/_services/leaves/leaves.service';
 import { LeaveHistory } from 'src/app/_models/leaves';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,12 +28,14 @@ export class DashboardComponent implements OnInit {
   userIssues: Issues[];
   leavesData: LeaveHistory[];
   leavesApprovalData: LeaveHistory[];
+  monthYear: string;
 
   constructor(
     private router: Router,
     private userService: UserService,
     private issuesService: IssuesService,
-    private leavesService: LeavesService
+    private leavesService: LeavesService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
@@ -42,6 +45,7 @@ export class DashboardComponent implements OnInit {
     this.approvalLeavesCount = 0;
     this.leavesData = [];
     this.leavesApprovalData = [];
+    this.monthYear = this.datePipe.transform(new Date(), 'MMM yyyy');
     this.getUserProjects();
   }
 
