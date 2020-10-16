@@ -80,6 +80,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('doj', data.doj.toString());
             sessionStorage.setItem('designation', data.designation.toString());
             sessionStorage.setItem('userName', data.userName.toString());
+            sessionStorage.setItem('empCode', data.code.toString());
             const masterdash = '/menu/dashboard';
             this.router.navigate([masterdash], { skipLocationChange: false });
           }

@@ -26,4 +26,10 @@ export class UserService {
       .set('userId', userId.toString());
     return this.http.get<UserProjects[]>(this.serviceURL + 'GetUserProjects', { headers: this.getHttpOptions(), params });
   }
+
+  uploadImage(data) {
+    const uploadHeaders = new HttpHeaders();
+    uploadHeaders.append('Content-Type', 'multipart/form-data');
+    return this.http.post<any>(this.serviceURL + 'UploadFile', data, { headers: uploadHeaders });
+  }
 }

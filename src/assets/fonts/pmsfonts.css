@@ -1,23 +1,18 @@
 @font-face {
     font-family: "madina";
-    src: url("./pms/madina.otf");
-    format : 'truetype';
-    
+    src: url('~/assets/fonts/pms/Madina.otf') format('opentype');
   }
   @font-face {
     font-family: "yahatsuPu";
-    src: url("./pms/yahatsuPu.otf");
-    format: 'truetype';
+    src: url("../fonts/pms/yahatsuPu.otf") format('opentype');
   }
   @font-face {
     font-family: "ELEPHNT";
-    src: url("./pms/ELEPHNT.TTF");
-    format: 'truetype';
+    src: url("../fonts/pms/ELEPHNT.TTF") format('truetype');
   }
   @font-face {
     font-family: "MISTRAL";
-    src: url("./pms/MISTRAL.TTF");
-    format: 'truetype';
+    src: url("../fonts/pms/MISTRAL.TTF") format('truetype');
   }
   
   

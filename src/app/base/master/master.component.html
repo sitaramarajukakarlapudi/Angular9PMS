@@ -40,11 +40,12 @@
                 <span class="textbox-show">
                     <input type="text" pInputText placeholder="Search">&nbsp;&nbsp;
                 </span>
-                <img src="../../../assets/images/Profile.png"
+                <img src="assets/images/Profile.png"
                     style="width: 32px;height: 32px;border-radius: 50%;vertical-align: top;"
                     (click)="op.toggle($event)">
                 &nbsp;&nbsp;
             </div>
+            <p-menu #op [popup]="true" [model]="subItems"></p-menu>
         </div>
         <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12 topbar-menu-2">
             <ul class="topbar-menu">
@@ -62,19 +63,19 @@
             </ul>
         </div>
     </div>
-    <div class="p-grid">
+    <!-- <div class="p-grid">
         <p-overlayPanel #op>
             <ng-template pTemplate>
                 <div class="textbox-hide">
                     <input type="text" pInputText placeholder="Search">
                 </div>
                 <div>
-                    <button pButton type="button" label="Logout"
-                        class="ui-button ui-button-danger" (click)="btnLogout_Click()"></button>
+                    <button pButton type="button" label="Logout" class="ui-button ui-button-danger"
+                        (click)="btnLogout_Click()"></button>
                 </div>
             </ng-template>
         </p-overlayPanel>
-    </div>
+    </div> -->
 
     <!-- <div class="p-grid ">
                 <div class="p-col-6">
@@ -99,6 +100,6 @@
         </div>
     </div>
 </div> -->
-<div  [ngClass]="noissuebar ? 'layout-content' : 'layout-content-pad'">
+<div [ngClass]="noissuebar ? 'layout-content' : 'layout-content-pad'">
     <router-outlet></router-outlet>
 </div>

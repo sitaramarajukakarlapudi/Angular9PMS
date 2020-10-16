@@ -37,7 +37,7 @@
                                     <i class="fa fa-edit" aria-hidden="true"></i> Edit
                                 </div>
                                 <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                                    <img src="../assets/images/{{profilePath}}" width="25"
+                                    <img src="assets/images/{{profilePath}}" width="25"
                                         style="vertical-align: middle" />
                                     <span> {{IData.assignedTo}}</span>
                                 </div>
@@ -80,7 +80,7 @@
                                     <i class="fa fa-eye" aria-hidden="true"></i> View
                                 </div>
                                 <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                                    <img src="../assets/images/{{profilePath}}" width="25"
+                                    <img src="assets/images/{{profilePath}}" width="25"
                                         style="vertical-align: middle" />
                                     <span> {{IData.assignedTo}}</span>
                                 </div>
@@ -108,7 +108,7 @@
             </div>
             <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8" style="padding-left: 0rem;">
                 <p-card class="customCardLeft" [style]="{'background-color': 'aliceblue','height': '4em'}"><label
-                        style="font-size: 18px;">Leaves applied in the month of Sep 2020</label></p-card>
+                        style="font-size: 18px;">Leaves applied in the month of {{monthYear}}</label></p-card>
             </div>
             <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12"
                 style="padding-top: 0rem;background-color: rgb(214 158 191);">
@@ -118,7 +118,7 @@
                         <p-card>
                             <div class="p-grid">
                                 <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                                    <img src="../assets/images/{{profilePath}}" width="25"
+                                    <img src="assets/images/{{profilePath}}" width="25"
                                         style="vertical-align: middle" />
                                     <span> {{lData.userName}}</span>
                                 </div>
@@ -166,7 +166,7 @@
                         <p-card>
                             <div class="p-grid">
                                 <div class="p-col-8 p-xl-8 p-lg-8 p-md-8 p-sm-8">
-                                    <img src="../assets/images/{{profilePath}}" width="25"
+                                    <img src="assets/images/{{profilePath}}" width="25"
                                         style="vertical-align: middle" />
                                     <span> {{lData.userName}}</span>
                                 </div>
@@ -186,7 +186,7 @@
                 </div>
             </div>
             <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12" style="text-align: right;">
-                <button pButton type="button" label="Show All Data" (click)="btnLeaveHistory_Click()"
+                <button pButton type="button" label="Show All Data" (click)="btnAllData_Click()"
                     class="ui-button-rounded ui-button-success"></button>
             </div>
         </div>

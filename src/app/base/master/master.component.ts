@@ -13,6 +13,7 @@ export class MasterComponent implements OnInit {
   clicked: string;
   constructor(private router: Router, private sharedSer: SharedService) { }
   items: MenuItem[];
+  subItems: MenuItem[];
   noissuebar: boolean;
   ngOnInit(): void {
     this.sharedSer.currentLayoutClass.subscribe(status => this.noissuebar = status);
@@ -64,6 +65,17 @@ export class MasterComponent implements OnInit {
         // ]
       }
     ];
+
+    this.subItems = [
+      {
+        label: 'Update Profile',
+        command: () => this.itemClick('updateProfile'),
+      },
+      {
+        label: 'Logout',
+        command: () => this.itemClick('logout'),
+      }
+    ];
     // this.menu = [
     //   {
     //     headerMenu: 'Issue Tracker',
@@ -83,8 +95,6 @@ export class MasterComponent implements OnInit {
     // ];
   }
   onMenuClick(event, link) {
-    console.log(event);
-    console.log(event.target.parentElement.parentElement.parentElement.children);
     for (const divMenu of event.target.parentElement.parentElement.parentElement.children) {
       // console.log(divMenu.children[1].children);
       for (const anchor of divMenu.children[1].children) {
@@ -103,6 +113,11 @@ export class MasterComponent implements OnInit {
       this.router.navigate(['/menu/projects'], { skipLocationChange: false });
     } else if (itemName === 'board') {
       this.router.navigate(['/menu/asssignissues'], { skipLocationChange: false });
+    } else if (itemName === 'updateProfile') {
+      this.router.navigate(['/menu/updateprofile'], { skipLocationChange: false });
+    } else if (itemName === 'logout') {
+      sessionStorage.clear();
+      this.router.navigate(['/login'], { skipLocationChange: false });
     }
   }
   btnLogout_Click() {

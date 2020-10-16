@@ -262,3 +262,7 @@ p-card.issueMoving > div{
 ::-moz-scrollbar-thumb:hover {
   background: #135ba1;
 }
+.gridMenu .ui-menu.ui-shadow{
+  top:40px !important;
+  left:15px !important;
+}

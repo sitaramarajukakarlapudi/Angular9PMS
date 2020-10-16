@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
+import { DatePipe } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { PanelModule } from 'primeng/panel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +18,9 @@ import { CardModule } from 'primeng/card';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { MessageService } from 'primeng/api';
-import {SidebarModule} from 'primeng/sidebar';
+import { SidebarModule } from 'primeng/sidebar';
+import { MenuModule } from 'primeng/menu';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +42,8 @@ import { AssignissuesComponent } from './issuetracker/assignissues/assignissues.
 import { LeavehistoryComponent } from './leaves/leavehistory/leavehistory.component';
 import { LeaveapplyComponent } from './leaves/leaveapply/leaveapply.component';
 import { HeaderComponent } from './common/header/header/header.component';
+import { UpdateprofileComponent } from './users/updateprofile/updateprofile.component';
+import { AlldataComponent } from './leaves/alldata/alldata.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +57,9 @@ import { HeaderComponent } from './common/header/header/header.component';
     AssignissuesComponent,
     LeavehistoryComponent,
     LeaveapplyComponent,
-    HeaderComponent
+    HeaderComponent,
+    UpdateprofileComponent,
+    AlldataComponent
   ],
   imports: [
     BrowserModule,
@@ -80,9 +87,13 @@ import { HeaderComponent } from './common/header/header/header.component';
     SplitButtonModule,
     OverlayPanelModule,
     FileUploadModule,
-    SidebarModule
+    SidebarModule,
+    MenuModule
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

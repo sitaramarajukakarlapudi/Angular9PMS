@@ -1,0 +1,18 @@
+<app-header></app-header>
+<div class="ui-fluid p-formgrid p-grid">
+    <div class="p-field p-col-12 p-md-3">
+        <label for="Upload Image">Upload Image</label>
+        <p-fileUpload name="demo[]" (onSelect)="onUpload($event)" accept="image/*" maxFileSize="1000000"
+            [showUploadButton]="false" [showCancelButton]="false" (onRemove)="removeImage()">
+            <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length">
+                    <!-- <li>{{uploadedFiles[0].name}} - {{uploadedFiles[0].size}} bytes</li> -->
+                </ul>
+            </ng-template>
+        </p-fileUpload>
+    </div>
+</div>
+<div class="p-field p-col-12 p-md-3" style="text-align: right;">
+    <button pButton type="button" label="Submit" [disabled]="uploadedFiles.length === 0" class="ui-button-success"
+        style="width: 7.0em;" (click)="btnSubmit_Click()"></button>
+</div>
