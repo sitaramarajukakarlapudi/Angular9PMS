@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeavesService } from 'src/app/_services/leaves/leaves.service';
 import { Leave, LeaveMaster } from 'src/app/_models/leaves';
@@ -17,7 +17,6 @@ export class AlldataComponent implements OnInit {
   virtualData: LeaveMaster[];
   profilePath: string;
   first = 0;
-  rows = 5;
   @ViewChild('dt') table: Table;
   leaveTypes: SelectItem[];
   leaveStatus: SelectItem[];
@@ -25,27 +24,30 @@ export class AlldataComponent implements OnInit {
   constructor(
     private router: Router,
     private leavesSvc: LeavesService,
-    private commonSvc: CommonService
+    private commonSvc: CommonService,
+    private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.employeeId = sessionStorage.getItem('employeeId');
     this.profilePath = 'Profile.png';
-    this.getLeavesHistory();
+    this.getLeaveTypes();
   }
 
   loadCarsLazy(event: LazyLoadEvent) {
     // simulate remote connection with a timeout
     setTimeout(() => {
       // load data of required page
-      const loadedCars = this.leavesData.slice(event.first, (event.first + event.rows));
+      if (this.leavesData.length > 0) {
+        const loadedCars = this.leavesData.slice(event.first, (event.first + event.rows));
 
-      // populate page of virtual cars
-      Array.prototype.splice.apply(this.virtualData, [...[event.first, event.rows], ...loadedCars]);
+        // populate page of virtual cars
+        Array.prototype.splice.apply(this.virtualData, [...[event.first, event.rows], ...loadedCars]);
 
-      // trigger change detection
-      this.virtualData = [...this.virtualData];
-    }, Math.random() * 1000 + 250);
+        // trigger change detection
+        this.virtualData = [...this.virtualData];
+      }
+    }, 1000);
   }
 
   btnBack_Click() {
@@ -53,14 +55,19 @@ export class AlldataComponent implements OnInit {
   }
 
   getLeavesHistory() {
-    this.leavesSvc.getLeavesHistory(this.employeeId).subscribe(
-      (data) => {
-        this.leavesData = [];
-        this.leavesData = data;
-        this.virtualData = Array.from({ length: this.leavesData.length });
-        this.getLeaveTypes();
-      }
-    );
+    this.leavesData = [];
+    this.leavesSvc.getLeavesHistory(this.employeeId).then(data => {
+      this.leavesData = data;
+      this.virtualData = data;
+      // this.virtualData = Array.from({ length: this.leavesData.length });
+    });
+    // this.leavesSvc.getLeavesHistory(this.employeeId).subscribe(
+    //   (data) => {
+    //     this.leavesData = [];
+    //     this.leavesData = data;
+    //     this.virtualData = Array.from({ length: this.leavesData.length });
+    //   }
+    // );
   }
 
   getLeaveTypes() {
@@ -78,6 +85,7 @@ export class AlldataComponent implements OnInit {
       (data) => {
         this.leaveStatus = [];
         this.leaveStatus = data;
+        this.getLeavesHistory();
       }
     );
   }

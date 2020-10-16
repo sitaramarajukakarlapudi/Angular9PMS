@@ -6,28 +6,26 @@
     </div>
 </div>
 <div style="height: 10px;"></div>
-<p-table #dt [value]="virtualData" [scrollable]="true" scrollHeight="225px" [rows]="100" [virtualScroll]="true"
-    [virtualRowHeight]="34" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+<p-table #dt [value]="virtualData" [scrollable]="true" [rows]="50" scrollHeight="250px" [virtualScroll]="true"
+    [virtualRowHeight]="34" [lazy]="true">
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="userName">Employee Name <p-sortIcon field="userName"></p-sortIcon>
+            <th pSortableColumn="userName">Employee Name
             </th>
-            <th pSortableColumn="leaveFrom">Leave From <p-sortIcon field="leaveFrom"></p-sortIcon>
+            <th pSortableColumn="leaveFrom">Leave From
             </th>
-            <th pSortableColumn="leaveTo">Leave To <p-sortIcon field="leaveTo"></p-sortIcon>
+            <th pSortableColumn="leaveTo">Leave To
             </th>
-            <th pSortableColumn="noOfDays">No Of Days <p-sortIcon field="noOfDays"></p-sortIcon>
+            <th pSortableColumn="noOfDays">No Of Days
             </th>
-            <th pSortableColumn="leaveReason">Leave Reason <p-sortIcon field="leaveReason"></p-sortIcon>
+            <th pSortableColumn="leaveReason">Leave Reason
             </th>
-            <th pSortableColumn="leaveType">Leave Type <p-sortIcon field="leaveType"></p-sortIcon>
-            </th>
-            <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon>
+            <th pSortableColumn="status">Status
             </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-leave let-expanded="expanded">
-        <tr>
+        <tr style="height:34px">
             <td>
                 <img src="assets/images/{{profilePath}}" width="32" style="vertical-align: middle" />
                 <span class="image-text"> {{leave.userName}}</span>
@@ -36,8 +34,30 @@
             <td>{{leave.leaveTo | date:'longDate'}}</td>
             <td style="text-align: right;">{{leave.noOfDays}}</td>
             <td>{{leave.leaveReason}}</td>
-            <td><span [class]="'customer-badge status-' + leave.leaveType">{{leave.leaveType}}</span></td>
+            <!-- <td><span [class]="'customer-badge status-' + leave.leaveType">{{leave.leaveType}}</span></td> -->
             <td><span [class]="'customer-badge status-' + leave.status">{{leave.status}}</span></td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="loadingbody">
+        <tr style="height:34px">
+            <td>
+                <div class="loading-text"></div>
+            </td>
+            <td>
+                <div class="loading-text"></div>
+            </td>
+            <td>
+                <div class="loading-text"></div>
+            </td>
+            <td>
+                <div class="loading-text"></div>
+            </td>
+            <td>
+                <div class="loading-text"></div>
+            </td>
+            <td>
+                <div class="loading-text"></div>
+            </td>
         </tr>
     </ng-template>
 </p-table>

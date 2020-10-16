@@ -38,13 +38,13 @@ export class LeavehistoryComponent implements OnInit {
   }
 
   getLeavesHistory() {
-    this.leavesSvc.getLeavesHistory(this.employeeId).subscribe(
-      (data) => {
-        this.leavesData = [];
-        this.leavesData = data;
-        this.getLeaveTypes();
-      }
-    );
+    // this.leavesSvc.getLeavesHistory(this.employeeId).subscribe(
+    //   (data) => {
+    //     this.leavesData = [];
+    //     this.leavesData = data;
+    //     this.getLeaveTypes();
+    //   }
+    // );
   }
 
   getLeaveTypes() {
