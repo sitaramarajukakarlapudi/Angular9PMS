@@ -31,34 +31,51 @@
             </ng-template>
         </p-table>
     </div> -->
-    <div class="p-col-2">
+    <!-- <div class="p-col-2">
         <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()"
             styleClass="p-button-text"></p-button>
         <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
         <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"
             styleClass="p-button-text"></p-button>
-    </div>
+    </div> -->
     <div class="p-col-12">
         <p-table #dt [columns]="cols" [value]="userIssues" dataKey="Id" [paginator]="true" [rows]="rows"
             [showCurrentPageReport]="true" [(first)]="first" selectionMode="single"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [rowsPerPageOptions]="[10,25,50]" [(selection)]="selectedIssue">
             <ng-template pTemplate="caption">
-                <div class="p-grid">
-                    <div class="p-col-6">
-                        <div style="text-align: left;padding-top: 10px;">
-                            <i class="pi pi-bars" (click)="op.toggle($event)"
-                                style="cursor: pointer;font-size: 20px;"></i>
-                            <p-menu #op [popup]="true" [model]="items" class="gridMenu" [style]="{'width':'200px'}">
-                            </p-menu>
+                <div class="p-grid  p-nogutter">
+                    <div class="p-col-4" style="text-align: left;">
+                        <div class="p-grid  p-nogutter">
+                            <div class="p-col-1">
+                                <!-- <i class="pi pi-bars" (click)="op.toggle($event)"
+                                    style="cursor: pointer;font-size: 24px;"></i> -->
+                                <button type="button" pButton
+                                    class="ui-button-raised ui-button-secondary buttonIconTemp" icon="pi pi-bars"
+                                    (click)="op.toggle($event)"></button>
+
+                                <p-menu #op [popup]="true" [model]="items" class="gridMenu" [style]="{'width':'200px'}">
+                                </p-menu>
+                            </div>
+                            <div class="p-col-11">
+                                <label style="font-size: 20px;">Issues List</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="p-col-6">
-                        <div style="text-align: right">
-                            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-                            <input type="text" pInputText size="50" placeholder="Global Filter"
-                                (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    <div class="p-col-8" style="text-align: right;">
+                        <div class="p-grid  p-nogutter">
+                            <div class="p-col-7">
+                                <button type="button" *ngIf="showColumnFilters" label="Clear filter" pButton
+                                    class="ui-button-raised ui-button-secondary " icon="pi pi-times-circle"
+                                    (click)="clearFilter(dt)"></button>
+                            </div>
+                            <div class="p-col-5">
+                                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Global Filter"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </ng-template>
@@ -73,7 +90,8 @@
                 <tr *ngIf="showColumnFilters">
                     <th style="width: 3rem"></th>
                     <th *ngFor="let col of columns">
-                        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"
+                            [value]="dt.filters[col.field] ? dt.filters[col.field].value : ''">
                     </th>
                 </tr>
             </ng-template>
@@ -84,10 +102,6 @@
                             class="p-button-text p-button-rounded p-button-plain"
                             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                     </td>
-                    <!-- <td>
-                    <img src="../assets/images/{{profilePath}}" width="32" style="vertical-align: middle" />
-                    <span class="image-text"> {{leave.userName}}</span>
-                </td> -->
                     <td>{{issue.projectName}}</td>
                     <td>{{issue.summary}}</td>
                     <td>{{issue.description}}</td>
@@ -98,38 +112,8 @@
                             [class]="'issue-badge issueType-' + issue.issueType">{{issue.issueType}}</span></td>
                     <td style="text-align: center;"><span
                             [class]="'issue-badge status-' + issue.status">{{issue.status}}</span></td>
-                    <!-- <td style="text-align: center;">{{leave.leaveTo | date:'longDate'}}</td>
-                <td style="text-align: right;">{{leave.noOfDays}}</td>
-                <td>{{leave.leaveReason}}</td>
-                <td><span [class]="'customer-badge status-' + leave.leaveType">{{leave.leaveType}}</span></td>
-                <td><span [class]="'customer-badge status-' + leave.status">{{leave.status}}</span></td> -->
                 </tr>
             </ng-template>
-            <!-- <ng-template pTemplate="rowexpansion" let-leave>
-            <tr>
-                <td colspan="6">
-                    <div class="p-p-3">
-                        <p-table [value]="leave.children" dataKey="leaveDetailId">
-                            <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="leaveDate">Leave Date <p-sortIcon field="leaveDate"></p-sortIcon>
-                </th>
-                <th pSortableColumn="leaveType">Leave Type <p-sortIcon field="leaveType"></p-sortIcon>
-                </th>
-                <th pSortableColumn="duration">Duration <p-sortIcon field="duration"></p-sortIcon>
-                </th>
-                <th pSortableColumn="period">Period <p-sortIcon field="period"></p-sortIcon>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-children>
-            <tr>
-                <td>{{children.leaveDate | date:'fullDate'}}</td>
-                <td><span [class]="'customer-badge status-' + children.leaveType">{{children.leaveType}}</span></td>
-                <td>{{children.duration}}</td>
-                <td>{{children.period}}</td>
-            </tr>
-        </ng-template> -->
             <ng-template pTemplate="emptymessage">
                 <tr>
                     <td colspan="4">There are no leaves applied yet.</td>
@@ -137,7 +121,88 @@
             </ng-template>
         </p-table>
     </div>
+    <div class="p-col-12">
+        <p-table #dt2 [columns]="cols2" [value]="userIssues2" dataKey="Id" [paginator]="true" [rows]="rows"
+            [showCurrentPageReport]="true" [(first)]="first2" selectionMode="single"
+            currentPageReportTemplate="Showing {first2} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10,25,50]" [(selection)]="selectedIssue2">
+            <ng-template pTemplate="caption">
+                <div class="p-grid  p-nogutter">
+                    <div class="p-col-4" style="text-align: left;">
+                        <div class="p-grid  p-nogutter">
+                            <div class="p-col-1">
+                                <!-- <i class="pi pi-bars" (click)="op.toggle($event)"
+                                    style="cursor: pointer;font-size: 24px;"></i> -->
+                                <button type="button" pButton
+                                    class="ui-button-raised ui-button-secondary buttonIconTemp" icon="pi pi-bars"
+                                    (click)="op2.toggle($event)"></button>
 
+                                <p-menu #op2 [popup]="true" [model]="items2" class="gridMenu"
+                                    [style]="{'width':'200px'}">
+                                </p-menu>
+                            </div>
+                            <div class="p-col-11">
+                                <label style="font-size: 20px;">Issues List</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-8" style="text-align: right;">
+                        <div class="p-grid  p-nogutter">
+                            <div class="p-col-7">
+                                <button type="button" *ngIf="showColumnFilters2" label="Clear filter" pButton
+                                    class="ui-button-raised ui-button-secondary " icon="pi pi-times-circle"
+                                    (click)="clearFilter(dt2)"></button>
+                            </div>
+                            <div class="p-col-5">
+                                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Global Filter"
+                                    (input)="dt2.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="width: 3rem"></th>
+                    <th *ngFor="let col of cols2" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
+                <tr *ngIf="showColumnFilters2">
+                    <th style="width: 3rem"></th>
+                    <th *ngFor="let col of columns">
+                        <input pInputText type="text" (input)="dt2.filter($event.target.value, col.field, 'contains')"
+                            [value]="dt2.filters[col.field] ? dt2.filters[col.field].value : ''">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-issue let-expanded="expanded" let-columns="columns">
+                <tr>
+                    <td>
+                        <button type="button" pButton pRipple [pRowToggler]="issue"
+                            class="p-button-text p-button-rounded p-button-plain"
+                            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    </td>
+                    <td>{{issue.projectName}}</td>
+                    <td>{{issue.description}}</td>
+                    <td>{{issue.acceptanceCriteria}}</td>
+                    <td>{{issue.assignedTo}}</td>
+                    <td style="text-align: center;"><span
+                            [class]="'issue-badge issueType-' + issue.issueType">{{issue.issueType}}</span></td>
+                    <td style="text-align: center;"><span
+                            [class]="'issue-badge status-' + issue.status">{{issue.status}}</span></td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="4">There are no leaves applied yet.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 <!-- </td>
 </tr>

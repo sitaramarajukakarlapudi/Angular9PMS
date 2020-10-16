@@ -9,7 +9,8 @@ import * as xlsx from 'xlsx';
 import * as fs from 'file-saver';
 import { Table } from 'primeng/table';
 import { concatAll } from 'rxjs/operators';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, SortEvent } from 'primeng/api';
+import { TabPanel } from 'primeng';
 
 @Component({
   selector: 'app-issues',
@@ -20,16 +21,23 @@ export class IssuesComponent implements OnInit {
   exportColumns: any;
   xcelissues: any[];
   @ViewChild('dt') dt: Table;
+  @ViewChild('dt2') dt2: Table;
   constructor(private router: Router, private issuesService: IssuesService) { }
   issues: Issues[];
   cols: any;
+  cols2: any;
   empUserName: string;
   userIssues: Issues[];
+  userIssues2: Issues[];
   selectedIssue: Issues;
+  selectedIssue2: Issues;
   first = 0;
+  first2 = 0;
   rows = 5;
   items: MenuItem[];
+  items2: MenuItem[];
   showColumnFilters: boolean;
+  showColumnFilters2: boolean;
 
   ngOnInit(): void {
     this.empUserName = sessionStorage.getItem('userName');
@@ -43,15 +51,32 @@ export class IssuesComponent implements OnInit {
       { field: 'issueType', header: 'Issue Type' },
       { field: 'status', header: 'Issue Status' }
     ];
+    this.cols2 = [
+      { field: 'projectName', header: 'Project' },
+      { field: 'description', header: 'Description' },
+      { field: 'acceptenceCriteria', header: 'Acceptence Criteria' },
+      { field: 'assignedTo', header: 'Assinged To' },
+      { field: 'issueType', header: 'Issue Type' },
+      { field: 'status', header: 'Issue Status' }
+    ];
     this.items = [
       { label: 'Show Column Filters', icon: 'pi pi-eye', command: () => this.showFilters() },
-      { label: 'Download CSV', icon: 'pi pi-file', command: () => this.exportCSV() },
-      { label: 'Download PDF', icon: 'pi pi-file-pdf', command: () => this.exportPdf() },
-      { label: 'Download excel', icon: 'pi pi-file-excel', command: () => this.exportExcel() },
+      { label: 'Download CSV', icon: 'pi pi-file', command: () => this.exportCSV(this.dt) },
+      { label: 'Download PDF', icon: 'pi pi-file-pdf', command: () => this.exportPdf(this.dt) },
+      { label: 'Download excel', icon: 'pi pi-file-excel', command: () => this.exportExcel(this.dt) },
+      { label: 'Print this page', icon: 'pi pi-print' },
+      { label: 'Email this page', icon: 'pi pi-envelope' },
+    ];
+    this.items2 = [
+      { label: 'Show Column Filters', icon: 'pi pi-eye', command: () => this.showFilters2() },
+      { label: 'Download CSV', icon: 'pi pi-file', command: () => this.exportCSV(this.dt2) },
+      { label: 'Download PDF', icon: 'pi pi-file-pdf', command: () => this.exportPdf(this.dt2) },
+      { label: 'Download excel', icon: 'pi pi-file-excel', command: () => this.exportExcel(this.dt2) },
       { label: 'Print this page', icon: 'pi pi-print' },
       { label: 'Email this page', icon: 'pi pi-envelope' },
     ];
     this.showColumnFilters = false;
+    this.showColumnFilters2 = false;
     // this.issues = [
     //   {
     //     project: 'Project1', issueType: 'Normarl', summary: 'Issue in Project 1 Module 2',
@@ -77,9 +102,9 @@ export class IssuesComponent implements OnInit {
     this.showColumnFilters = true;
     this.items = [
       { label: 'Hide Column Filters', icon: 'pi pi-eye-slash', command: () => this.hideFilters() },
-      { label: 'Download CSV', icon: 'pi pi-file', command: () => this.exportCSV() },
-      { label: 'Download PDF', icon: 'pi pi-file-pdf', command: () => this.exportPdf() },
-      { label: 'Download excel', icon: 'pi pi-file-excel', command: () => this.exportExcel() },
+      { label: 'Download CSV', icon: 'pi pi-file', command: () => this.exportCSV(this.dt) },
+      { label: 'Download PDF', icon: 'pi pi-file-pdf', command: () => this.exportPdf(this.dt) },
+      { label: 'Download excel', icon: 'pi pi-file-excel', command: () => this.exportExcel(this.dt2) },
       { label: 'Print this page', icon: 'pi pi-print' },
       { label: 'Email this page', icon: 'pi pi-envelope' },
     ];
@@ -88,9 +113,31 @@ export class IssuesComponent implements OnInit {
     this.showColumnFilters = false;
     this.items = [
       { label: 'Show Column Filters', icon: 'pi pi-eye', command: () => this.showFilters() },
-      { label: 'Download CSV', icon: 'pi pi-file', command: () => this.exportCSV() },
-      { label: 'Download PDF', icon: 'pi pi-file-pdf', command: () => this.exportPdf() },
-      { label: 'Download excel', icon: 'pi pi-file-excel', command: () => this.exportExcel() },
+      { label: 'Download CSV', icon: 'pi pi-file', command: () => this.exportCSV(this.dt) },
+      { label: 'Download PDF', icon: 'pi pi-file-pdf', command: () => this.exportPdf(this.dt) },
+      { label: 'Download excel', icon: 'pi pi-file-excel', command: () => this.exportExcel(this.dt2) },
+      { label: 'Print this page', icon: 'pi pi-print' },
+      { label: 'Email this page', icon: 'pi pi-envelope' },
+    ];
+  }
+  showFilters2(): void {
+    this.showColumnFilters2 = true;
+    this.items2 = [
+      { label: 'Hide Column Filters', icon: 'pi pi-eye-slash', command: () => this.hideFilters2() },
+      { label: 'Download CSV', icon: 'pi pi-file', command: () => this.exportCSV(this.dt2) },
+      { label: 'Download PDF', icon: 'pi pi-file-pdf', command: () => this.exportPdf(this.dt2) },
+      { label: 'Download excel', icon: 'pi pi-file-excel', command: () => this.exportExcel(this.dt2) },
+      { label: 'Print this page', icon: 'pi pi-print' },
+      { label: 'Email this page', icon: 'pi pi-envelope' },
+    ];
+  }
+  hideFilters2(): void {
+    this.showColumnFilters2 = false;
+    this.items2 = [
+      { label: 'Show Column Filters', icon: 'pi pi-eye', command: () => this.showFilters2() },
+      { label: 'Download CSV', icon: 'pi pi-file', command: () => this.exportCSV(this.dt2) },
+      { label: 'Download PDF', icon: 'pi pi-file-pdf', command: () => this.exportPdf(this.dt2) },
+      { label: 'Download excel', icon: 'pi pi-file-excel', command: () => this.exportExcel(this.dt2) },
       { label: 'Print this page', icon: 'pi pi-print' },
       { label: 'Email this page', icon: 'pi pi-envelope' },
     ];
@@ -105,6 +152,14 @@ export class IssuesComponent implements OnInit {
         if (data !== undefined && data != null) {
           // this.userIssues = data.filter(P => P.assignedTo === this.empUserName);
           this.userIssues = data;
+        }
+      });
+    this.issuesService.getAllIssues().subscribe(
+      (data) => {
+        console.log(data);
+        if (data !== undefined && data != null) {
+          // this.userIssues = data.filter(P => P.assignedTo === this.empUserName);
+          this.userIssues2 = data;
         }
       });
   }
@@ -127,32 +182,50 @@ export class IssuesComponent implements OnInit {
   isFirstPage(): boolean {
     return this.userIssues ? this.first === 0 : true;
   }
-  exportPdf() {
+  exportPdf(dt: Table) {
     const doc = new jsPDF('p', 'pt');
-    doc['autoTable'](this.exportColumns, this.userIssues);
+    if (dt.hasFilter()) {
+      doc['autoTable'](this.exportColumns, this.dt.filteredValue);
+    } else {
+      doc['autoTable'](this.exportColumns, this.dt.value);
+    }
     doc.save('products.pdf');
   }
 
-  exportExcel() {
+  exportExcel(dt: Table) {
     // const ws: xlsx.WorkSheet =
     //   xlsx.utils.table_to_sheet(this.epltable.nativeElement);
     // const wb: xlsx.WorkBook = xlsx.utils.book_new();
     // xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
     // xlsx.writeFile(wb, 'epltable.xlsx');
-    this.xcelissues = this.userIssues;
+    if (dt.hasFilter()) {
+      this.xcelissues = dt.filteredValue.map(function fun(ui) {
+        return {
+          projectName: ui.projectName,
+          summary: ui.summary,
+          description: ui.description,
+          acceptanceCriteria: ui.acceptanceCriteria,
+          assignedTo: ui.assignedTo,
+          assignedOn: ui.assignedOn,
+          issueType: ui.issueType,
+          status: ui.status,
+        };
+      });
+    } else {
+      this.xcelissues = dt.value.map(function fun(ui) {
+        return {
+          projectName: ui.projectName,
+          summary: ui.summary,
+          description: ui.description,
+          acceptanceCriteria: ui.acceptanceCriteria,
+          assignedTo: ui.assignedTo,
+          assignedOn: ui.assignedOn,
+          issueType: ui.issueType,
+          status: ui.status,
+        };
+      });
+    }
     console.log(this.xcelissues);
-    this.xcelissues = this.userIssues.map(function fun(ui) {
-      return {
-        projectName: ui.projectName,
-        summary: ui.summary,
-        description: ui.description,
-        acceptanceCriteria: ui.acceptanceCriteria,
-        assignedTo: ui.assignedTo,
-        assignedOn: ui.assignedOn,
-        issueType: ui.issueType,
-        status: ui.status,
-      };
-    });
     const worksheet = xlsx.utils.json_to_sheet(this.xcelissues);
     const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -176,7 +249,10 @@ export class IssuesComponent implements OnInit {
     });
     fs.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
-  exportCSV() {
-    this.dt.exportCSV();
+  exportCSV(dt: Table) {
+    dt.exportCSV();
+  }
+  clearFilter(dt: Table) {
+    dt.reset();
   }
 }

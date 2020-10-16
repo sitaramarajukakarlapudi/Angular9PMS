@@ -266,3 +266,6 @@ p-card.issueMoving > div{
   top:40px !important;
   left:15px !important;
 }
+.buttonIconTemp .ui-button-icon-left {
+  font-size: 1.5em !important;
+}
