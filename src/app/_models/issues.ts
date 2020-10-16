@@ -16,6 +16,20 @@ export class Issues {
     size?: string;
     statusId?: string;
 }
+export class XcelIssues {
+    issueType?: string;
+    projectName?: string;
+    reportedBy?: string;
+    reportedOn?: string;
+    summary?: number;
+    description?: string;
+    acceptanceCriteria?: string;
+    assignedTo?: string;
+    assignedOn?: string;
+    estimatedDate?: string;
+    status?: string;
+    size?: string;
+}
 export class IssueTypes {
     id?: string;
     label?: string;
