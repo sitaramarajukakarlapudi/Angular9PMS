@@ -43,6 +43,7 @@ import { LeavehistoryComponent } from './leaves/leavehistory/leavehistory.compon
 import { LeaveapplyComponent } from './leaves/leaveapply/leaveapply.component';
 import { HeaderComponent } from './common/header/header/header.component';
 import { UpdateprofileComponent } from './users/updateprofile/updateprofile.component';
+import { AlldataComponent } from './leaves/alldata/alldata.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +58,8 @@ import { UpdateprofileComponent } from './users/updateprofile/updateprofile.comp
     LeavehistoryComponent,
     LeaveapplyComponent,
     HeaderComponent,
-    UpdateprofileComponent
+    UpdateprofileComponent,
+    AlldataComponent
   ],
   imports: [
     BrowserModule,

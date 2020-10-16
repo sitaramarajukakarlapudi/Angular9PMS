@@ -124,4 +124,8 @@ export class DashboardComponent implements OnInit {
   btnLeaveHistory_Click() {
     this.router.navigate(['/menu/leavehistory'], { skipLocationChange: false });
   }
+
+  btnAllData_Click() {
+    this.router.navigate(['/menu/alldata'], { skipLocationChange: false });
+  }
 }
