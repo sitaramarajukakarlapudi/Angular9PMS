@@ -55,19 +55,20 @@ export class AlldataComponent implements OnInit {
   }
 
   getLeavesHistory() {
-    this.leavesData = [];
-    this.leavesSvc.getLeavesHistory(this.employeeId).then(data => {
-      this.leavesData = data;
-      this.virtualData = data;
-      // this.virtualData = Array.from({ length: this.leavesData.length });
-    });
-    // this.leavesSvc.getLeavesHistory(this.employeeId).subscribe(
-    //   (data) => {
-    //     this.leavesData = [];
-    //     this.leavesData = data;
-    //     this.virtualData = Array.from({ length: this.leavesData.length });
-    //   }
-    // );
+    // this.leavesData = [];
+    // this.leavesSvc.getLeavesHistory(this.employeeId).then(data => {
+    //   this.leavesData = data;
+    //   this.virtualData = data;
+    //   // this.virtualData = Array.from({ length: this.leavesData.length });
+    // });
+    this.leavesSvc.getLeavesHistory(this.employeeId).subscribe(
+      (data) => {
+        this.leavesData = [];
+        this.leavesData = data;
+        this.virtualData = data;
+        // this.virtualData = Array.from({ length: this.leavesData.length });
+      }
+    );
   }
 
   getLeaveTypes() {

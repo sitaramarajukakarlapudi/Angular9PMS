@@ -45,11 +45,7 @@ export class LeavesService {
     const params = new HttpParams()
       .set('employeeId', employeeId.toString());
     return this.http.get<LeaveMaster[]>(this.serviceURL + 'GetLeaveHistory',
-      { headers: this.getHttpOptions(), params })
-      .toPromise()
-      .then(data => {
-        return data;
-      });
+      { headers: this.getHttpOptions(), params });
   }
 
   getLeaves(employeeId: string) {
